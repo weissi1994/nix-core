@@ -1,0 +1,8 @@
+{ ... }:
+{
+  imports = [
+    ./sway
+    ./waybar
+    ./terminal
+  ];
+}

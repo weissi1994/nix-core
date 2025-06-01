@@ -1,0 +1,86 @@
+stages:
+  - check
+  - build
+  - deploy
+
+check-flake:
+  stage: check
+  script:
+    - export NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1
+    - export NIXPKGS_ALLOW_UNFREE=1
+    - nix --extra-experimental-features nix-command --extra-experimental-features flakes --accept-flake-config flake check --impure --all-systems
+
+iso:
+  stage: build
+  rules:
+    - if: "$CI_COMMIT_TAG"
+      when: on_success
+    - changes:
+        - flake.lock
+        - flake.nix
+        - .gitlab-ci.yml
+      when: on_success
+      allow_failure: true
+    - when: never
+  parallel:
+    matrix:
+      - HOST:
+          # - generic
+          - installer-sway
+          - installer-pantheon
+  script:
+    - export ARTIFACT_NAME="${CI_PROJECT_NAME}-${HOST}-${CI_COMMIT_REF_SLUG}.iso"
+    - nix --extra-experimental-features nix-command --extra-experimental-features flakes --accept-flake-config build ".#nixosConfigurations.$HOST.config.system.build.isoImage"
+    - cp -L ./result/iso/*.iso $ARTIFACT_NAME
+  artifacts:
+    paths:
+      - ./*.iso
+
+netboot:
+  stage: build
+  rules:
+    - if: "$CI_COMMIT_TAG"
+      when: on_success
+    - changes:
+        - flake.lock
+        - flake.nix
+        - .gitlab-ci.yml
+      when: on_success
+      allow_failure: true
+    - when: never
+  parallel:
+    matrix:
+      - HOST:
+          - installer-sway
+          - installer-pantheon
+  script:
+    - nix --extra-experimental-features nix-command --extra-experimental-features flakes --accept-flake-config build .#nixosConfigurations.$HOST.config.system.build.initialRamdisk
+    - rm -f /srv/netboot/assets/nixos/$HOST/initrd || true
+    - cp -L ./result/initrd /srv/netboot/assets/nixos/$HOST/
+    - nix --extra-experimental-features nix-command --extra-experimental-features flakes --accept-flake-config build .#nixosConfigurations.$HOST.config.system.build.kernel
+    - rm -f /srv/netboot/assets/nixos/$HOST/bzImage || true
+    - cp -L ./result/bzImage /srv/netboot/assets/nixos/$HOST/
+    - nix --extra-experimental-features nix-command --extra-experimental-features flakes --accept-flake-config build .#nixosConfigurations.installer-pantheon.config.system.build.toplevel
+    - INIT="$(readlink -f ./result)/init"
+    - cat ./netboot.ipxe | envsubst > /srv/netboot/assets/nixos/$HOST/netboot.ipxe
+
+deploy:
+  stage: deploy
+  rules:
+    - if: "$CI_COMMIT_TAG"
+      when: manual
+    - changes:
+        - flake.lock
+        - flake.nix
+        - .gitlab-ci.yml
+      when: manual
+      allow_failure: true
+    - when: never
+  parallel:
+    matrix:
+      - HOST:
+          - terro
+          - bean
+          - xeus
+  script:
+    - nixos-rebuild --extra-experimental-features nix-command --extra-experimental-features flakes --flake ".#${HOST}" --target-host "ion@${HOST}" --use-remote-sudo
