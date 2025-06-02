@@ -33,7 +33,7 @@
             addresses = false;
             enable = false;
             workstation =
-              if (builtins.isString config.core.desktop) then true else false;
+              if (builtins.isString host.desktop) then true else false;
           };
         };
       };
@@ -61,6 +61,7 @@
         smartmontools
         gsmartcontrol
         alsa-utils
+        xorg.xhost
         pulseaudioFull
         pulsemixer
         pavucontrol

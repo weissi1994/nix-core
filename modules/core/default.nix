@@ -9,12 +9,8 @@
     ./disko
     ./opensnitch.nix
     ./xserver.nix
-    ./nh.nix
-    ./security.nix
     ./desktop
     ./services.nix
-    ./steam.nix
-    ./system.nix
     ./user.nix
     ./virtualization.nix
     ./home-manager.nix # TODO: migrate hm stuff

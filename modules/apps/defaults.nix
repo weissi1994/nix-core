@@ -7,12 +7,31 @@
     tags = [ "defaults" ];
     nixos = { host, pkgs, lib, config, ... }: {
       nix = {
-        registry = { nixpkgs.flake = inputs.nixpkgs; };
+        registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
+        nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}")
+          config.nix.registry;
+
+        optimise.automatic = true;
         settings = {
-          trusted-users = [ "root" ];
+          auto-optimise-store = true;
+          # Avoid unwanted garbage collection when using nix-direnv
+          keep-outputs = true;
+          keep-derivations = true;
+
+          warn-dirty = false;
+          trusted-users = [ "@wheel" ];
           experimental-features = [ "nix-command" "flakes" ];
+          substituters =
+            [ "https://cache.nixos.org" "https://cache.nixos.org/" ];
+          trusted-public-keys = [
+            "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+          ];
         };
       };
+
+      services.envfs.enable = true;
+      services.udev.packages = [ pkgs.android-udev-rules ];
+
       boot = {
         consoleLogLevel = 0;
         initrd.verbose = false;
@@ -51,22 +70,6 @@
       };
       programs.nm-applet.enable = true;
 
-      environment.systemPackages = with pkgs;
-        [
-          networkmanagerapplet
-          ifwifi
-          fuse-overlayfs
-          podman-compose
-          podman-tui
-          podman
-          inxi
-          dmidecode
-          htop
-          gping
-          httpie
-          xh
-        ] ++ lib.optionals (host.desktop != null) [ pods xorg.xhost ];
-
       hardware.nvidia-container-toolkit.enable =
         lib.elem "nvidia" config.services.xserver.videoDrivers;
       virtualisation = {
@@ -88,6 +91,78 @@
         fallbackDns = [ "1.1.1.1" "8.8.8.8" ];
         dnsovertls = "no";
       };
+      programs.nh = {
+        enable = true;
+        clean = {
+          enable = true;
+          extraArgs = "--keep-since 14d --keep 10";
+        };
+        flake = "/home/${host.username}/dev/nix";
+      };
+
+      hardware.gpgSmartcards.enable = true;
+      programs.ssh.startAgent = false;
+      services = {
+        pcscd = {
+          enable = true;
+          plugins = [ pkgs.libykneomgr ];
+        };
+      };
+      programs.gnupg.agent = {
+        enable = true;
+        enableSSHSupport = true;
+        enableExtraSocket = true;
+        settings = {
+          default-cache-ttl = 1800;
+          max-cache-ttl = 28800;
+          default-cache-ttl-ssh = 1800;
+          max-cache-ttl-ssh = 7200;
+        };
+      };
+
+      security = {
+        pam = {
+          u2f.enable = true;
+          u2f.settings.cue = true;
+
+          services = {
+            login.u2fAuth = true;
+            gdm-password.u2fAuth = true;
+            sudo.u2fAuth = true;
+            swaylock = { };
+            hyprlock = { };
+          };
+        };
+        rtkit.enable = true;
+
+        # auditd.enable = true;
+        # audit.enable = lib.mkDefault true;
+        # audit.rules = [
+        #   "-a exit,always -F arch=b64 -S execve"
+        # ];
+        polkit.enable = true;
+
+        sudo = {
+          enable = true;
+          execWheelOnly = true;
+          extraRules = [{
+            commands = [{
+              command = "ALL";
+              options = [ "NOPASSWD" ];
+            }];
+            groups = [ "wheel" ];
+          }];
+        };
+      };
+
+      services.udev.packages = with pkgs; [
+        libu2f-host
+        yubikey-personalization
+      ];
+
+      # Works around https://github.com/NixOS/nixpkgs/issues/103746
+      systemd.services."getty@tty1".enable = false;
+      systemd.services."autovt@tty1".enable = false;
       services.openssh = {
         enable = true;
         allowSFTP = false;
@@ -112,6 +187,140 @@
         }];
       };
       console = { keyMap = "us"; };
+      environment = {
+        # Eject nano and perl from the system
+        defaultPackages = with pkgs;
+          lib.mkForce [ gitMinimal home-manager deploy-rs vim rsync ];
+        systemPackages = with pkgs; [
+          file
+          wget
+          curl
+          git
+          devenv
+          aichat
+          pinentry-curses
+          imagemagickBig
+          pinentry-gnome3
+          gettext
+          age
+          bc
+          zip
+          cachix
+          comma
+          nh
+          sops
+          pciutils
+          lapce
+          psmisc
+          unzip
+          usbutils
+          ethtool
+          wget
+          dnsutils
+          nix-diff
+          comma
+          deadnix
+          strongswan
+          openssl
+          puppet-lint
+          inputs.nova.packages.${system}.default
+          nix-output-monitor
+          nvd
+          gnupg
+          libfido2
+          libu2f-host
+          yubikey-personalization
+          vulnix
+          networkmanagerapplet
+          ifwifi
+          fuse-overlayfs
+          podman-compose
+          podman-tui
+          podman
+          inxi
+          dmidecode
+          htop
+          gping
+          httpie
+          xh
+        ];
+        variables = {
+          EDITOR = "nvim";
+          SYSTEMD_EDITOR = "nvim";
+          VISUAL = "nvim";
+        };
+      };
+
+      i18n = {
+        defaultLocale = "en_US.UTF-8";
+        extraLocaleSettings = {
+          LC_ADDRESS = "en_US.UTF-8";
+          LC_IDENTIFICATION = "en_US.UTF-8";
+          LC_MEASUREMENT = "en_US.UTF-8";
+          LC_MONETARY = "en_US.UTF-8";
+          LC_NAME = "en_US.UTF-8";
+          LC_NUMERIC = "en_US.UTF-8";
+          LC_PAPER = "en_US.UTF-8";
+          LC_TELEPHONE = "en_US.UTF-8";
+          LC_TIME = "en_US.UTF-8";
+        };
+      };
+      time.timeZone = "ETC/UTC";
+      environment = {
+        shellAliases = {
+          l = "ls -lah";
+          la = "ls -a";
+          ll = "ls -l";
+          lla = "ls -la";
+          tree = "ls --tree";
+        };
+      };
+
+      # Only install the docs I use
+      documentation = {
+        enable = lib.mkDefault true;
+        nixos.enable = lib.mkDefault false;
+        man.enable = true;
+        info.enable = lib.mkDefault false;
+        doc.enable = lib.mkDefault false;
+      };
+
+      nixpkgs = {
+        # Configure your nixpkgs instance
+        config = {
+          # Disable if you don't want unfree packages
+          allowUnfree = true;
+          # Accept the joypixels license
+          joypixels.acceptLicense = true;
+        };
+      };
+
+      programs = {
+        nix-ld.enable = true;
+        zsh = {
+          enable = true;
+          enableCompletion = true;
+          autosuggestions = {
+            enable = true;
+            strategy = [ "completion" "match_prev_cmd" ];
+          };
+          syntaxHighlighting.enable = true;
+        };
+      };
+
+      programs.gnupg.agent = {
+        enable = true;
+        enableSSHSupport = true;
+        enableExtraSocket = true;
+        pinentryPackage = pkgs.pinentry-curses;
+      };
+
+      services.fwupd.enable = true;
+
+      systemd.tmpfiles.rules = [
+        "d /nix/var/nix/profiles/per-user/${config.core.username} 0755 ${config.core.username} root"
+        "d /mnt/${config.core.username} 0755 ${config.core.username} users"
+      ];
 
       system.stateVersion = "25.05";
     };
