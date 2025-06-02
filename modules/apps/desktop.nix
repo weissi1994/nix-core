@@ -185,11 +185,6 @@
         extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
       };
 
-      services.logind.extraConfig = ''
-        # don’t shutdown when power button is short-pressed
-        HandlePowerKey=ignore
-      '';
-
       powerManagement.enable = true;
       powerManagement.powertop.enable = true;
       programs.dconf.enable = true;
@@ -231,11 +226,6 @@
       # Disable xterm
       services.xserver.excludePackages = [ pkgs.xterm ];
       services.xserver.desktopManager.xterm.enable = false;
-
-      xdg.portal = {
-        enable = true;
-        xdgOpenUsePortal = true;
-      };
 
       environment.systemPackages = with pkgs; [
         nvme-cli
@@ -308,6 +298,8 @@
           extraConfig = ''
             IdleAction=suspend-then-hibernate
             IdleActionSec=10m
+            # don’t shutdown when power button is short-pressed
+            HandlePowerKey=ignore
           '';
         };
       };
