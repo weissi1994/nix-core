@@ -1,10 +1,4 @@
-{
-  inputs,
-  lib,
-  config,
-  ...
-}:
-{
+{ inputs, lib, config, ... }: {
   home-manager = {
     useUserPackages = true;
     useGlobalPkgs = true;
@@ -17,7 +11,6 @@
     };
     users.${config.core.username} = {
       imports = [
-        ../../home # legacy
         ../home
         inputs.nixvim.homeManagerModules.nixvim
         # inputs.stylix.homeManagerModules.stylix

@@ -35,9 +35,6 @@
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
-    nix-formatter-pack.url = "github:Gerschtli/nix-formatter-pack";
-    nix-formatter-pack.inputs.nixpkgs.follows = "nixpkgs";
-
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     stylix = {
@@ -45,7 +42,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    #catppuccin.url = "github:catppuccin/nix";
     hyprland.url = "github:hyprwm/Hyprland";
 
     hypr-contrib = {
@@ -69,34 +65,13 @@
       };
     };
 
-    nova.url = "git+https://gitlab.n0de.biz/daniel/nvim-config?ref=main";
-    nova.inputs.nixpkgs.follows = "nixpkgs-unstable";
-
     nixvim = {
       url = "github:nix-community/nixvim/nixos-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    sops-nix.url = "github:Mic92/sops-nix";
-
-    kolide-launcher = {
-      url = "github:/kolide/nix-agent/main";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-mineral = {
-      url =
-        "github:cynicsketch/nix-mineral"; # Refers to the main branch and is updated to the latest commit when you use "nix flake update"
-      flake = false;
-    };
-
-    extra-container = {
-      url = "github:erikarvstedt/extra-container";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-topology.url = "github:oddlama/nix-topology";
-    nix-topology.inputs.nixpkgs.follows = "nixpkgs";
+    nova.url = "git+https://gitlab.n0de.biz/daniel/nvim-config?ref=main";
+    nova.inputs.nixpkgs.follows = "nixpkgs-unstable";
   };
 
   outputs = { self, ... }@inputs: {
