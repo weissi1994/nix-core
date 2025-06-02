@@ -1,79 +1,4 @@
 {
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-
-    flake-utils = {
-      url = "github:numtide/flake-utils";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-  };
-
-  outputs = { nixpkgs, ... }@inputs:
-    inputs.flake-utils.lib.eachDefaultSystem (system: rec {
-      nixosConfigurations.test = nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs.inputs = inputs;
-        modules = [ inputs.core.nixosModules.core ./configuration.nix ];
-      };
-      apps = {
-        default = {
-          type = "app";
-          program =
-            "${nixosConfigurations.test.config.system.build.vm}/bin/run-nixos-vm";
-        };
-      };
-      defaultTags = {
-        # when uncommented by default we will not install packages tagged with "development"
-        # development = false;
-      };
-
-      # Unlike regular Nix, you can bundle nixpkgs/NixOS/home-manager logic together
-      apps.emacs = {
-        tags = [ "development" ];
-        # nixpkgs.params.overlays = [ inputs.emacs-overlay.overlay ];
-        nixos = { services.emacs.enable = true; };
-        home = { pkgs, ... }:
-          {
-            # import [ ./services ];
-            # 
-            # programs.emacs = {
-            #   enable = true;
-            #   package = pkgs.emacs-unstable;
-            # };
-          };
-      };
-
-      hosts.test-vm = {
-        # host types can be "nixos" and "home-manager"
-        # "nixos" is for systems that build NixOS; home-manager is bundled with it
-        # "home-manager" is for systems that install just HM (for example, darwin etc)
-        kind = "nixos";
-        # defines the system that your host runs on
-        system = "x86_64-linux";
-        # on single user systems you can specify your username straight up.
-        # multi-user support is "upcoming"
-        username = "admin";
-        # optional metadata... useful for stuff like Git
-        email = "admin@example.com";
-        # you can customize your home directory, otherwise defaults to
-        # `/home/<username>`
-        homeDirectory = "/home/admin";
-        tags = {
-          # now we tell Nix that our host needs any apps marked as
-          # 'development'. This enables simplified host configurations
-          # while also empowering users to still fully customize hosts
-          # when needed.
-          development = true;
-          # this is a predifined tag; for apps that are automatically
-          # included and optionally enabled, see <modules/apps>
-          getting-started = true;
-        };
-      };
-    });
-}
-
-{
   description = "My Nix system configuration with nix-config-modules";
 
   inputs = {
@@ -91,12 +16,35 @@
   };
 
   outputs = { flake-parts, ... }@inputs:
-    flake-parts.lib.mkFlake { inherit inputs; } {
+    let
+      testVM = inputs.nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs.inputs = inputs;
+        modules = import ./modules/all-modules.nix
+          ++ [ ./example/configuration.nix ];
+      };
+    in inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       # import core-modules
       imports = [ inputs.core.flakeModule ];
 
       # this avoids errors when running `nix flake show`
-      systems = [ ];
+      systems = import inputs.systems;
+      perSystem = { pkgs, lib, ... }:
+        let
+          eval =
+            lib.evalModules { modules = import ./modules/all-modules.nix; };
+        in {
+          packages.docs =
+            (pkgs.nixosOptionsDoc { options = eval.options; }).optionsAsciiDoc;
+
+          # ssh -oUserKnownHostsFile=/dev/null -oStrictHostKeyChecking=no admin@localhost -p 2221
+          apps = {
+            default = {
+              type = "app";
+              program = "${testVM.config.system.build.vm}/bin/run-nixos-vm";
+            };
+          };
+        };
 
       nix-config = {
         # Tags are described below in more detail: You can use these as an
@@ -132,3 +80,15 @@
       };
     };
 }
+      nixosConfigurations.test = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs.inputs = inputs;
+        modules = [ inputs.core.nixosModules.core ./configuration.nix ];
+      };
+      apps = {
+        default = {
+          type = "app";
+          program =
+            "${nixosConfigurations.test.config.system.build.vm}/bin/run-nixos-vm";
+        };
+      };

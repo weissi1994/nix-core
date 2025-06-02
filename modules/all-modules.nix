@@ -1,21 +1,22 @@
 [
   ./apps.nix
   ./darwin.nix
-  ./tags.nix
-  ./home.nix
   ./home-apps.nix
+  ./home.nix
   ./hosts.nix
   ./modules.nix
   ./nixos.nix
   ./nixpkgs.nix
+  ./tags.nix
   ./apps/defaults.nix
-  ./apps/disko.nix
-  ./apps/gaming.nix
-  ./apps/single-user.nix
-  ./apps/home-manager.nix
   ./apps/desktop.nix
   ./apps/development.nix
+  ./apps/disko.nix
+  ./apps/gaming.nix
+  ./apps/home-manager.nix
   ./apps/nvidia.nix
+  ./apps/qemu.nix
   ./apps/server.nix
+  ./apps/single-user.nix
   ./apps/sysadmin.nix
 ]
