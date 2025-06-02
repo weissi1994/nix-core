@@ -1,12 +1,11 @@
-{ lib, ... }:
-{
+{ lib, ... }: {
   services.openssh = {
     enable = true;
     allowSFTP = false;
 
     settings = {
       # Harden
-      PasswordAuthentication = false;
+      PasswordAuthentication = lib.mkDefault false;
       PermitRootLogin = lib.mkDefault "no";
       ChallengeResponseAuthentication = false;
       AllowTcpForwarding = "yes";
@@ -18,11 +17,9 @@
       StreamLocalBindUnlink = "yes";
     };
 
-    hostKeys = [
-      {
-        path = "/etc/ssh/ssh_host_ed25519_key";
-        type = "ed25519";
-      }
-    ];
+    hostKeys = [{
+      path = "/etc/ssh/ssh_host_ed25519_key";
+      type = "ed25519";
+    }];
   };
 }
