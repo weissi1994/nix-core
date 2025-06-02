@@ -1,5 +1,4 @@
-{ config, lib, ... }:
-{
+{ config, lib, ... }: {
   config = lib.mkIf (config.core.desktop == "hyprland") {
     programs.hyprland.enable = true;
     # programs.hyprland.package = inputs.hyprland.packages.${pkgs.system}.default;

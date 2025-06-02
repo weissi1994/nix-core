@@ -1,8 +1,0 @@
-{ ... }:
-{
-  imports = [
-    ./bcachefs
-    ./btrfs
-    ./mdraid
-  ];
-}

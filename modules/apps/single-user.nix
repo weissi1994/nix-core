@@ -44,16 +44,39 @@ in {
   config = {
     apps.single-user-config = {
       tags = [ "single-user" ];
-      nixos = { host, ... }: {
-        nix.settings = { trusted-users = [ host.username ]; };
-        users.users.${host.username} = {
-          isNormalUser = true;
-          home = host.homeDirectory;
-          group = host.username;
-          description = host.username;
+      nixos = { host, config, pkgs, ... }:
+        let
+          ifExists = groups:
+            builtins.filter (group: builtins.hasAttr group config.users.groups)
+            groups;
+        in {
+          nix.settings = { trusted-users = [ host.username ]; };
+          users = {
+            users.${host.username} = {
+              isNormalUser = true;
+              home = host.homeDirectory;
+              group = host.username;
+              shell = pkgs.fish;
+              description = host.username;
+              extraGroups = [ "wheel" ] ++ ifExists [
+                "networkmanager"
+                "docker"
+                "podman"
+                "audio"
+                "video"
+                "users"
+                "input"
+              ];
+              openssh.authorizedKeys.keys = host.sshKeys;
+            };
+            users.root = {
+              hashedPassword = null;
+              openssh.authorizedKeys.keys = host.sshKeys;
+            };
+            groups.${host.username} = { };
+          };
+          programs.fish.enable = true;
         };
-        users.groups.${host.username} = { };
-      };
 
       darwin = { host, ... }: {
         nixpkgs.pkgs = host._internal.pkgs;

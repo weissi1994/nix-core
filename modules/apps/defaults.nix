@@ -48,7 +48,6 @@
           efi.canTouchEfiVariables = true;
           timeout = 10;
         };
-        supportedFilesystems = [ "ntfs" ];
       };
       networking = {
         hostName = "${host.name}";
@@ -154,6 +153,17 @@
           }];
         };
       };
+      boot.supportedFilesystems = lib.mkForce [
+        "btrfs"
+        "bcachefs"
+        "cifs"
+        "f2fs"
+        "jfs"
+        "ntfs"
+        "reiserfs"
+        "vfat"
+        "xfs"
+      ];
 
       services.udev.packages = with pkgs; [
         libu2f-host

@@ -8,6 +8,187 @@
     nixos = { host, pkgs, lib, ... }: {
       hardware = { graphics = { enable = true; }; };
       hardware.enableRedistributableFirmware = true;
+      services.opensnitch = {
+        enable = true;
+        settings = {
+          DefaultAction = "deny";
+          DefaultDuration = "until restart";
+        };
+        rules = {
+          systemd-timesyncd = {
+            name = "systemd-timesyncd";
+            enabled = true;
+            action = "allow";
+            duration = "always";
+            operator = {
+              type = "simple";
+              sensitive = false;
+              operand = "process.path";
+              data = "${lib.getBin pkgs.systemd}/lib/systemd/systemd-timesyncd";
+            };
+          };
+          systemd-resolved = {
+            name = "systemd-resolved";
+            enabled = true;
+            action = "allow";
+            duration = "always";
+            operator = {
+              type = "simple";
+              sensitive = false;
+              operand = "process.path";
+              data = "${lib.getBin pkgs.systemd}/lib/systemd/systemd-resolved";
+            };
+          };
+          nsncd = {
+            name = "nsncd";
+            enabled = true;
+            action = "allow";
+            duration = "always";
+            operator = {
+              type = "simple";
+              sensitive = false;
+              operand = "process.path";
+              data = "${lib.getBin pkgs.nsncd}/bin/nsncd";
+            };
+          };
+          openssh = {
+            name = "openssh";
+            enabled = true;
+            action = "allow";
+            duration = "always";
+            operator = {
+              type = "simple";
+              sensitive = false;
+              operand = "process.path";
+              data = "${lib.getBin pkgs.openssh}/bin/ssh";
+            };
+          };
+          nix = {
+            name = "nix";
+            enabled = true;
+            action = "allow";
+            duration = "always";
+            operator = {
+              type = "simple";
+              sensitive = false;
+              operand = "process.path";
+              data = "${lib.getBin pkgs.nix}/bin/nix";
+            };
+          };
+          curl = {
+            name = "curl";
+            enabled = true;
+            action = "allow";
+            duration = "always";
+            operator = {
+              type = "simple";
+              sensitive = false;
+              operand = "process.path";
+              data = "${lib.getBin pkgs.curl}/bin/curl";
+            };
+          };
+          git-remote-http = {
+            name = "git-remote-http";
+            enabled = true;
+            action = "allow";
+            duration = "always";
+            operator = {
+              type = "simple";
+              sensitive = false;
+              operand = "process.path";
+              data = "${lib.getBin pkgs.git}/libexec/git-core/git-remote-http";
+            };
+          };
+          fwupd = {
+            name = "fwupd";
+            enabled = true;
+            action = "allow";
+            duration = "always";
+            operator = {
+              type = "simple";
+              sensitive = false;
+              operand = "process.path";
+              data = "${lib.getBin pkgs.fwupd}/bin/.fwupdmgr-wrapped";
+            };
+          };
+          podman = {
+            name = "allow-podman";
+            enabled = true;
+            action = "allow";
+            duration = "always";
+            operator = {
+              type = "simple";
+              sensitive = false;
+              operand = "process.path";
+              data = "${lib.getBin pkgs.conmon}/bin/conmon";
+            };
+          };
+          cloudflared = {
+            name = "allow-cloudflared";
+            enabled = true;
+            action = "allow";
+            duration = "always";
+            operator = {
+              type = "simple";
+              sensitive = false;
+              operand = "process.path";
+              data = "${lib.getBin pkgs.cloudflared}/bin/cloudflared";
+            };
+          };
+        };
+      };
+      services = {
+        xserver = {
+          enable = true;
+          xkb.layout = "us,de";
+          displayManager = {
+            gdm.enable = true;
+            gdm.wayland = true;
+          };
+        };
+        dbus.enable = true;
+        dbus.packages =
+          [ pkgs.swaynotificationcenter pkgs.gcr pkgs.gnome-settings-daemon ];
+        gnome.gnome-keyring.enable = true;
+        gvfs.enable = true;
+        fstrim.enable = true;
+
+        displayManager.autoLogin = {
+          enable = true;
+          user = "${host.username}";
+        };
+        libinput = {
+          enable = true;
+          touchpad = {
+            naturalScrolling = true;
+            middleEmulation = true;
+            tapping = true;
+          };
+        };
+      };
+      systemd.packages = [ pkgs.swaynotificationcenter ];
+      # xdg-desktop-portal works by exposing a series of D-Bus interfaces
+      # known as portals under a well-known name
+      # (org.freedesktop.portal.Desktop) and object path
+      # (/org/freedesktop/portal/desktop).
+      # The portal interfaces include APIs for file access, opening URIs,
+      security.polkit.enable = true;
+      xdg.portal = {
+        enable = true;
+        wlr.enable = true;
+        xdgOpenUsePortal = true;
+        config = {
+          common.default = [ "gtk" ];
+          hyprland.default = [ "gtk" "hyprland" ];
+        };
+        # gtk portal needed to make gtk apps happy
+        extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+      };
+
+      services.logind.extraConfig = ''
+        # don’t shutdown when power button is short-pressed
+        HandlePowerKey=ignore
+      '';
 
       powerManagement.enable = true;
       powerManagement.powertop.enable = true;
