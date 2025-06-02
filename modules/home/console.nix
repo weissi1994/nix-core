@@ -1,14 +1,8 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-{
+{ config, lib, pkgs, ... }: {
   home = {
     packages = with pkgs; [
       fastfetch
-      unstable.devenv
+      devenv
       cloudflared
       efibootmgr
       fishPlugins.done
@@ -51,9 +45,7 @@
       settings = {
         add_newline = false;
         command_timeout = 1000;
-        time = {
-          disabled = true;
-        };
+        time = { disabled = true; };
         format = lib.concatStrings [
           "$os"
           "$username"
@@ -324,7 +316,6 @@
       enable = true;
       enableBashIntegration = true;
       enableFishIntegration = true;
-      package = pkgs.unstable.atuin;
       settings = {
         auto_sync = true;
         dialect = "uk";
@@ -338,10 +329,7 @@
     };
     bat = {
       enable = true;
-      extraPackages = with pkgs.bat-extras; [
-        batwatch
-        prettybat
-      ];
+      extraPackages = with pkgs.bat-extras; [ batwatch prettybat ];
     };
     bottom = {
       enable = true;
@@ -376,9 +364,7 @@
     direnv = {
       enable = true;
       enableBashIntegration = true;
-      nix-direnv = {
-        enable = true;
-      };
+      nix-direnv = { enable = true; };
     };
     zoxide = {
       enable = true;
@@ -388,14 +374,13 @@
       # Replace cd with z and add cdi to access zi
       options = [ "--cmd cd" ];
     };
-    zsh = {
-      enable = true;
-    };
+    zsh = { enable = true; };
     fish = {
       enable = true;
       shellAliases = {
         cat = "bat --paging=never --style=plain";
-        htop = "btm --basic --tree --hide_table_gap --dot_marker --mem_as_value";
+        htop =
+          "btm --basic --tree --hide_table_gap --dot_marker --mem_as_value";
         ip = "ip --color --brief";
         less = "bat --paging=always";
         more = "bat --paging=always";
@@ -423,28 +408,18 @@
         };
       };
       aliases = {
-        lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
+        lg =
+          "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
       };
       extraConfig = {
         push = {
           default = "current";
           autoSetupRemote = true;
         };
-        pull = {
-          rebase = true;
-        };
-        init = {
-          defaultBranch = "main";
-        };
+        pull = { rebase = true; };
+        init = { defaultBranch = "main"; };
       };
-      ignores = [
-        "*.log"
-        "*.out"
-        ".DS_Store"
-        "bin/"
-        "dist/"
-        "result"
-      ];
+      ignores = [ "*.log" "*.out" ".DS_Store" "bin/" "dist/" "result" ];
     };
     gpg.enable = true;
     home-manager.enable = true;
@@ -476,15 +451,8 @@
   fonts.fontconfig = {
     enable = true;
     defaultFonts = {
-      serif = [
-        "Source Serif"
-        "Noto Color Emoji"
-      ];
-      sansSerif = [
-        "Work Sans"
-        "Fira Sans"
-        "Noto Color Emoji"
-      ];
+      serif = [ "Source Serif" "Noto Color Emoji" ];
+      sansSerif = [ "Work Sans" "Fira Sans" "Noto Color Emoji" ];
       monospace = [
         "FiraCode Nerd Font Mono"
         "Font Awesome 6 Free"

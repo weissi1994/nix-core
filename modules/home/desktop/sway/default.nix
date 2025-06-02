@@ -1,11 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  username,
-  fetchurl,
-  ...
-}:
+{ config, lib, pkgs, username, fetchurl, ... }:
 let
   #background = builtins.fetchurl {
   #  url = https://raw.githubusercontent.com/papojari/nixos-artwork/master/wallpapers/nix-wallpaper-3d-showcase-3840x2160.png;
@@ -22,22 +15,27 @@ let
   webbrowser = "brave";
   webbrowserPersistent = "google-chrome-stable";
   musicplayer = "spotify";
-in
-{
+in {
   home = {
     file = {
       ".config/sway/idle.sh".source = ./idle.sh;
       ".config/sway/color-picker.sh".source = builtins.fetchurl {
-        url = "https://raw.githubusercontent.com/jgmdev/wl-color-picker/main/wl-color-picker.sh";
+        url =
+          "https://raw.githubusercontent.com/jgmdev/wl-color-picker/main/wl-color-picker.sh";
         sha256 = "0f3i86q9vx0665h2wvmmnfccd85kav4d9kinfzdnqpnh96iqsjkg";
       };
       ".config/sway/screenshot.sh".source = ./screenshot.sh;
       ".config/sway/lock.sh".source = ./lock.sh;
-      ".config/nwg-launchers/nwgbar/images/system-reboot.svg".source = ./files/system-reboot.svg;
-      ".config/nwg-launchers/nwgbar/images/system-log-out.svg".source = ./files/system-log-out.svg;
-      ".config/nwg-launchers/nwgbar/images/system-suspend.svg".source = ./files/system-suspend.svg;
-      ".config/nwg-launchers/nwgbar/images/system-shutdown.svg".source = ./files/system-shutdown.svg;
-      ".config/nwg-launchers/nwgbar/images/system-hibernate.svg".source = ./files/system-hibernate.svg;
+      ".config/nwg-launchers/nwgbar/images/system-reboot.svg".source =
+        ./files/system-reboot.svg;
+      ".config/nwg-launchers/nwgbar/images/system-log-out.svg".source =
+        ./files/system-log-out.svg;
+      ".config/nwg-launchers/nwgbar/images/system-suspend.svg".source =
+        ./files/system-suspend.svg;
+      ".config/nwg-launchers/nwgbar/images/system-shutdown.svg".source =
+        ./files/system-shutdown.svg;
+      ".config/nwg-launchers/nwgbar/images/system-hibernate.svg".source =
+        ./files/system-hibernate.svg;
       ".config/nwg-launchers/nwgbar/images/system-lock-screen.svg".source =
         ./files/system-lock-screen.svg;
       ".config/nwg-launchers/nwgbar/bar.json".text = ''
@@ -470,7 +468,7 @@ in
       };
       floating.border = 1;
       window.border = 1;
-      bars = [ { command = "waybar"; } ];
+      bars = [{ command = "waybar"; }];
       fonts = {
         names = [
           "FiraCode Nerd Font"
@@ -521,9 +519,11 @@ in
         "XF86AudioMute+Ctrl" =
           "exec pactl set-source-mute @DEFAULT_SOURCE@ toggle && ffmpeg -y -f lavfi -i 'sine=frequency=200:duration=0.1' /tmp/sound.ogg && play /tmp/sound.ogg";
         # Raise sink (speaker, headphones) volume
-        "XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +2%";
+        "XF86AudioRaiseVolume" =
+          "exec pactl set-sink-volume @DEFAULT_SINK@ +2%";
         # Lower sink (microphone) volume
-        "XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -2%";
+        "XF86AudioLowerVolume" =
+          "exec pactl set-sink-volume @DEFAULT_SINK@ -2%";
         # Spotify
         ## Play/pause spotify
         "XF86AudioPlay" =
@@ -659,7 +659,8 @@ in
         }
         # Polkit
         {
-          command = "/run/current-system/sw/libexec/polkit-gnome-authentication-agent-1";
+          command =
+            "/run/current-system/sw/libexec/polkit-gnome-authentication-agent-1";
         }
         # Idle
         {
@@ -696,9 +697,6 @@ in
     tesseract4
     foot
     waybar
-    ## (unstable.obsidian.override {
-    ##   electron = electron_26;
-    ## }) # electron app
     obsidian
     networkmanagerapplet
     dmenu-wayland

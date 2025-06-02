@@ -3,6 +3,8 @@
   ./darwin.nix
   ./tags.nix
   ./home.nix
+  ./core
+  # ./home
   ./home-apps.nix
   ./hosts.nix
   ./modules.nix

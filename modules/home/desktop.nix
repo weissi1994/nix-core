@@ -1,10 +1,4 @@
-{
-  lib,
-  desktop,
-  pkgs,
-  ...
-}:
-{
+{ lib, desktop, pkgs, ... }: {
   config = lib.mkIf (desktop != null) {
     home.packages = with pkgs; [
       ## Multimedia
@@ -13,7 +7,7 @@
       obs-studio
       pavucontrol
       vlc
-      unstable.discord
+      discord
 
       ## Office
       libreoffice

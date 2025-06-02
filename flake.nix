@@ -19,9 +19,6 @@
     # which represents the GitHub repository URL + branch/commit-id/tag.
 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
-    # You can access packages and modules from different nixpkgs revs at the same time.
-    # See 'unstable-packages' overlay in 'overlays/default.nix'.
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # home-manager, used for managing user configuration
     home-manager = {
@@ -75,7 +72,7 @@
     };
 
     nova.url = "git+https://gitlab.n0de.biz/daniel/nvim-config?ref=main";
-    nova.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    nova.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { ... }@inputs:

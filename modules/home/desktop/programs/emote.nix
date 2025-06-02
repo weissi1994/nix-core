@@ -1,22 +1,15 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   # https://github.com/tom-james-watson/emote
-  home.packages = with pkgs.unstable; [
-    emote
-  ];
+  home.packages = with pkgs; [ emote ];
 
   systemd.user.services = {
     emote = {
-      Unit = {
-        Description = "Emote";
-      };
+      Unit = { Description = "Emote"; };
       Service = {
-        ExecStart = "${pkgs.unstable.emote}/bin/emote";
+        ExecStart = "${pkgs.emote}/bin/emote";
         Restart = "on-failure";
       };
-      Install = {
-        WantedBy = [ "default.target" ];
-      };
+      Install = { WantedBy = [ "default.target" ]; };
     };
   };
 }

@@ -1,5 +1,4 @@
-{ pkgs, lib, ... }:
-{
+{ pkgs, lib, ... }: {
   services.opensnitch = {
     enable = true;
     settings = {
@@ -40,7 +39,7 @@
           type = "simple";
           sensitive = false;
           operand = "process.path";
-          data = "${lib.getBin pkgs.unstable.nsncd}/bin/nsncd";
+          data = "${lib.getBin pkgs.nsncd}/bin/nsncd";
         };
       };
       openssh = {

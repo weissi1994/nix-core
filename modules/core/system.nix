@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  inputs,
-  outputs,
-  config,
-  ...
-}:
-{
+{ pkgs, lib, inputs, config, ... }: {
   # imports = [ inputs.nix-gaming.nixosModules.default ];
   nix = {
     # This will add each flake input as a registry
@@ -15,20 +7,16 @@
 
     # This will additionally add your inputs to the system's legacy channels
     # Making legacy nix commands consistent as well, awesome!
-    nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
+    nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}")
+      config.nix.registry;
 
     optimise.automatic = true;
     settings = {
       auto-optimise-store = true;
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
-      substituters = [
-        "https://cache.nixos.org"
-        "https://cache.nixos.org/"
-      ];
-      trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
+      experimental-features = [ "nix-command" "flakes" ];
+      substituters = [ "https://cache.nixos.org" "https://cache.nixos.org/" ];
+      trusted-public-keys =
+        [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
 
       # Avoid unwanted garbage collection when using nix-direnv
       keep-outputs = true;
@@ -44,22 +32,15 @@
 
   environment = {
     # Eject nano and perl from the system
-    defaultPackages =
-      with pkgs;
-      lib.mkForce [
-        gitMinimal
-        home-manager
-        deploy-rs
-        vim
-        rsync
-      ];
+    defaultPackages = with pkgs;
+      lib.mkForce [ gitMinimal home-manager deploy-rs vim rsync ];
     systemPackages = with pkgs; [
       file
       wget
       curl
       git
       devenv
-      unstable.aichat
+      aichat
       pinentry-curses
       imagemagickBig
       pinentry-gnome3
@@ -69,7 +50,7 @@
       zip
       cachix
       comma
-      unstable.nh
+      nh
       sops
       pciutils
       lapce
@@ -129,12 +110,6 @@
   };
 
   nixpkgs = {
-    overlays = [
-      # Add overlays your own flake exports (from overlays and pkgs dir):
-      outputs.overlays.additions
-      # outputs.overlays.modifications
-      outputs.overlays.unstable-packages
-    ];
     # Configure your nixpkgs instance
     config = {
       # Disable if you don't want unfree packages
@@ -151,10 +126,7 @@
       enableCompletion = true;
       autosuggestions = {
         enable = true;
-        strategy = [
-          "completion"
-          "match_prev_cmd"
-        ];
+        strategy = [ "completion" "match_prev_cmd" ];
       };
       syntaxHighlighting.enable = true;
     };

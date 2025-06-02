@@ -1,33 +1,14 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-{
-  imports = [
-    ./sway.nix
-    ./hyprland.nix
-  ];
+{ config, lib, pkgs, ... }: {
+  imports = [ ./sway.nix ./hyprland.nix ];
   config = lib.mkIf (config.core.desktop != null) {
     boot = {
-      kernelParams = [
-        "quiet"
-        "vt.global_cursor_default=0"
-        "mitigations=off"
-      ];
+      kernelParams = [ "quiet" "vt.global_cursor_default=0" "mitigations=off" ];
       plymouth.enable = true;
     };
 
-    hardware = {
-      graphics = {
-        enable = true;
-      };
-    };
+    hardware = { graphics = { enable = true; }; };
 
-    environment.sessionVariables = {
-      _JAVA_AWT_WM_NONREPARENTING = "1";
-    };
+    environment.sessionVariables = { _JAVA_AWT_WM_NONREPARENTING = "1"; };
     services = {
       printing.enable = true;
       #printing.drivers = with pkgs; [ gutenprint hplipWithPlugin ];
@@ -41,7 +22,8 @@
         publish = {
           addresses = false;
           enable = false;
-          workstation = if (builtins.isString config.core.desktop) then true else false;
+          workstation =
+            if (builtins.isString config.core.desktop) then true else false;
         };
       };
     };
@@ -73,9 +55,9 @@
       wezterm
 
       # Fast moving apps use the unstable branch
-      unstable.signal-desktop
-      unstable.google-chrome
-      unstable.tdesktop
+      signal-desktop
+      google-chrome
+      tdesktop
     ];
   };
 }
