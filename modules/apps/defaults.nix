@@ -30,7 +30,6 @@
       };
 
       services.envfs.enable = true;
-      services.udev.packages = [ pkgs.android-udev-rules ];
 
       boot = {
         consoleLogLevel = 0;
@@ -117,6 +116,7 @@
           default-cache-ttl-ssh = 1800;
           max-cache-ttl-ssh = 7200;
         };
+        pinentryPackage = lib.mkDefault pkgs.pinentry-curses;
       };
 
       security = {
@@ -166,6 +166,7 @@
       ];
 
       services.udev.packages = with pkgs; [
+        android-udev-rules
         libu2f-host
         yubikey-personalization
       ];
@@ -316,13 +317,6 @@
           };
           syntaxHighlighting.enable = true;
         };
-      };
-
-      programs.gnupg.agent = {
-        enable = true;
-        enableSSHSupport = true;
-        enableExtraSocket = true;
-        pinentryPackage = pkgs.pinentry-curses;
       };
 
       services.fwupd.enable = true;
