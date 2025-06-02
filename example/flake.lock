@@ -123,11 +123,11 @@
         "systems": "systems_9"
       },
       "locked": {
-        "lastModified": 1748908458,
-        "narHash": "sha256-+1aKHGe8zOPSHgbTCOEsfmxkq5G+/BInnoLJeBKb8n4=",
+        "lastModified": 1748908695,
+        "narHash": "sha256-TxeswnNhF57RXCU0CimHJexBaAV0z51Lvug/o07RSl8=",
         "owner": "weissi1994",
         "repo": "nix-core",
-        "rev": "faca1e61b724774dbc7732b861040ebe7b739bda",
+        "rev": "28e5bb2359d1875f425354c074a3f8ed81a8ff38",
         "type": "github"
       },
       "original": {
