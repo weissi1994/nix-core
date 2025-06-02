@@ -80,26 +80,26 @@
     nova.inputs.nixpkgs.follows = "nixpkgs-unstable";
   };
 
-  outputs = { self, nixpkgs, ... }@inputs: {
+  outputs = { self, nixpkgs, ... }@inputs:
     inputs.flake-utils.lib.eachDefaultSystem (system: rec {
       overlays = import ./overlays { inherit inputs; };
 
       nixosConfigurations.test = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs.inputs = inputs;
-        modules = [
-          ./example/configuration.nix
-        ];
+        modules = [ nixosModules.core ./example/configuration.nix ];
       };
+
+      # ssh -oUserKnownHostsFile=/dev/null -oStrictHostKeyChecking=no admin@localhost -p 2221
       apps = {
         default = {
           type = "app";
-          program = "${nixosConfigurations.test.config.system.build.vm}/bin/run-nixos-vm";
+          program =
+            "${nixosConfigurations.test.config.system.build.vm}/bin/run-nixos-vm";
         };
       };
 
-    nixosModules.core = import ./modules/core;
-    homeManagerModules.core = import ./modules/home;
+      nixosModules.core = import ./modules/core;
+      homeManagerModules.core = import ./modules/home;
     });
-  };
 }
