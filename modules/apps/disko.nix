@@ -88,6 +88,8 @@
         };
       in {
 
+        imports = [ inputs.disko.nixosModules.disko ];
+
         boot.initrd.luks.forceLuksSupportInInitrd = true;
         disko.devices = {
           disk = {
