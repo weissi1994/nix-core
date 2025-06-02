@@ -1,0 +1,7 @@
+== _module{zwsp}.args
+
+Additional arguments passed to each module in addition to ones like ``lib``, ``config``, and ``pkgs``, ``modulesPath``{zwsp}.
+
+This option is also available to all submodules{zwsp}. Submodules do not inherit args from their parent module, nor do they provide args to their parent module or sibling submodules{zwsp}. The sole exception to this is the argument ``name`` which is provided by parent modules to a submodule and contains the attribute name the submodule is bound to, or a unique generated name if it is not bound to an attribute{zwsp}.
+
+Some arguments are already passed by default, of which the following __cannot__ be changed with this option:

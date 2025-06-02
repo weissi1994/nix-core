@@ -33,6 +33,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    systems.url = "github:nix-systems/default";
+
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -75,10 +78,38 @@
     nova.inputs.nixpkgs.follows = "nixpkgs-unstable";
   };
 
-  outputs = { ... }@inputs: {
-    overlays = import ./overlays { inherit inputs; };
+  outputs = { ... }@inputs:
+    let
+      testVM = inputs.nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs.inputs = inputs;
+        modules = import ./modules/all-modules.nix
+          ++ [ ./example/configuration.nix ];
+      };
+    in inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+      flake.flakeModule = import ./flakeModule.nix;
+      systems = import inputs.systems;
+      perSystem = { pkgs, lib, ... }:
+        let
+          eval =
+            lib.evalModules { modules = import ./modules/all-modules.nix; };
+        in {
+          packages.docs =
+            (pkgs.nixosOptionsDoc { options = eval.options; }).optionsAsciiDoc;
+        };
+      # overlays = import ./overlays { inherit inputs; };
 
-    nixosModules.core = import ./modules/core;
-    homeManagerModules.core = import ./modules/home;
-  };
+      nixosConfigurations.test = testVM;
+
+      # ssh -oUserKnownHostsFile=/dev/null -oStrictHostKeyChecking=no admin@localhost -p 2221
+      apps = {
+        default = {
+          type = "app";
+          program = "${testVM.config.system.build.vm}/bin/run-nixos-vm";
+        };
+      };
+
+      # nixosModules.core = import ./modules/core;
+      # homeManagerModules.core = import ./modules/home;
+    };
 }
