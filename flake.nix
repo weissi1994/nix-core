@@ -22,6 +22,12 @@
     # You can access packages and modules from different nixpkgs revs at the same time.
     # See 'unstable-packages' overlay in 'overlays/default.nix'.
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # home-manager, used for managing user configuration
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
@@ -74,10 +80,26 @@
     nova.inputs.nixpkgs.follows = "nixpkgs-unstable";
   };
 
-  outputs = { self, ... }@inputs: {
-    overlays = import ./overlays { inherit inputs; };
+  outputs = { self, nixpkgs, ... }@inputs: {
+    inputs.flake-utils.lib.eachDefaultSystem (system: rec {
+      overlays = import ./overlays { inherit inputs; };
+
+      nixosConfigurations.test = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs.inputs = inputs;
+        modules = [
+          ./example/configuration.nix
+        ];
+      };
+      apps = {
+        default = {
+          type = "app";
+          program = "${nixosConfigurations.test.config.system.build.vm}/bin/run-nixos-vm";
+        };
+      };
 
     nixosModules.core = import ./modules/core;
     homeManagerModules.core = import ./modules/home;
+    });
   };
 }
