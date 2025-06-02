@@ -15,20 +15,20 @@
     emacs-overlay.url = "github:nix-community/emacs-overlay";
   };
 
-  outputs = { flake-parts, ... }@inputs:
+  outputs = { self, ... }@inputs:
     let
       testVM = inputs.nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs.inputs = inputs;
-        modules = import ./modules/all-modules.nix
-          ++ [ ./example/configuration.nix ];
+        modules =
+          [ self.nixosConfigurations.test-vm ./example/configuration.nix ];
       };
     in inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       # import core-modules
       imports = [ inputs.core.flakeModule ];
 
       # this avoids errors when running `nix flake show`
-      systems = import inputs.systems;
+      systems = [ "x86_64-linux" ];
       perSystem = { pkgs, lib, ... }:
         let
           eval =
@@ -80,15 +80,3 @@
       };
     };
 }
-      nixosConfigurations.test = nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs.inputs = inputs;
-        modules = [ inputs.core.nixosModules.core ./configuration.nix ];
-      };
-      apps = {
-        default = {
-          type = "app";
-          program =
-            "${nixosConfigurations.test.config.system.build.vm}/bin/run-nixos-vm";
-        };
-      };

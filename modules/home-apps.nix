@@ -2,12 +2,7 @@
 # home config.
 { lib, config, ... }:
 let
-  inherit (lib)
-    concatLists
-    listToAttrs
-    mkOption
-    types
-  ;
+  inherit (lib) concatLists listToAttrs mkOption types;
   homeAppType = types.submodule {
     options = {
       enable = mkOption {
@@ -50,6 +45,7 @@ in {
   options = {
     homeApps = mkOption {
       type = types.listOf homeAppType;
+      default = [ ];
       description = lib.mdDoc ''
         A helper for instantiating applications that only add a package to
         `home.packages`. This generates a single application per package, so
@@ -68,17 +64,13 @@ in {
     };
   };
   config = {
-    apps = listToAttrs (concatLists (map
-      (homeApp: map (pkg: {
+    apps = listToAttrs (concatLists (map (homeApp:
+      map (pkg: {
         name = pkg;
         value = {
           inherit (homeApp) enable tags systems disableTags;
-          home = { pkgs, ... }: {
-            home.packages = [ pkgs.${pkg} ];
-          };
+          home = { pkgs, ... }: { home.packages = [ pkgs.${pkg} ]; };
         };
-      }) homeApp.packages)
-      cfg
-    ));
+      }) homeApp.packages) cfg));
   };
 }
