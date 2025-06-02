@@ -59,6 +59,12 @@
           podman-compose
           podman-tui
           podman
+          inxi
+          dmidecode
+          htop
+          gping
+          httpie
+          xh
         ] ++ lib.optionals (host.desktop != null) [ pods xorg.xhost ];
 
       hardware.nvidia-container-toolkit.enable =

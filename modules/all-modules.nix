@@ -9,6 +9,8 @@
   ./nixos.nix
   ./nixpkgs.nix
   ./apps/defaults.nix
+  ./apps/disko.nix
+  ./apps/gaming.nix
   ./apps/single-user.nix
   ./apps/home-manager.nix
   ./apps/desktop.nix

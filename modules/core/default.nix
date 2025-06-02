@@ -11,11 +11,9 @@
     ./xserver.nix
     ./nh.nix
     ./security.nix
-    ./packages
     ./desktop
     ./services.nix
     ./steam.nix
-    ./theme
     ./system.nix
     ./user.nix
     ./virtualization.nix

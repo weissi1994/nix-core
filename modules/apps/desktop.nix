@@ -11,6 +11,50 @@
 
       powerManagement.enable = true;
       powerManagement.powertop.enable = true;
+      programs.dconf.enable = true;
+      boot = {
+        kernelParams =
+          [ "quiet" "vt.global_cursor_default=0" "mitigations=off" ];
+        plymouth.enable = true;
+      };
+
+      environment.sessionVariables = { _JAVA_AWT_WM_NONREPARENTING = "1"; };
+      services = {
+        printing.enable = true;
+        #printing.drivers = with pkgs; [ gutenprint hplipWithPlugin ];
+        printing.drivers = with pkgs; [ gutenprint ];
+      };
+      services = {
+        avahi = {
+          enable = true;
+          nssmdns4 = true;
+          openFirewall = true;
+          publish = {
+            addresses = false;
+            enable = false;
+            workstation =
+              if (builtins.isString config.core.desktop) then true else false;
+          };
+        };
+      };
+
+      programs = {
+        chromium = {
+          extensions = [
+            "hfjbmagddngcpeloejdejnfgbamkjaeg" # Vimium C
+            "kkhfnlkhiapbiehimabddjbimfaijdhk" # gopass-bridge
+          ];
+        };
+      };
+
+      # Disable xterm
+      services.xserver.excludePackages = [ pkgs.xterm ];
+      services.xserver.desktopManager.xterm.enable = false;
+
+      xdg.portal = {
+        enable = true;
+        xdgOpenUsePortal = true;
+      };
 
       environment.systemPackages = with pkgs; [
         nvme-cli
@@ -20,6 +64,15 @@
         pulseaudioFull
         pulsemixer
         pavucontrol
+        libreoffice
+        pick-colour-picker
+        kitty
+        wezterm
+
+        # Fast moving apps use the unstable branch
+        signal-desktop
+        google-chrome
+        tdesktop
       ];
 
       services = {
@@ -77,6 +130,42 @@
         };
       };
       hardware.alsa.enablePersistence = true;
+      stylix = {
+        enable = true;
+        image = ./background.png;
+
+        polarity = "dark";
+
+        base16Scheme =
+          lib.mkForce "${pkgs.base16-schemes}/share/themes/ayu-dark.yaml";
+        targets.plymouth.logo = pkgs.fetchurl {
+          url =
+            "https://raw.githubusercontent.com/NixOS/nixos-artwork/f84c13adae08e860a7c3f76ab3a9bef916d276cc/logo/nix-snowflake-colours.svg";
+          sha256 = "pHYa+d5f6MAaY8xWd3lDjhagS+nvwDL3w7zSsQyqH7A=";
+        };
+
+        fonts = {
+          serif = {
+            package = pkgs.dejavu_fonts;
+            name = "DejaVu Serif";
+          };
+
+          sansSerif = {
+            package = pkgs.dejavu_fonts;
+            name = "DejaVu Sans";
+          };
+
+          monospace = {
+            package = pkgs.fira-code;
+            name = "Fira Code";
+          };
+
+          emoji = {
+            package = pkgs.noto-fonts-emoji;
+            name = "Noto Color Emoji";
+          };
+        };
+      };
 
       systemd.sleep.extraConfig = "HibernateDelaySec=5m";
       fonts = {
