@@ -96,18 +96,16 @@
         in {
           packages.docs =
             (pkgs.nixosOptionsDoc { options = eval.options; }).optionsAsciiDoc;
+
+          # ssh -oUserKnownHostsFile=/dev/null -oStrictHostKeyChecking=no admin@localhost -p 2221
+          apps = {
+            default = {
+              type = "app";
+              program = "${testVM.config.system.build.vm}/bin/run-nixos-vm";
+            };
+          };
         };
       # overlays = import ./overlays { inherit inputs; };
-
-      nixosConfigurations.test = testVM;
-
-      # ssh -oUserKnownHostsFile=/dev/null -oStrictHostKeyChecking=no admin@localhost -p 2221
-      apps = {
-        default = {
-          type = "app";
-          program = "${testVM.config.system.build.vm}/bin/run-nixos-vm";
-        };
-      };
 
       # nixosModules.core = import ./modules/core;
       # homeManagerModules.core = import ./modules/home;
