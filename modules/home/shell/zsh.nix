@@ -2,7 +2,6 @@
 {
   home.packages = with pkgs; [
     cava # for cli equealizer #unixporn
-    unstable.eza # nice ls
     jless # json less
     sd # modern sed
     choose # modern cut

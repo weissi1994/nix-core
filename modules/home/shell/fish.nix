@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   home.packages = with pkgs; [
     fish
     fishPlugins.fzf
@@ -8,7 +7,6 @@
     fishPlugins.grc
     grc
     cava # for cli equealizer #unixporn
-    unstable.eza # nice ls
     jless # json less
     sd # modern sed
     choose # modern cut
@@ -112,19 +110,25 @@
         }
       ];
       shellAliases = {
-        l = "exa -hF --color=always --icons --sort=created --group-directories-first";
-        ls = "exa -lhF --color=always --icons --sort=created --group-directories-first";
-        lst = "exa -lahRT --color=always --icons --sort=created --group-directories-first";
-        nt = ''vim "+ObsidianWorkspace Private" +ObsidianToday ~/notes/TODO.md'';
+        l =
+          "exa -hF --color=always --icons --sort=created --group-directories-first";
+        ls =
+          "exa -lhF --color=always --icons --sort=created --group-directories-first";
+        lst =
+          "exa -lahRT --color=always --icons --sort=created --group-directories-first";
+        nt =
+          ''vim "+ObsidianWorkspace Private" +ObsidianToday ~/notes/TODO.md'';
 
-        trip = "sudo trip --tui-theme-colors settings-dialog-bg-color=Black,help-dialog-bg-color=Black";
+        trip =
+          "sudo trip --tui-theme-colors settings-dialog-bg-color=Black,help-dialog-bg-color=Black";
         yless = "jless --yaml";
 
         lg = "lazygit";
         ag = "rg";
         # ssh = "kitten ssh";
         ufwlog = ''journalctl -k | grep "IN=.*OUT=.*" | less'';
-        sshold = "ssh -c 3des-cbc,aes256-cbc -oKexAlgorithms=+diffie-hellman-group1-sha1 ";
+        sshold =
+          "ssh -c 3des-cbc,aes256-cbc -oKexAlgorithms=+diffie-hellman-group1-sha1 ";
         colour = "grc -es --colour=auto";
         as = "colour as";
         configure = "colour ./configure";
@@ -180,13 +184,17 @@
         gmt = "git mergetool";
         gp = "git push";
         gptst = ''git push -o ci.variable="ALWAYS_RUN_TEST=true"'';
-        gpmr = "push -o merge_request.create -o merge_request.target=development";
-        gpmrm = "push -o merge_request.create -o merge_request.target=development -o merge_request.merge_when_pipeline_succeeds";
+        gpmr =
+          "push -o merge_request.create -o merge_request.target=development";
+        gpmrm =
+          "push -o merge_request.create -o merge_request.target=development -o merge_request.merge_when_pipeline_succeeds";
         gpf = "git push --force";
         gpa = "git push --all";
         gpA = "git push --all && git push --tags";
-        gpc = ''git push --set-upstream origin "$(git-branch-current 2> /dev/null)"'';
-        gpp = ''git pull origin "$(git-branch-current 2> /dev/null)" && git push origin "$(git-branch-current 2> /dev/null)"'';
+        gpc = ''
+          git push --set-upstream origin "$(git-branch-current 2> /dev/null)"'';
+        gpp = ''
+          git pull origin "$(git-branch-current 2> /dev/null)" && git push origin "$(git-branch-current 2> /dev/null)"'';
         gwd = "git diff --no-ext-diff";
         gwD = "git diff --no-ext-diff --word-diff";
         gwr = "git reset --soft";
@@ -251,9 +259,12 @@
           '';
         };
         sync-repos = "sync-dotfiles; sync-keystore";
-        upd = "nh os switch -- --refresh --accept-flake-config --no-write-lock-file";
-        upd-remote = ''NIXPKGS_ALLOW_UNFREE=1 nixos-rebuild --target-host "ssh-ng://ion@$argv[1]" --use-remote-sudo --impure switch --flake "git+https://gitlab.n0de.biz/daniel/nix?ref=main#$argv[1]" --refresh'';
-        upd-build-remote = ''NIXPKGS_ALLOW_UNFREE=1 nixos-rebuild --build-host "ssh-ng://ion@$argv[1]" --use-remote-sudo --impure switch --flake "git+https://gitlab.n0de.biz/daniel/nix?ref=main#$(hostname)" --refresh'';
+        upd =
+          "nh os switch -- --refresh --accept-flake-config --no-write-lock-file";
+        upd-remote = ''
+          NIXPKGS_ALLOW_UNFREE=1 nixos-rebuild --target-host "ssh-ng://ion@$argv[1]" --use-remote-sudo --impure switch --flake "git+https://gitlab.n0de.biz/daniel/nix?ref=main#$argv[1]" --refresh'';
+        upd-build-remote = ''
+          NIXPKGS_ALLOW_UNFREE=1 nixos-rebuild --build-host "ssh-ng://ion@$argv[1]" --use-remote-sudo --impure switch --flake "git+https://gitlab.n0de.biz/daniel/nix?ref=main#$(hostname)" --refresh'';
 
         # Yubikey helper
         ykcode = "ykman --device 13338635  oath accounts code $argv";
