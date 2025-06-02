@@ -1,4 +1,4 @@
-{ config, lib, inputs, ... }:
+{ config, self, lib, inputs, ... }:
 let
   inherit (lib) filterAttrs mapAttrs mkOption types;
   globalNixosModules = config.modules.nixos;
@@ -33,9 +33,9 @@ in {
     host._internal.pkgs.nixos {
       imports = host._internal.nixosModules ++ [{ _module.args.host = host; }]
         ++ [
-          inputs.stylix.nixosModules.stylix
-          inputs.nixvim.nixosModules.nixvim
-          inputs.hyprland.nixosModules.default
+          self.inputs.stylix.nixosModules.stylix
+          self.inputs.nixvim.nixosModules.nixvim
+          self.inputs.hyprland.nixosModules.default
         ];
     }) nixosHosts;
 }
