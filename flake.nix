@@ -102,7 +102,7 @@
   outputs = { self, ... }@inputs: {
     overlays = import ./overlays { inherit inputs; };
 
-    nixosModules.core = import ./modules/core self;
+    nixosModules.core = import ./modules/core inputs;
     homeManagerModules.core = import ./modules/home self;
   };
 }
