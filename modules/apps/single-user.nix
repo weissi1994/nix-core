@@ -2,11 +2,8 @@
 # possible to enable or disable this with tags. In the future I may
 # specify a separate module for multi-user configurations.
 
-{ lib, ... }: let
-  inherit (lib)
-    mkOption
-    types
-  ;
+{ lib, ... }:
+let inherit (lib) mkOption types;
 in {
   options = {
     hosts = mkOption {
@@ -34,6 +31,11 @@ in {
               `/home/<username>`
             '';
           };
+          sshKeys = lib.mkOption {
+            type = lib.types.listOf lib.types.str;
+            default = [ ];
+            description = "authorized ssh keys";
+          };
         };
       }));
     };
@@ -43,16 +45,14 @@ in {
     apps.single-user-config = {
       tags = [ "single-user" ];
       nixos = { host, ... }: {
-        nix.settings = {
-          trusted-users = [ host.username ];
-        };
+        nix.settings = { trusted-users = [ host.username ]; };
         users.users.${host.username} = {
           isNormalUser = true;
           home = host.homeDirectory;
           group = host.username;
           description = host.username;
         };
-        users.groups.${host.username} = {};
+        users.groups.${host.username} = { };
       };
 
       darwin = { host, ... }: {
@@ -61,19 +61,13 @@ in {
           trusted-users = [ host.username ];
           experimental-features = [ "nix-command" "flakes" ];
         };
-        users.users.${host.username} = {
-          home = host.homeDirectory;
-        };
+        users.users.${host.username} = { home = host.homeDirectory; };
       };
 
       home = { host, ... }: {
-        home = {
-          inherit (host) username homeDirectory;
-        };
+        home = { inherit (host) username homeDirectory; };
       };
     };
-    defaultTags = {
-      single-user = true;
-    };
+    defaultTags = { single-user = true; };
   };
 }

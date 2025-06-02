@@ -1,9 +1,6 @@
 { config, lib, ... }:
 let
-  inherit (lib)
-    mkOption
-    types
-  ;
+  inherit (lib) mkOption types;
   cfg = config;
   hostSubmodule = types.submodule ({ config, ... }: {
     options = {
@@ -19,9 +16,7 @@ let
   });
 in {
   options = {
-    hosts = mkOption {
-      type = types.attrsOf hostSubmodule;
-    };
+    hosts = mkOption { type = types.attrsOf hostSubmodule; };
     defaultTags = mkOption {
       type = types.attrsOf types.bool;
       description = lib.mdDoc ''

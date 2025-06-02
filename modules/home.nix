@@ -40,7 +40,7 @@ in {
         extraSpecialArgs = { inherit host; };
         modules =
           builtins.addErrorContext "while importing home-manager definitions"
-          host._internal.homeModules ++ [ ./home ];
+          host._internal.homeModules;
       }) homeHosts;
   };
 }

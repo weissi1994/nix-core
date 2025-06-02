@@ -1,17 +1,14 @@
 { inputs, lib, ... }@args:
 let
-  inherit (lib)
-    filterAttrs
-    mkOption
-    types
-  ;
+  inherit (lib) filterAttrs mkOption types;
   appType = import ./lib/appType.nix args;
 
-  mkModuleOption = description: mkOption {
-    type = types.deferredModule;
-    default = { };
-    inherit description;
-  };
+  mkModuleOption = description:
+    mkOption {
+      type = types.deferredModule;
+      default = { };
+      inherit description;
+    };
 
   hostType = types.submodule ({ name, ... }: {
     options = {
@@ -45,6 +42,33 @@ let
           `nixpkgs`.
         '';
       };
+      desktop = mkOption {
+        type = lib.types.enum [ "sway" "hyprland" ];
+        default = null;
+        description = lib.mdDoc ''
+          The systems desktop env to provision.
+        '';
+      };
+      diskoOsDisk = lib.mkOption {
+        type = lib.types.str;
+        default = "/dev/vda";
+        description = "system root disk";
+      };
+      diskoOsLayout = lib.mkOption {
+        type = lib.types.enum [ "btrfs" "bcachefs" ];
+        default = "btrfs";
+        description = "supported are: btrfs, bcachefs";
+      };
+      diskoDataDisks = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
+        default = [ ];
+        description = "raid disks (exactly 2 expected)";
+      };
+      diskoDataLayout = lib.mkOption {
+        type = lib.types.enum [ "mdraid" ];
+        default = "mdraid";
+        description = "supported are: mdraid";
+      };
 
       nix-config = mkModuleOption ''
         additional configurations for nix-config-modules.
@@ -54,13 +78,12 @@ let
       '';
       nixpkgs = mkModuleOption "nixpkgs configurations";
       nixos = mkModuleOption "NixOS configurations";
+      disko = mkModuleOption "disko configurations";
       home = mkModuleOption "home-manager configurations";
       darwin = mkModuleOption "nix-darwin configurations";
     };
 
-    config = {
-      inherit name;
-    };
+    config = { inherit name; };
   });
 in {
   options = {

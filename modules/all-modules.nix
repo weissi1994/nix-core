@@ -3,8 +3,6 @@
   ./darwin.nix
   ./tags.nix
   ./home.nix
-  ./core
-  # ./home
   ./home-apps.nix
   ./hosts.nix
   ./modules.nix
@@ -12,6 +10,10 @@
   ./nixpkgs.nix
   ./apps/defaults.nix
   ./apps/single-user.nix
-  ./apps/getting-started.nix
   ./apps/home-manager.nix
+  ./apps/desktop.nix
+  ./apps/development.nix
+  ./apps/nvidia.nix
+  ./apps/server.nix
+  ./apps/sysadmin.nix
 ]
