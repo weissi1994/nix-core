@@ -1,12 +1,11 @@
-{ lib, inputs, ... }:
-{
+{ lib, self, ... }: {
   imports = [
     # 3rd party modules
-    inputs.home-manager.nixosModules.home-manager
-    inputs.stylix.nixosModules.stylix
-    inputs.nixvim.nixosModules.nixvim
-    inputs.hyprland.nixosModules.default
-    inputs.kolide-launcher.nixosModules.kolide-launcher
+    self.inputs.home-manager.nixosModules.home-manager
+    self.inputs.stylix.nixosModules.stylix
+    self.inputs.nixvim.nixosModules.nixvim
+    self.inputs.hyprland.nixosModules.default
+    self.inputs.kolide-launcher.nixosModules.kolide-launcher
     # Custom modules
     ./bootloader.nix
     ./hardware
