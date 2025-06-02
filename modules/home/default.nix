@@ -1,5 +1,4 @@
-{ ... }:
-{
+{ ... }: {
   imports = [
     ./nixos.nix
     ./console.nix
@@ -13,20 +12,9 @@
     ./nvim.nix # neovim editor
     # ./low-bat-notify.nix
     # from clone
-    # ./bat.nix # better cat command
-    # ./browser.nix # firefox based browser
-    # ./btop.nix # resouces monitor
-    # ./cava.nix # audio visualizer
-    # ./discord.nix # discord
     # ./fastfetch.nix # fetch tool
-    # ./fzf.nix # fuzzy finder
-    # ./gaming.nix # packages related to gaming
     # ./git.nix # version control
-    # ./gtk.nix # gtk theme
-    # ./kitty.nix # terminal
-    # ./lazygit.nix
     # ./hyprland # window manager
-    # ./nemo.nix # file manager
     # ./obsidian.nix
     # ./rofi.nix # launcher
     # ./scripts/scripts.nix # personal scripts
