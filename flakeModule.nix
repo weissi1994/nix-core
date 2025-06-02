@@ -10,7 +10,7 @@ in {
       default = { };
     };
 
-    core = mkOption {
+    nix-config = mkOption {
       type = types.submoduleWith {
         modules = (import ./modules/all-modules.nix)
           ++ [{ _module.args.inputs = inputs; }];
@@ -20,9 +20,9 @@ in {
 
   config = {
     flake = {
-      darwinConfigurations = config.core.darwinConfigurations;
-      homeConfigurations = config.core.homeConfigurations;
-      nixosConfigurations = config.core.nixosConfigurations;
+      darwinConfigurations = config.nix-config.darwinConfigurations;
+      homeConfigurations = config.nix-config.homeConfigurations;
+      nixosConfigurations = config.nix-config.nixosConfigurations;
     };
   };
 }

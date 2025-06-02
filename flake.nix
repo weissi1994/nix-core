@@ -88,6 +88,7 @@
       };
     in inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       flake.flakeModule = import ./flakeModule.nix;
+
       systems = import inputs.systems;
       perSystem = { pkgs, lib, ... }:
         let

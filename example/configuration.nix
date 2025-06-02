@@ -2,13 +2,13 @@
   # customize kernel version
   boot.kernelPackages = pkgs.linuxPackages_5_15;
 
-  # core = {
-  #   hostname = "test-vm";
-  #   username = "admin";
-  #   desktop = "sway";
-  #   os_disk = "/dev/vda";
-  #   ssh_keys = [ ];
-  # };
+  core = {
+    hostname = "test-vm";
+    username = "admin";
+    desktop = "sway";
+    os_disk = "/dev/vda";
+    ssh_keys = [ ];
+  };
 
   defaultTags = {
     # by default we will not install packages tagged with "development"

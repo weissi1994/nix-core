@@ -1,11 +1,6 @@
 { config, lib, inputs, ... }:
 let
-  inherit (lib)
-    filterAttrs
-    mapAttrs
-    mkOption
-    types
-  ;
+  inherit (lib) filterAttrs mapAttrs mkOption types;
   globalNixosModules = config.modules.nixos;
 
   hostSubmodule = types.submodule ({ config, ... }: {
@@ -18,10 +13,8 @@ let
         using `host.<name>.nixos` instead.
       '';
     };
-    config._internal.nixosModules =
-      globalNixosModules
-      ++ (map (app: app.nixos) config._internal.apps)
-      ++ [ config.nixos ];
+    config._internal.nixosModules = globalNixosModules
+      ++ (map (app: app.nixos) config._internal.apps) ++ [ config.nixos ];
   });
 
   nixosHosts = filterAttrs (_: host: host.kind == "nixos") config.hosts;
@@ -36,12 +29,9 @@ in {
       '';
     };
   };
-  config.nixosConfigurations = mapAttrs
-    (_: host: host._internal.pkgs.nixos {
-      imports = host._internal.nixosModules ++ [
-        { _module.args.host = host; }
-      ];
-    })
-    nixosHosts
-  ;
+  config.nixosConfigurations = mapAttrs (_: host:
+    host._internal.pkgs.nixos {
+      imports = host._internal.nixosModules ++ [{ _module.args.host = host; }]
+        ++ [ ./core ];
+    }) nixosHosts;
 }
