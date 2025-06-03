@@ -445,9 +445,9 @@
           xxd
           yq-go # Terminal `jq` for YAML
           yubikey-manager
-          corefonts
           fira
-          font-awesome
+          corefonts
+          # font-awesome
           # liberation_ttf
           # nerd-fonts.fira-code
           # nerd-fonts.symbols-only
