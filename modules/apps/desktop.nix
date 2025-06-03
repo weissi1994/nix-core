@@ -12,9 +12,7 @@
         else
           [ ./desktop/sway.nix ];
       in {
-        imports = desktopImports;
-        # ++ lib.optional (host.desktop == "sway") [ ./desktop/sway.nix ]
-        # ++ lib.optional (host.desktop == "hyprland") [ ./desktop/hyprland.nix ];
+        # imports = desktopImports;
 
         hardware = { graphics = { enable = true; }; };
         hardware.enableRedistributableFirmware = true;
@@ -165,10 +163,6 @@
           displayManager.autoLogin = {
             enable = true;
             user = "${host.username}";
-          };
-          displayManager = {
-            gdm.enable = true;
-            gdm.wayland = true;
           };
           libinput = {
             enable = true;

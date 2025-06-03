@@ -2,10 +2,11 @@
   description = "My Nix system configuration with nix-config-modules";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     flake-parts.url = "github:hercules-ci/flake-parts";
     core = {
-      url = "github:weissi1994/nix-core/dev";
+      # url = "github:weissi1994/nix-core/dev";
+      url = "path:./../";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
