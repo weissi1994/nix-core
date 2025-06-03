@@ -344,7 +344,7 @@
           fira-code-symbols
           fira-go
           victor-mono
-          joypixels
+          # joypixels
           font-awesome
           liberation_ttf
           noto-fonts
@@ -368,7 +368,7 @@
             emoji = [
               "Noto Color Emoji"
               "Twitter Color Emoji"
-              "JoyPixels"
+              # "JoyPixels"
               "Unifont"
               "Unifont Upper"
             ];
@@ -566,7 +566,7 @@
           noto-fonts-monochrome-emoji
           source-serif
           symbola
-          joypixels
+          # joypixels
           ubuntu_font_family
           victor-mono
           work-sans
