@@ -397,19 +397,16 @@
           hyperfine # Terminal benchmarking
           iperf3 # Terminal network benchmarking
           iw # Terminal WiFi info
-          # jiq # Modern Unix `jq`
-          # joypixels
-          # jpegoptim # Terminal JPEG optimizer
-          # lazygit # Terminal Git client
-          # liberation_ttf
-          # libva-utils # Terminal VAAPI info
-          # lurk # Modern Unix `strace`
-          # mdp # Terminal Markdown presenter
-          # moar # Modern Unix `less`
-          # mtdutils
-          # mtr # Modern Unix `traceroute`
-          # netdiscover # Modern Unix `arp`
-          # nethogs # Modern Unix `iftop`
+          lazygit # Terminal Git client
+          liberation_ttf
+          libva-utils # Terminal VAAPI info
+          lurk # Modern Unix `strace`
+          mdp # Terminal Markdown presenter
+          moar # Modern Unix `less`
+          mtdutils
+          mtr # Modern Unix `traceroute`
+          netdiscover # Modern Unix `arp`
+          nethogs # Modern Unix `iftop`
           # nixpkgs-review # Nix code review
           # nodePackages.prettier # Code format
           # noto-fonts-emoji
