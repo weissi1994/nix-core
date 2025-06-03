@@ -416,20 +416,20 @@
           # optipng # Terminal PNG optimizer
           # procs # Modern Unix `ps`
           # prusa-slicer
-          # pwgen # password generator
-          # quilt # Terminal patch manager
-          # ripgrep # Modern Unix `grep`
-          # rustfmt # Code format Rust
-          # shellcheck # Code lint Shell
-          # shfmt # Code format Shell
-          # source-serif
-          # speedtest-go # Terminal speedtest.net
-          # strongswan
-          # tldr # Modern Unix `man`
-          # tokei # Modern Unix `wc` for code
-          # ubuntu_font_family
-          # victor-mono
-          # vscode # GUI Code editor
+          pwgen # password generator
+          quilt # Terminal patch manager
+          ripgrep # Modern Unix `grep`
+          rustfmt # Code format Rust
+          shellcheck # Code lint Shell
+          shfmt # Code format Shell
+          source-serif
+          speedtest-go # Terminal speedtest.net
+          strongswan
+          tldr # Modern Unix `man`
+          tokei # Modern Unix `wc` for code
+          ubuntu_font_family
+          victor-mono
+          vscode # GUI Code editor
           wavemon # Terminal WiFi monitor
           work-sans
           yq-go # Terminal `jq` for YAML
