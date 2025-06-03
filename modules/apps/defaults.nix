@@ -444,41 +444,41 @@
           # fd # find replacement
           # file # Show file information
           # hevi # hex viewer
-          # htop
-          # mpv # video player
-          # ncdu # disk space
-          # programmer-calculator
-          # shfmt # bash formatter
-          # swappy # snapshot editing tool
-          # xdg-utils
-          # xxd
-          # fastfetch
-          # devenv
-          # cloudflared
-          # efibootmgr
-          # fishPlugins.done
-          # fishPlugins.fzf
-          # fishPlugins.forgit
-          # fishPlugins.hydro
-          # fzf
+          htop
+          mpv # video player
+          ncdu # disk space
+          programmer-calculator
+          shfmt # bash formatter
+          swappy # snapshot editing tool
+          xdg-utils
+          xxd
+          fastfetch
+          devenv
+          cloudflared
+          efibootmgr
+          fishPlugins.done
+          fishPlugins.fzf
+          fishPlugins.forgit
+          fishPlugins.hydro
+          fzf
           # fishPlugins.grc
-          grc
-          viddy
-          just
-          tmux
-          gdu
-          nerd-fonts.fira-code
-          nerd-fonts.symbols-only
-          corefonts
-          fira
-          font-awesome
-          liberation_ttf
-          noto-fonts-emoji
-          noto-fonts-monochrome-emoji
-          source-serif
-          symbola
-          work-sans
-          colordiff
+          # grc
+          # viddy
+          # just
+          # tmux
+          # gdu
+          # nerd-fonts.fira-code
+          # nerd-fonts.symbols-only
+          # corefonts
+          # fira
+          # font-awesome
+          # liberation_ttf
+          # noto-fonts-emoji
+          # noto-fonts-monochrome-emoji
+          # source-serif
+          # symbola
+          # work-sans
+          # colordiff
 
           cbonsai # terminal screensaver
           cmatrix
