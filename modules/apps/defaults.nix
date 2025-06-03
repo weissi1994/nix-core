@@ -402,7 +402,6 @@
           fishPlugins.forgit
           fishPlugins.fzf
           fishPlugins.grc
-          fishPlugins.grc
           fishPlugins.hydro
           font-awesome
           fzf
