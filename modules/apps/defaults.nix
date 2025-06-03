@@ -338,6 +338,16 @@
           };
         };
       };
+      nix = {
+        settings = {
+          auto-optimise-store = true;
+          experimental-features = [ "nix-command" "flakes" ];
+          # Avoid unwanted garbage collection when using nix-direnv
+          keep-outputs = true;
+          keep-derivations = true;
+          warn-dirty = false;
+        };
+      };
       programs.neovim = {
         defaultEditor = true;
         viAlias = true;
@@ -347,6 +357,16 @@
       services.ssh-agent.enable = true;
       home = {
         file.".face".source = lib.mkDefault ./face.png;
+        packages = with pkgs; [
+          gopass
+          gopass-hibp
+          gopass-summon-provider
+          summon
+          asciinema # Terminal recorder
+          black # Code format Python
+          bmon # Modern Unix `iftop`
+          borgmatic
+        ];
         sessionPath = [ "$HOME/.local/bin" ];
         sessionVariables = {
           EDITOR = "nvim";
