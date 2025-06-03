@@ -364,12 +364,31 @@
       home = {
         file.".face".source = lib.mkDefault ./face.png;
         packages = with pkgs; [
+          # corefonts
+          # fira
+          # fishPlugins.fzf-fish
+          # font-awesome
+          # liberation_ttf
+          # nerd-fonts.fira-code
+          # nerd-fonts.symbols-only
+          # nixpkgs-review # Nix code review
+          # nodePackages.prettier # Code format
+          # noto-fonts-emoji
+          # noto-fonts-emoji
+          # noto-fonts-monochrome-emoji
+          # source-serif
+          # symbola
+          # ubuntu_font_family
+          # victor-mono
+          # work-sans
           asciinema # Terminal recorder
           bitwise # cli tool for bit / hex manipulation
           black # Code format Python
           bmon # Modern Unix `iftop`
           borgmatic
+          cava # for cli equealizer #unixporn
           cbonsai # terminal screensaver
+          choose # modern cut
           chroma # Code syntax highlighter
           clinfo # Terminal OpenCL info
           cloudflared
@@ -395,19 +414,25 @@
           file # Show file information
           fira-code
           fira-go
+          fish
           fishPlugins.done
           fishPlugins.forgit
           fishPlugins.fzf
+          fishPlugins.fzf
+          fishPlugins.grc
           fishPlugins.grc
           fishPlugins.hydro
           font-awesome
           fzf
+          fzf
           gdu
           glow # Terminal Markdown renderer
+          gnumake
           gopass
           gopass-hibp
           gopass-summon-provider
           gping # Modern Unix `ping`
+          grc
           grc
           hcloud
           hevi # hex viewer
@@ -417,6 +442,7 @@
           hyperfine # Terminal benchmarking
           iperf3 # Terminal network benchmarking
           iw # Terminal WiFi info
+          jless # json less
           just
           lazygit # Terminal Git client
           liberation_ttf
@@ -431,42 +457,29 @@
           netdiscover # Modern Unix `arp`
           nethogs # Modern Unix `iftop`
           pipes # terminal screensaver
+          procs # Modern Unix `ps`
           programmer-calculator
+          pwgen # password generator
+          ripgrep # Modern Unix `grep`
+          sd # modern sed
+          seahorse
           shfmt # bash formatter
           sl
+          speedtest-go # Terminal speedtest.net
           summon
           swappy # snapshot editing tool
+          tldr # Modern Unix `man`
           tmux
+          tokei # Modern Unix `wc` for code
           tty-clock # cli clock
           viddy
           wavemon # Terminal WiFi monitor
           work-sans
           xdg-utils
           xxd
+          yank # Yank terminal output to clipboard.
           yq-go # Terminal `jq` for YAML
           yubikey-manager
-          # fira
-          # corefonts
-          # font-awesome
-          # liberation_ttf
-          # nerd-fonts.fira-code
-          # nerd-fonts.symbols-only
-          # nixpkgs-review # Nix code review
-          # nodePackages.prettier # Code format
-          # noto-fonts-emoji
-          # noto-fonts-emoji
-          # noto-fonts-monochrome-emoji
-          # source-serif
-          # symbola
-          # ubuntu_font_family
-          # victor-mono
-          # work-sans
-          procs # Modern Unix `ps`
-          pwgen # password generator
-          ripgrep # Modern Unix `grep`
-          speedtest-go # Terminal speedtest.net
-          tldr # Modern Unix `man`
-          tokei # Modern Unix `wc` for code
         ];
         sessionPath = [ "$HOME/.local/bin" ];
         sessionVariables = {

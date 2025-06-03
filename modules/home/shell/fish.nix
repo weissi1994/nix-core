@@ -1,19 +1,5 @@
 { pkgs, ... }: {
-  home.packages = with pkgs; [
-    fish
-    fishPlugins.fzf
-    # fishPlugins.fzf-fish
-    fzf
-    fishPlugins.grc
-    grc
-    cava # for cli equealizer #unixporn
-    jless # json less
-    sd # modern sed
-    choose # modern cut
-    gnumake
-    yank # Yank terminal output to clipboard.
-    seahorse
-  ];
+  home.packages = with pkgs; [ ];
 
   programs = {
     nix-index = {
