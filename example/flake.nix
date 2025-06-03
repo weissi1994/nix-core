@@ -12,7 +12,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    emacs-overlay.url = "github:nix-community/emacs-overlay";
 
     stylix = {
       url = "github:danth/stylix/release-25.05";

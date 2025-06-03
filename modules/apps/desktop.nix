@@ -6,6 +6,7 @@
   apps.desktop-config = {
     tags = [ "desktop" ];
     nixos = { host, pkgs, lib, ... }: {
+      imports = [ inputs.stylix.nixosModules.stylix ];
       hardware = { graphics = { enable = true; }; };
       hardware.enableRedistributableFirmware = true;
       services.opensnitch = {
