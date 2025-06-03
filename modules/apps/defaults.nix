@@ -433,17 +433,17 @@
           # ubuntu_font_family
           # victor-mono
           # vscode # GUI Code editor
-          # wavemon # Terminal WiFi monitor
-          # work-sans
-          # yq-go # Terminal `jq` for YAML
-          # yubikey-manager
-          # bitwise # cli tool for bit / hex manipulation
-          # dysk # disk information
-          # eza # ls replacement
-          # entr # perform action when file change
-          # fd # find replacement
-          # file # Show file information
-          # hevi # hex viewer
+          wavemon # Terminal WiFi monitor
+          work-sans
+          yq-go # Terminal `jq` for YAML
+          yubikey-manager
+          bitwise # cli tool for bit / hex manipulation
+          dysk # disk information
+          eza # ls replacement
+          entr # perform action when file change
+          fd # find replacement
+          file # Show file information
+          hevi # hex viewer
           htop
           mpv # video player
           ncdu # disk space
