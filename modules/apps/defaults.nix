@@ -469,13 +469,13 @@
           # corefonts
           # fira
           # font-awesome
-          # liberation_ttf
-          # noto-fonts-emoji
-          # noto-fonts-monochrome-emoji
-          # source-serif
-          # symbola
-          # work-sans
-          # colordiff
+          liberation_ttf
+          noto-fonts-emoji
+          noto-fonts-monochrome-emoji
+          source-serif
+          symbola
+          work-sans
+          colordiff
 
           cbonsai # terminal screensaver
           cmatrix
