@@ -43,7 +43,7 @@ let
         '';
       };
       desktop = mkOption {
-        type = lib.types.enum [ "sway" "hyprland" ];
+        type = lib.types.enum [ "sway" "hyprland" null ];
         default = null;
         description = lib.mdDoc ''
           The systems desktop env to provision.
