@@ -464,8 +464,9 @@
         };
 
         associations = with lib.lists;
-          listToAttrs (flatten (mapAttrsToList
-            (key: map (type: attrsets.nameValuePair type defaultApps."${key}"))
+          lib.listToAttrs (lib.flatten (lib.mapAttrsToList (key:
+            lib.map
+            (type: lib.attrsets.nameValuePair type defaultApps."${key}"))
             mimeMap));
       in {
         xdg = {
