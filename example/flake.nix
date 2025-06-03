@@ -39,6 +39,12 @@
             (pkgs.nixosOptionsDoc { options = eval.options; }).optionsAsciiDoc;
         };
 
+      # To import existing configurations globally:
+      # modules = {
+      #   nixos = [ ./configuration.nix ];
+      #   home-manager = [ ./home.nix ];
+      # };
+
       nix-config = {
         # Tags are described below in more detail: You can use these as an
         # alternative to enabling/disabling applications.
@@ -67,7 +73,12 @@
           homeDirectory = "/home/admin";
           desktop = null;
 
-          nixos = { imports = [ ./configuration.nix ]; };
+          nixos = {
+            imports = [
+              # ./hardware-configuration.nix
+              ./configuration.nix
+            ];
+          };
 
           tags = {
             # now we tell Nix that our host needs any apps marked as
