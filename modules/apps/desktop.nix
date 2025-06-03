@@ -4,9 +4,9 @@
     nixos = { host, pkgs, lib, ... }: {
       hardware = { graphics = { enable = true; }; };
       hardware.enableRedistributableFirmware = true;
-      nixpkgs.config.allowUnfreePredicate = pkg:
-        builtins.elem (lib.getName pkg) [ "joypixels" ];
-      nixpkgs.config.joypixels.acceptLicense = true;
+      # nixpkgs.config.allowUnfreePredicate = pkg:
+      #   builtins.elem (lib.getName pkg) [ "joypixels" ];
+      # nixpkgs.config.joypixels.acceptLicense = true;
       services.opensnitch = {
         enable = true;
         settings = {
