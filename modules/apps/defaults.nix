@@ -401,7 +401,6 @@
           fishPlugins.done
           fishPlugins.forgit
           fishPlugins.fzf
-          fishPlugins.fzf
           fishPlugins.grc
           fishPlugins.grc
           fishPlugins.hydro
