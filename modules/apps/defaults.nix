@@ -793,7 +793,7 @@
           #   file = "zsh-syntax-highlighting.zsh";
           # }
             ];
-          initExtra = # zsh
+          initContent = # zsh
             ''
               source ~/.zsh/plugins/powerlevel10k-config
               function set-title-precmd() {
