@@ -36,7 +36,7 @@ let
       };
       system = mkOption {
         type = types.str;
-        default = null;
+        default = "x86_64-linux";
         description = lib.mdDoc ''
           The system that this host runs on. This is used to initialize
           `nixpkgs`.
