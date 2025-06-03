@@ -33,7 +33,6 @@ in {
     host._internal.pkgs.nixos {
       imports = host._internal.nixosModules ++ [{ _module.args.host = host; }]
         ++ [
-          inputs.stylix.nixosModules.stylix
           inputs.nixvim.nixosModules.nixvim
           inputs.hyprland.nixosModules.default
         ];
