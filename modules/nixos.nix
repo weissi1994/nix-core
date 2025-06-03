@@ -31,7 +31,6 @@ in {
   };
   config.nixosConfigurations = mapAttrs (_: host:
     host._internal.pkgs.nixos {
-      imports = host._internal.nixosModules ++ [{ _module.args.host = host; }]
-        ++ [ inputs.hyprland.nixosModules.default ];
+      imports = host._internal.nixosModules ++ [{ _module.args.host = host; }];
     }) nixosHosts;
 }

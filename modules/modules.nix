@@ -1,11 +1,6 @@
-{ lib, ... }:
-let
-  inherit (lib)
-    mkOption
-    types
-  ;
-in
-{
+{ lib, inputs, ... }:
+let inherit (lib) mkOption types;
+in {
   options = {
     modules = {
       darwin = mkOption {
@@ -17,7 +12,11 @@ in
       };
       nixos = mkOption {
         type = types.listOf types.deferredModule;
-        default = [ ];
+        default = [
+          inputs.stylix.nixosModules.stylix
+          inputs.nixvim.nixosModules.nixvim
+          inputs.hyprland.nixosModules.default
+        ];
         description = ''
           Additional global modules to add to each NixOS configuration. Useful
           for extending NixOS in the standard fashion.
