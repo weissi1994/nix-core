@@ -554,7 +554,6 @@
           # fonts
           corefonts
           fira
-          fishPlugins.fzf-fish
           font-awesome
           liberation_ttf
           nerd-fonts.fira-code
