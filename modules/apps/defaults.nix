@@ -461,15 +461,12 @@
           # ubuntu_font_family
           # victor-mono
           # work-sans
-          # nurl # Nix URL fetcher
-          # nyancat # Terminal rainbow spewing feline
           procs # Modern Unix `ps`
           pwgen # password generator
           ripgrep # Modern Unix `grep`
           speedtest-go # Terminal speedtest.net
-          # tldr # Modern Unix `man`
+          tldr # Modern Unix `man`
           tokei # Modern Unix `wc` for code
-          # vscode # GUI Code editor
         ];
         sessionPath = [ "$HOME/.local/bin" ];
         sessionVariables = {
