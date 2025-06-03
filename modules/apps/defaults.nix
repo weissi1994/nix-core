@@ -364,6 +364,22 @@
       home = {
         file.".face".source = lib.mkDefault ./face.png;
         packages = with pkgs; [
+          # corefonts
+          # fira
+          # font-awesome
+          # liberation_ttf
+          # nerd-fonts.fira-code
+          # nerd-fonts.symbols-only
+          # nixpkgs-review # Nix code review
+          # nodePackages.prettier # Code format
+          # noto-fonts-emoji
+          # noto-fonts-emoji
+          # noto-fonts-monochrome-emoji
+          # source-serif
+          # symbola
+          # ubuntu_font_family
+          # victor-mono
+          # work-sans
           asciinema # Terminal recorder
           bitwise # cli tool for bit / hex manipulation
           black # Code format Python
@@ -430,51 +446,34 @@
           ncdu # disk space
           netdiscover # Modern Unix `arp`
           nethogs # Modern Unix `iftop`
+          nurl # Nix URL fetcher
+          nyancat # Terminal rainbow spewing feline
           pipes # terminal screensaver
+          procs # Modern Unix `ps`
           programmer-calculator
+          pwgen # password generator
+          quilt # Terminal patch manager
+          ripgrep # Modern Unix `grep`
+          rustfmt # Code format Rust
+          shellcheck # Code lint Shell
+          shfmt # Code format Shell
           shfmt # bash formatter
           sl
+          speedtest-go # Terminal speedtest.net
           summon
           swappy # snapshot editing tool
+          tldr # Modern Unix `man`
           tmux
+          tokei # Modern Unix `wc` for code
           tty-clock # cli clock
           viddy
+          vscode # GUI Code editor
           wavemon # Terminal WiFi monitor
           work-sans
           xdg-utils
           xxd
           yq-go # Terminal `jq` for YAML
           yubikey-manager
-          fira
-          corefonts
-          # font-awesome
-          # liberation_ttf
-          # nerd-fonts.fira-code
-          # nerd-fonts.symbols-only
-          # nixpkgs-review # Nix code review
-          # nodePackages.prettier # Code format
-          # noto-fonts-emoji
-          # noto-fonts-emoji
-          # noto-fonts-monochrome-emoji
-          # nurl # Nix URL fetcher
-          # nyancat # Terminal rainbow spewing feline
-          # procs # Modern Unix `ps`
-          # pwgen # password generator
-          # quilt # Terminal patch manager
-          # ripgrep # Modern Unix `grep`
-          # rustfmt # Code format Rust
-          # shellcheck # Code lint Shell
-          # shfmt # Code format Shell
-          # source-serif
-          # speedtest-go # Terminal speedtest.net
-          # strongswan
-          # symbola
-          # tldr # Modern Unix `man`
-          # tokei # Modern Unix `wc` for code
-          # ubuntu_font_family
-          # victor-mono
-          # vscode # GUI Code editor
-          # work-sans
         ];
         sessionPath = [ "$HOME/.local/bin" ];
         sessionVariables = {
