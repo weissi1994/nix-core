@@ -458,12 +458,12 @@
           fishPlugins.forgit
           fishPlugins.hydro
           fzf
-          # fishPlugins.grc
-          # grc
-          # viddy
-          # just
-          # tmux
-          # gdu
+          fishPlugins.grc
+          grc
+          viddy
+          just
+          tmux
+          gdu
           # nerd-fonts.fira-code
           # nerd-fonts.symbols-only
           # corefonts
@@ -475,7 +475,7 @@
           # source-serif
           # symbola
           # work-sans
-          # colordiff
+          colordiff
 
           cbonsai # terminal screensaver
           cmatrix
