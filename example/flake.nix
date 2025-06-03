@@ -13,6 +13,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    stylix = {
+      url = "github:danth/stylix/release-25.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, ... }@inputs:
@@ -51,6 +56,7 @@
         defaultTags = {
           # by default we will not install packages tagged with "development"
           development = false;
+          desktop = false;
         };
 
         hosts.test-vm = {
@@ -68,6 +74,7 @@
           # you can customize your home directory, otherwise defaults to
           # `/home/<username>`
           homeDirectory = "/home/admin";
+          desktop = null;
 
           nixos = { imports = [ ./configuration.nix ]; };
 
