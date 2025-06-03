@@ -222,11 +222,11 @@
         "systems": "systems_7"
       },
       "locked": {
-        "lastModified": 1748909564,
-        "narHash": "sha256-uBFSQ/gwJnvIivbSNzXTOMD/x1TRbHZjjZjmfgh8who=",
+        "lastModified": 1748910005,
+        "narHash": "sha256-UQde8t+Clzm/xfpDoTCUJXNY1tq+Oqer0vyut4+cIPA=",
         "owner": "weissi1994",
         "repo": "nix-core",
-        "rev": "39830718b45107d441115429443a2df21222c865",
+        "rev": "d3f490a0868fe2ee462f43d58a3b9ada93545417",
         "type": "github"
       },
       "original": {
