@@ -1,8 +1,8 @@
-{ inputs, ... }: {
+{ inputs, lib, ... }: {
   apps.server-config = {
     tags = [ "server" ];
     nixos = { host, pkgs, ... }: { };
     home = { };
   };
-  defaultTags = { server = false; };
+  defaultTags = { server = lib.mkDefault false; };
 }

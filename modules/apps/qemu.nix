@@ -1,4 +1,4 @@
-{ inputs, ... }: {
+{ inputs, lib, ... }: {
   apps.qemu-config = {
     tags = [ "qemu" ];
     nixos = { host, pkgs, ... }: {
@@ -33,5 +33,5 @@
     };
     home = { };
   };
-  defaultTags = { qemu = false; };
+  defaultTags = { qemu = lib.mkDefault false; };
 }

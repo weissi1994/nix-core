@@ -1,4 +1,4 @@
-{ inputs, ... }: {
+{ inputs, lib, ... }: {
   apps.disko-config = {
     tags = [ "disko" ];
     nixos = { host, lib, ... }:
@@ -149,5 +149,5 @@
         };
       };
   };
-  defaultTags = { disko = false; };
+  defaultTags = { disko = lib.mkDefault false; };
 }

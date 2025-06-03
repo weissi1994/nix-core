@@ -1,8 +1,4 @@
-# Provides reasonable defaults to get started... mainly
-# stuff to ensure your system can reliably rebuild this flake
-# in the future.
-
-{ inputs, ... }: {
+{ inputs, lib, ... }: {
   apps.desktop-config = {
     tags = [ "desktop" ];
     nixos = { host, pkgs, lib, ... }:
@@ -401,5 +397,5 @@
       };
     home = { };
   };
-  defaultTags = { desktop = true; };
+  defaultTags = { desktop = lib.mkDefault true; };
 }

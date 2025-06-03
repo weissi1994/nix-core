@@ -2,7 +2,7 @@
 # stuff to ensure your system can reliably rebuild this flake
 # in the future.
 
-{ inputs, ... }: {
+{ inputs, lib, ... }: {
   apps.host-config = {
     tags = [ "defaults" ];
     nixos = { host, pkgs, lib, config, ... }: {
@@ -331,5 +331,5 @@
     home = { home.stateVersion = "25.05"; };
     darwin = { system.stateVersion = 5; };
   };
-  defaultTags = { defaults = true; };
+  defaultTags = { defaults = lib.mkDefault true; };
 }

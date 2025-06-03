@@ -91,6 +91,6 @@ in {
         home = { inherit (host) username homeDirectory; };
       };
     };
-    defaultTags = { single-user = true; };
+    defaultTags = { single-user = lib.mkDefault true; };
   };
 }

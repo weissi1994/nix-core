@@ -1,7 +1,7 @@
 # We need some home-manager integrations for users on NixOS
 # systems. This is optionally enabled when you want to use
 # home-manger.
-{ inputs, ... }: {
+{ inputs, lib, ... }: {
   config = {
     apps.hm-single-user-integration = {
       enablePredicate = { host, ... }:
@@ -30,6 +30,6 @@
       };
     };
 
-    defaultTags.home-manager = true;
+    defaultTags.home-manager = lib.mkDefault true;
   };
 }

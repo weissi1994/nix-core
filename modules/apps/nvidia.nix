@@ -2,11 +2,11 @@
 # stuff to ensure your system can reliably rebuild this flake
 # in the future.
 
-{ inputs, ... }: {
+{ inputs, lib, ... }: {
   apps.nvidia-config = {
     tags = [ "nvidia" ];
     nixos = { host, pkgs, ... }: { };
     home = { };
   };
-  defaultTags = { nvidia = false; };
+  defaultTags = { nvidia = lib.mkDefault false; };
 }

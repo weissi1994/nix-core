@@ -20,7 +20,7 @@
     };
   };
 
-  outputs = { self, ... }@inputs:
+  outputs = { self, lib, ... }@inputs:
     let
       testVM = inputs.nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -83,7 +83,7 @@
             # 'development'. This enables simplified host configurations
             # while also empowering users to still fully customize hosts
             # when needed.
-            development = true;
+            development = lib.mkDefault true;
           };
         };
       };

@@ -1,4 +1,4 @@
-{ inputs, ... }: {
+{ inputs, lib, ... }: {
   apps.gaming-config = {
     tags = [ "gaming" ];
     nixos = { host, pkgs, ... }: {
@@ -28,5 +28,5 @@
     };
     home = { };
   };
-  defaultTags = { gaming = false; };
+  defaultTags = { gaming = lib.mkDefault false; };
 }
