@@ -480,11 +480,11 @@
           # work-sans
           # colordiff
 
-          # cbonsai # terminal screensaver
-          # cmatrix
-          # pipes # terminal screensaver
-          # sl
-          # tty-clock # cli clock
+          cbonsai # terminal screensaver
+          cmatrix
+          pipes # terminal screensaver
+          sl
+          tty-clock # cli clock
         ];
         sessionPath = [ "$HOME/.local/bin" ];
         sessionVariables = {
