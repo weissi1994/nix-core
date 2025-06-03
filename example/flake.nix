@@ -13,6 +13,42 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     emacs-overlay.url = "github:nix-community/emacs-overlay";
+
+    stylix = {
+      url = "github:danth/stylix/release-25.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    hyprland.url = "github:hyprwm/Hyprland";
+
+    hypr-contrib = {
+      url = "github:hyprwm/contrib";
+      inputs.nixpkgs.follows = "hyprland/nixpkgs";
+    };
+
+    hyprpicker = {
+      url = "github:hyprwm/hyprpicker";
+      inputs.nixpkgs.follows = "hyprland/nixpkgs";
+    };
+
+    hyprlock = {
+      url = "github:hyprwm/hyprlock";
+      inputs = {
+        hyprgraphics.follows = "hyprland/hyprgraphics";
+        hyprlang.follows = "hyprland/hyprlang";
+        hyprutils.follows = "hyprland/hyprutils";
+        nixpkgs.follows = "hyprland/nixpkgs";
+        systems.follows = "hyprland/systems";
+      };
+    };
+
+    nixvim = {
+      url = "github:nix-community/nixvim/nixos-25.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nova.url = "git+https://gitlab.n0de.biz/daniel/nvim-config?ref=main";
+    nova.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, ... }@inputs:

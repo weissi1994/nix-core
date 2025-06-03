@@ -38,11 +38,6 @@
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-    stylix = {
-      url = "github:danth/stylix/release-25.05";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     hyprland.url = "github:hyprwm/Hyprland";
 
     hypr-contrib = {
@@ -64,11 +59,6 @@
         nixpkgs.follows = "hyprland/nixpkgs";
         systems.follows = "hyprland/systems";
       };
-    };
-
-    nixvim = {
-      url = "github:nix-community/nixvim/nixos-25.05";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nova.url = "git+https://gitlab.n0de.biz/daniel/nvim-config?ref=main";

@@ -32,10 +32,6 @@ in {
   config.nixosConfigurations = mapAttrs (_: host:
     host._internal.pkgs.nixos {
       imports = host._internal.nixosModules ++ [{ _module.args.host = host; }]
-        ++ [
-          inputs.stylix.nixosModules.stylix
-          inputs.nixvim.nixosModules.nixvim
-          inputs.hyprland.nixosModules.default
-        ];
+        ++ [ inputs.hyprland.nixosModules.default ];
     }) nixosHosts;
 }
