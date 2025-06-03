@@ -13,42 +13,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    stylix = {
-      url = "github:danth/stylix/release-25.05";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    hyprland.url = "github:hyprwm/Hyprland";
-
-    hypr-contrib = {
-      url = "github:hyprwm/contrib";
-      inputs.nixpkgs.follows = "hyprland/nixpkgs";
-    };
-
-    hyprpicker = {
-      url = "github:hyprwm/hyprpicker";
-      inputs.nixpkgs.follows = "hyprland/nixpkgs";
-    };
-
-    hyprlock = {
-      url = "github:hyprwm/hyprlock";
-      inputs = {
-        hyprgraphics.follows = "hyprland/hyprgraphics";
-        hyprlang.follows = "hyprland/hyprlang";
-        hyprutils.follows = "hyprland/hyprutils";
-        nixpkgs.follows = "hyprland/nixpkgs";
-        systems.follows = "hyprland/systems";
-      };
-    };
-
-    nixvim = {
-      url = "github:nix-community/nixvim/nixos-25.05";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nova.url = "git+https://gitlab.n0de.biz/daniel/nvim-config?ref=main";
-    nova.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, ... }@inputs:
@@ -56,8 +20,7 @@
       testVM = inputs.nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs.inputs = inputs;
-        modules =
-          [ self.nixosConfigurations.test-vm ./example/configuration.nix ];
+        modules = [ self.nixosConfigurations.test-vm ];
       };
     in inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       # import core-modules
@@ -105,6 +68,9 @@
           # you can customize your home directory, otherwise defaults to
           # `/home/<username>`
           homeDirectory = "/home/admin";
+
+          nixos = { imports = [ ./configuration.nix ]; };
+
           tags = {
             # now we tell Nix that our host needs any apps marked as
             # 'development'. This enables simplified host configurations
