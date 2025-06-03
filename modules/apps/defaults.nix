@@ -372,31 +372,31 @@
           black # Code format Python
           bmon # Modern Unix `iftop`
           borgmatic
-          # chroma # Code syntax highlighter
-          # clinfo # Terminal OpenCL info
-          # czkawka # find duplicated files
-          # dconf2nix # Nix code from Dconf files
-          # debootstrap # Terminal Debian installer
-          # diffr # Modern Unix `diff`
-          # difftastic # Modern Unix `diff`
-          # dogdns # Modern Unix `dig`
-          # du-dust # Modern Unix `du`
-          # dua # Modern Unix `du`
-          # duf # Modern Unix `df`
-          # entr # Modern Unix `watch`
-          # fast-cli # Terminal fast.com
-          # fd # Modern Unix `find`
-          # fira-code
-          # fira-go
-          # font-awesome
-          # glow # Terminal Markdown renderer
-          # gping # Modern Unix `ping`
-          # hcloud
-          # hexyl # Modern Unix `hexedit`
-          # httpie # Terminal HTTP client
-          # hyperfine # Terminal benchmarking
-          # iperf3 # Terminal network benchmarking
-          # iw # Terminal WiFi info
+          chroma # Code syntax highlighter
+          clinfo # Terminal OpenCL info
+          czkawka # find duplicated files
+          dconf2nix # Nix code from Dconf files
+          debootstrap # Terminal Debian installer
+          diffr # Modern Unix `diff`
+          difftastic # Modern Unix `diff`
+          dogdns # Modern Unix `dig`
+          du-dust # Modern Unix `du`
+          dua # Modern Unix `du`
+          duf # Modern Unix `df`
+          entr # Modern Unix `watch`
+          fast-cli # Terminal fast.com
+          fd # Modern Unix `find`
+          fira-code
+          fira-go
+          font-awesome
+          glow # Terminal Markdown renderer
+          gping # Modern Unix `ping`
+          hcloud
+          hexyl # Modern Unix `hexedit`
+          httpie # Terminal HTTP client
+          hyperfine # Terminal benchmarking
+          iperf3 # Terminal network benchmarking
+          iw # Terminal WiFi info
           # jiq # Modern Unix `jq`
           # joypixels
           # jpegoptim # Terminal JPEG optimizer
