@@ -10,6 +10,8 @@
   ./tags.nix
   ./apps/defaults.nix
   ./apps/desktop.nix
+  ./apps/desktop/sway.nix
+  ./apps/desktop/hyprland.nix
   ./apps/development.nix
   ./apps/disko.nix
   ./apps/gaming.nix
