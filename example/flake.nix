@@ -10,7 +10,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -18,16 +18,13 @@
       url = "github:danth/stylix/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nova.url = "git+https://gitlab.n0de.biz/daniel/nvim-config?ref=main";
+    nova.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, lib, ... }@inputs:
-    let
-      testVM = inputs.nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs.inputs = inputs;
-        modules = [ self.nixosConfigurations.test-vm ];
-      };
-    in inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+  outputs = { self, ... }@inputs:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       # import core-modules
       imports = [ inputs.core.flakeModule ];
 
@@ -40,14 +37,6 @@
         in {
           packages.docs =
             (pkgs.nixosOptionsDoc { options = eval.options; }).optionsAsciiDoc;
-
-          # ssh -oUserKnownHostsFile=/dev/null -oStrictHostKeyChecking=no admin@localhost -p 2221
-          apps = {
-            default = {
-              type = "app";
-              program = "${testVM.config.system.build.vm}/bin/run-nixos-vm";
-            };
-          };
         };
 
       nix-config = {
@@ -59,7 +48,9 @@
           desktop = false;
         };
 
-        hosts.test-vm = {
+        # nix build .#nixosConfigurations.test.vm
+        # ssh -oUserKnownHostsFile=/dev/null -oStrictHostKeyChecking=no admin@localhost -p 2221
+        hosts.test = {
           # host types can be "nixos" and "home-manager"
           # "nixos" is for systems that build NixOS; home-manager is bundled with it
           # "home-manager" is for systems that install just HM (for example, darwin etc)
@@ -83,7 +74,7 @@
             # 'development'. This enables simplified host configurations
             # while also empowering users to still fully customize hosts
             # when needed.
-            development = lib.mkDefault true;
+            development = true;
           };
         };
       };

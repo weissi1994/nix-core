@@ -84,10 +84,10 @@
       };
       services.resolved = {
         enable = true;
-        dnssec = "yes";
+        dnssec = "true";
         domains = [ "~." ];
         fallbackDns = [ "1.1.1.1" "8.8.8.8" ];
-        dnsovertls = "no";
+        dnsovertls = "false";
       };
       programs.nh = {
         enable = true;
@@ -296,16 +296,6 @@
         doc.enable = lib.mkDefault false;
       };
 
-      nixpkgs = {
-        # Configure your nixpkgs instance
-        config = {
-          # Disable if you don't want unfree packages
-          allowUnfree = true;
-          # Accept the joypixels license
-          joypixels.acceptLicense = true;
-        };
-      };
-
       programs = {
         nix-ld.enable = true;
         zsh = {
@@ -322,8 +312,8 @@
       services.fwupd.enable = true;
 
       systemd.tmpfiles.rules = [
-        "d /nix/var/nix/profiles/per-user/${config.core.username} 0755 ${config.core.username} root"
-        "d /mnt/${config.core.username} 0755 ${config.core.username} users"
+        "d /nix/var/nix/profiles/per-user/${host.username} 0755 ${host.username} root"
+        "d /mnt/${host.username} 0755 ${host.username} ${host.username}"
       ];
 
       system.stateVersion = "25.05";
