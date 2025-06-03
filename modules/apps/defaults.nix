@@ -338,6 +338,30 @@
           };
         };
       };
+      programs.neovim = {
+        defaultEditor = true;
+        viAlias = true;
+        vimAlias = true;
+      };
+
+      services.ssh-agent.enable = true;
+      home = {
+        file.".face".source = lib.mkDefault ./face.png;
+        sessionPath = [ "$HOME/.local/bin" ];
+        sessionVariables = {
+          EDITOR = "nvim";
+          SYSTEMD_EDITOR = "nvim";
+          VISUAL = "nvim";
+          NH_FLAKE = "${config.home.homeDirectory}/dev/nix";
+          PAGER = "moar";
+        };
+        activation.report-changes = config.lib.dag.entryAnywhere ''
+          ${pkgs.nvd}/bin/nvd diff $oldGenPath $newGenPath
+        '';
+      };
+      systemd.user.tmpfiles.rules = [
+        "d ${config.home.homeDirectory}/.ssh/sessions 0755 ${host.username} ${host.username} - -"
+      ];
 
       programs = {
         git = {
