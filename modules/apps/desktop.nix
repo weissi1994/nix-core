@@ -6,7 +6,10 @@
   apps.desktop-config = {
     tags = [ "desktop" ];
     nixos = { host, pkgs, lib, ... }: {
-      imports = [ inputs.stylix.nixosModules.stylix ];
+      imports = [ inputs.stylix.nixosModules.stylix ]
+        ++ lib.optional (host.desktop == "sway") [ ./desktop/sway.nix ]
+        ++ lib.optional (host.desktop == "hyprland") [ ./desktop/hyprland.nix ];
+
       hardware = { graphics = { enable = true; }; };
       hardware.enableRedistributableFirmware = true;
       services.opensnitch = {
@@ -311,8 +314,6 @@
 
         polarity = "dark";
 
-        base16Scheme =
-          lib.mkForce "${pkgs.base16-schemes}/share/themes/ayu-dark.yaml";
         targets.plymouth.logo = pkgs.fetchurl {
           url =
             "https://raw.githubusercontent.com/NixOS/nixos-artwork/f84c13adae08e860a7c3f76ab3a9bef916d276cc/logo/nix-snowflake-colours.svg";
