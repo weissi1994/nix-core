@@ -364,58 +364,101 @@
       home = {
         file.".face".source = lib.mkDefault ./face.png;
         packages = with pkgs; [
-          gopass
-          gopass-hibp
-          gopass-summon-provider
-          summon
           asciinema # Terminal recorder
+          bitwise # cli tool for bit / hex manipulation
           black # Code format Python
           bmon # Modern Unix `iftop`
           borgmatic
+          cbonsai # terminal screensaver
           chroma # Code syntax highlighter
           clinfo # Terminal OpenCL info
+          cloudflared
+          cmatrix
+          colordiff
           czkawka # find duplicated files
           dconf2nix # Nix code from Dconf files
           debootstrap # Terminal Debian installer
+          devenv
           diffr # Modern Unix `diff`
           difftastic # Modern Unix `diff`
           dogdns # Modern Unix `dig`
           du-dust # Modern Unix `du`
           dua # Modern Unix `du`
           duf # Modern Unix `df`
-          entr # Modern Unix `watch`
+          dysk # disk information
+          efibootmgr
+          entr # perform action when file change
+          eza # ls replacement
           fast-cli # Terminal fast.com
+          fastfetch
           fd # Modern Unix `find`
+          file # Show file information
           fira-code
           fira-go
+          fishPlugins.done
+          fishPlugins.forgit
+          fishPlugins.fzf
+          fishPlugins.grc
+          fishPlugins.hydro
           font-awesome
+          fzf
+          gdu
           glow # Terminal Markdown renderer
+          gopass
+          gopass-hibp
+          gopass-summon-provider
           gping # Modern Unix `ping`
+          grc
           hcloud
+          hevi # hex viewer
           hexyl # Modern Unix `hexedit`
+          htop
           httpie # Terminal HTTP client
           hyperfine # Terminal benchmarking
           iperf3 # Terminal network benchmarking
           iw # Terminal WiFi info
+          just
           lazygit # Terminal Git client
           liberation_ttf
           libva-utils # Terminal VAAPI info
           lurk # Modern Unix `strace`
           mdp # Terminal Markdown presenter
           moar # Modern Unix `less`
+          mpv # video player
           mtdutils
           mtr # Modern Unix `traceroute`
+          ncdu # disk space
           netdiscover # Modern Unix `arp`
           nethogs # Modern Unix `iftop`
+          pipes # terminal screensaver
+          programmer-calculator
+          shfmt # bash formatter
+          sl
+          summon
+          swappy # snapshot editing tool
+          tmux
+          tty-clock # cli clock
+          viddy
+          wavemon # Terminal WiFi monitor
+          work-sans
+          xdg-utils
+          xxd
+          yq-go # Terminal `jq` for YAML
+          yubikey-manager
+          # corefonts
+          # fira
+          # font-awesome
+          # liberation_ttf
+          # nerd-fonts.fira-code
+          # nerd-fonts.symbols-only
           # nixpkgs-review # Nix code review
           # nodePackages.prettier # Code format
           # noto-fonts-emoji
+          # noto-fonts-emoji
+          # noto-fonts-monochrome-emoji
           # nurl # Nix URL fetcher
           # nyancat # Terminal rainbow spewing feline
-          # ollama # AI stuff
-          # optipng # Terminal PNG optimizer
           # procs # Modern Unix `ps`
-          # prusa-slicer
           # pwgen # password generator
           # quilt # Terminal patch manager
           # ripgrep # Modern Unix `grep`
@@ -425,63 +468,13 @@
           # source-serif
           # speedtest-go # Terminal speedtest.net
           # strongswan
+          # symbola
           # tldr # Modern Unix `man`
           # tokei # Modern Unix `wc` for code
           # ubuntu_font_family
           # victor-mono
           # vscode # GUI Code editor
-          wavemon # Terminal WiFi monitor
-          work-sans
-          yq-go # Terminal `jq` for YAML
-          yubikey-manager
-          bitwise # cli tool for bit / hex manipulation
-          dysk # disk information
-          eza # ls replacement
-          entr # perform action when file change
-          fd # find replacement
-          file # Show file information
-          hevi # hex viewer
-          htop
-          mpv # video player
-          ncdu # disk space
-          programmer-calculator
-          shfmt # bash formatter
-          swappy # snapshot editing tool
-          xdg-utils
-          xxd
-          fastfetch
-          devenv
-          cloudflared
-          efibootmgr
-          fishPlugins.done
-          fishPlugins.fzf
-          fishPlugins.forgit
-          fishPlugins.hydro
-          fzf
-          fishPlugins.grc
-          grc
-          viddy
-          just
-          tmux
-          gdu
-          # nerd-fonts.fira-code
-          # nerd-fonts.symbols-only
-          # corefonts
-          # fira
-          # font-awesome
-          # liberation_ttf
-          # noto-fonts-emoji
-          # noto-fonts-monochrome-emoji
-          # source-serif
-          # symbola
           # work-sans
-          colordiff
-
-          cbonsai # terminal screensaver
-          cmatrix
-          pipes # terminal screensaver
-          sl
-          tty-clock # cli clock
         ];
         sessionPath = [ "$HOME/.local/bin" ];
         sessionVariables = {
