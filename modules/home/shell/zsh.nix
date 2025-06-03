@@ -1,18 +1,6 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    cava # for cli equealizer #unixporn
-    jless # json less
-    sd # modern sed
-    choose # modern cut
-    gnumake
-    yank # Yank terminal output to clipboard.
-    # zsh plugins
-    tmux
-    thefuck
-    meslo-lgs-nf
-    grc
-    fzf
   ];
 
   programs = {

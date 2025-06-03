@@ -424,7 +424,6 @@
           fishPlugins.hydro
           font-awesome
           fzf
-          fzf
           gdu
           glow # Terminal Markdown renderer
           gnumake
@@ -432,7 +431,6 @@
           gopass-hibp
           gopass-summon-provider
           gping # Modern Unix `ping`
-          grc
           grc
           hcloud
           hevi # hex viewer
@@ -449,6 +447,7 @@
           libva-utils # Terminal VAAPI info
           lurk # Modern Unix `strace`
           mdp # Terminal Markdown presenter
+          meslo-lgs-nf
           moar # Modern Unix `less`
           mpv # video player
           mtdutils
