@@ -318,7 +318,39 @@
 
       system.stateVersion = "25.05";
     };
-    home = { home.stateVersion = "25.05"; };
+    home = { host, pkgs, lib, config, ... }: {
+      programs.ssh = {
+        enable = true;
+
+        addKeysToAgent = "1h";
+
+        controlMaster = "auto";
+        controlPath = "~/.ssh/sessions/%r@%h:%p";
+        controlPersist = "10m";
+
+        matchBlocks = {
+          github = {
+            host = "github.com";
+            hostname = "ssh.github.com";
+            user = "git";
+            port = 443;
+            identitiesOnly = true;
+          };
+        };
+      };
+
+      services = {
+        gpg-agent = {
+          enable = true;
+          pinentry.package = lib.mkDefault pkgs.pinentry-curses;
+        };
+      };
+
+      # Nicely reload system units when changing configs
+      systemd.user.startServices = "sd-switch";
+
+      home.stateVersion = "25.05";
+    };
     darwin = { system.stateVersion = 5; };
   };
   defaultTags = { defaults = lib.mkDefault true; };
