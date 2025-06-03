@@ -222,19 +222,14 @@
         "systems": "systems_7"
       },
       "locked": {
-        "lastModified": 1748910005,
-        "narHash": "sha256-UQde8t+Clzm/xfpDoTCUJXNY1tq+Oqer0vyut4+cIPA=",
-        "owner": "weissi1994",
-        "repo": "nix-core",
-        "rev": "d3f490a0868fe2ee462f43d58a3b9ada93545417",
-        "type": "github"
+        "path": "./../",
+        "type": "path"
       },
       "original": {
-        "owner": "weissi1994",
-        "ref": "dev",
-        "repo": "nix-core",
-        "type": "github"
-      }
+        "path": "./../",
+        "type": "path"
+      },
+      "parent": []
     },
     "disko": {
       "inputs": {
