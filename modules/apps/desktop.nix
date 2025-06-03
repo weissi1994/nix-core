@@ -6,9 +6,9 @@
   apps.desktop-config = {
     tags = [ "desktop" ];
     nixos = { host, pkgs, lib, ... }: {
-      imports = [ inputs.stylix.nixosModules.stylix ]
-        ++ lib.optional (host.desktop == "sway") [ ./desktop/sway.nix ]
-        ++ lib.optional (host.desktop == "hyprland") [ ./desktop/hyprland.nix ];
+      imports = [ inputs.stylix.nixosModules.stylix ];
+      # ++ lib.optional (host.desktop == "sway") [ ./desktop/sway.nix ]
+      # ++ lib.optional (host.desktop == "hyprland") [ ./desktop/hyprland.nix ];
 
       hardware = { graphics = { enable = true; }; };
       hardware.enableRedistributableFirmware = true;
