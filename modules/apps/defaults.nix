@@ -462,23 +462,23 @@
           # fishPlugins.hydro
           # fzf
           # fishPlugins.grc
-          # grc
-          # viddy
-          # just
-          # tmux
-          # gdu
-          # nerd-fonts.fira-code
-          # nerd-fonts.symbols-only
-          # corefonts
-          # fira
-          # font-awesome
-          # liberation_ttf
-          # noto-fonts-emoji
-          # noto-fonts-monochrome-emoji
-          # source-serif
-          # symbola
-          # work-sans
-          # colordiff
+          grc
+          viddy
+          just
+          tmux
+          gdu
+          nerd-fonts.fira-code
+          nerd-fonts.symbols-only
+          corefonts
+          fira
+          font-awesome
+          liberation_ttf
+          noto-fonts-emoji
+          noto-fonts-monochrome-emoji
+          source-serif
+          symbola
+          work-sans
+          colordiff
 
           cbonsai # terminal screensaver
           cmatrix
