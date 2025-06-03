@@ -364,23 +364,6 @@
       home = {
         file.".face".source = lib.mkDefault ./face.png;
         packages = with pkgs; [
-          # corefonts
-          # fira
-          # fishPlugins.fzf-fish
-          # font-awesome
-          # liberation_ttf
-          # nerd-fonts.fira-code
-          # nerd-fonts.symbols-only
-          # nixpkgs-review # Nix code review
-          # nodePackages.prettier # Code format
-          # noto-fonts-emoji
-          # noto-fonts-emoji
-          # noto-fonts-monochrome-emoji
-          # source-serif
-          # symbola
-          # ubuntu_font_family
-          # victor-mono
-          # work-sans
           asciinema # Terminal recorder
           bitwise # cli tool for bit / hex manipulation
           black # Code format Python

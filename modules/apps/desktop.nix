@@ -4,6 +4,9 @@
     nixos = { host, pkgs, lib, ... }: {
       hardware = { graphics = { enable = true; }; };
       hardware.enableRedistributableFirmware = true;
+      nixpkgs.config.allowUnfreePredicate = pkg:
+        builtins.elem (lib.getName pkg) [ "joypixels" ];
+      nixpkgs.config.joypixels.acceptLicense = true;
       services.opensnitch = {
         enable = true;
         settings = {
@@ -547,6 +550,26 @@
           zenity
           wl-clipboard # clipboard utils for wayland (wl-copy, wl-paste)
           gopass-jsonapi
+
+          # fonts
+          corefonts
+          fira
+          fishPlugins.fzf-fish
+          font-awesome
+          liberation_ttf
+          nerd-fonts.fira-code
+          nerd-fonts.symbols-only
+          nixpkgs-review # Nix code review
+          nodePackages.prettier # Code format
+          noto-fonts-emoji
+          noto-fonts-emoji
+          noto-fonts-monochrome-emoji
+          source-serif
+          symbola
+          joypixels
+          ubuntu_font_family
+          victor-mono
+          work-sans
         ];
 
       };
