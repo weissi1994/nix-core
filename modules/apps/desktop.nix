@@ -15,6 +15,7 @@
     };
 
     nixos = { host, pkgs, lib, ... }: {
+      imports = [ inputs.catppuccin.nixosModules.catppuccin ];
       hardware = {
         graphics = { enable = true; };
         enableRedistributableFirmware = true;
@@ -508,7 +509,7 @@
             (type: lib.attrsets.nameValuePair type defaultApps."${key}"))
             mimeMap));
       in {
-        imports = [ inputs.stylix.homeModules.stylix ];
+        imports = [ inputs.catppuccin.homeModules.catppuccin ];
 
         xdg = {
           enable = true;
