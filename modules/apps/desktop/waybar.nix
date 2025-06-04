@@ -7,7 +7,7 @@
     nixos = { host, pkgs, ... }: { };
 
     home = { host, pkgs, ... }: {
-      # home.packages = with pkgs; [ jq pamixer pavucontrol gopsuinfo playerctl ];
+      home.packages = with pkgs; [ jq pamixer pavucontrol gopsuinfo playerctl ];
 
       programs.waybar = {
         enable = true;
