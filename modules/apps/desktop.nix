@@ -817,7 +817,7 @@
               return config
             '';
           };
-          obsidian.enable = true;
+          # obsidian.enable = true;
           kitty = {
             enable = true;
             shellIntegration = {
