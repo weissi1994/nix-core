@@ -29,8 +29,6 @@
         };
       };
 
-      services.envfs.enable = true;
-
       boot = {
         consoleLogLevel = 0;
         initrd.verbose = false;
@@ -66,7 +64,6 @@
           allowedTCPPorts = [ 22 80 443 ];
         };
       };
-      programs.nm-applet.enable = true;
 
       hardware.nvidia-container-toolkit.enable =
         lib.elem "nvidia" config.services.xserver.videoDrivers;
@@ -82,41 +79,50 @@
           enable = true;
         };
       };
-      services.resolved = {
-        enable = true;
-        dnssec = "true";
-        domains = [ "~." ];
-        fallbackDns = [ "1.1.1.1" "8.8.8.8" ];
-        dnsovertls = "false";
-      };
-      programs.nh = {
-        enable = true;
-        clean = {
-          enable = true;
-          extraArgs = "--keep-since 14d --keep 10";
-        };
-        flake = "/home/${host.username}/dev/nix";
-      };
 
       hardware.gpgSmartcards.enable = true;
-      programs.ssh.startAgent = false;
       services = {
+        fwupd.enable = true;
+        envfs.enable = true;
+        resolved = {
+          enable = true;
+          dnssec = "true";
+          domains = [ "~." ];
+          fallbackDns = [ "1.1.1.1" "8.8.8.8" ];
+          dnsovertls = "false";
+        };
         pcscd = {
           enable = true;
           plugins = [ pkgs.libykneomgr ];
         };
-      };
-      programs.gnupg.agent = {
-        enable = true;
-        enableSSHSupport = true;
-        enableExtraSocket = true;
-        settings = {
-          default-cache-ttl = 1800;
-          max-cache-ttl = 28800;
-          default-cache-ttl-ssh = 1800;
-          max-cache-ttl-ssh = 7200;
+        udev.packages = with pkgs; [
+          android-udev-rules
+          libu2f-host
+          yubikey-personalization
+        ];
+        openssh = {
+          enable = true;
+          allowSFTP = false;
+
+          settings = {
+            # Harden
+            PasswordAuthentication = lib.mkDefault false;
+            PermitRootLogin = lib.mkDefault "no";
+            ChallengeResponseAuthentication = false;
+            AllowTcpForwarding = "yes";
+            X11Forwarding = false;
+            AllowAgentForwarding = "yes";
+            AllowStreamLocalForwarding = "no";
+            AuthenticationMethods = "publickey";
+            # Automatically remove stale sockets
+            StreamLocalBindUnlink = "yes";
+          };
+
+          hostKeys = [{
+            path = "/etc/ssh/ssh_host_ed25519_key";
+            type = "ed25519";
+          }];
         };
-        pinentryPackage = lib.mkDefault pkgs.pinentry-curses;
       };
 
       security = {
@@ -165,38 +171,6 @@
         "xfs"
       ];
 
-      services.udev.packages = with pkgs; [
-        android-udev-rules
-        libu2f-host
-        yubikey-personalization
-      ];
-
-      # Works around https://github.com/NixOS/nixpkgs/issues/103746
-      systemd.services."getty@tty1".enable = false;
-      systemd.services."autovt@tty1".enable = false;
-      services.openssh = {
-        enable = true;
-        allowSFTP = false;
-
-        settings = {
-          # Harden
-          PasswordAuthentication = lib.mkDefault false;
-          PermitRootLogin = lib.mkDefault "no";
-          ChallengeResponseAuthentication = false;
-          AllowTcpForwarding = "yes";
-          X11Forwarding = false;
-          AllowAgentForwarding = "yes";
-          AllowStreamLocalForwarding = "no";
-          AuthenticationMethods = "publickey";
-          # Automatically remove stale sockets
-          StreamLocalBindUnlink = "yes";
-        };
-
-        hostKeys = [{
-          path = "/etc/ssh/ssh_host_ed25519_key";
-          type = "ed25519";
-        }];
-      };
       console = { keyMap = "us"; };
       environment = {
         # Eject nano and perl from the system
@@ -297,6 +271,27 @@
       };
 
       programs = {
+        nh = {
+          enable = true;
+          clean = {
+            enable = true;
+            extraArgs = "--keep-since 14d --keep 10";
+          };
+          flake = "/home/${host.username}/dev/nix";
+        };
+        ssh.startAgent = false;
+        gnupg.agent = {
+          enable = true;
+          enableSSHSupport = true;
+          enableExtraSocket = true;
+          settings = {
+            default-cache-ttl = 1800;
+            max-cache-ttl = 28800;
+            default-cache-ttl-ssh = 1800;
+            max-cache-ttl-ssh = 7200;
+          };
+          pinentryPackage = lib.mkDefault pkgs.pinentry-curses;
+        };
         nix-ld.enable = true;
         zsh = {
           enable = true;
@@ -309,35 +304,19 @@
         };
       };
 
-      services.fwupd.enable = true;
-
-      systemd.tmpfiles.rules = [
-        "d /nix/var/nix/profiles/per-user/${host.username} 0755 ${host.username} root"
-        "d /mnt/${host.username} 0755 ${host.username} ${host.username}"
-      ];
+      systemd = {
+        # Works around https://github.com/NixOS/nixpkgs/issues/103746
+        services."getty@tty1".enable = false;
+        services."autovt@tty1".enable = false;
+        tmpfiles.rules = [
+          "d /nix/var/nix/profiles/per-user/${host.username} 0755 ${host.username} root"
+          "d /mnt/${host.username} 0755 ${host.username} ${host.username}"
+        ];
+      };
 
       system.stateVersion = "25.05";
     };
     home = { host, pkgs, lib, config, ... }: {
-      programs.ssh = {
-        enable = true;
-
-        addKeysToAgent = "1h";
-
-        controlMaster = "auto";
-        controlPath = "~/.ssh/sessions/%r@%h:%p";
-        controlPersist = "10m";
-
-        matchBlocks = {
-          github = {
-            host = "github.com";
-            hostname = "ssh.github.com";
-            user = "git";
-            port = 443;
-            identitiesOnly = true;
-          };
-        };
-      };
       nix = {
         registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
         settings = {
@@ -354,13 +333,14 @@
           warn-dirty = false;
         };
       };
-      programs.neovim = {
-        defaultEditor = true;
-        viAlias = true;
-        vimAlias = true;
-      };
 
-      services.ssh-agent.enable = true;
+      services = {
+        ssh-agent.enable = true;
+        gpg-agent = {
+          enable = true;
+          pinentry.package = lib.mkDefault pkgs.pinentry-curses;
+        };
+      };
       home = {
         file.".face".source = lib.mkDefault ./files/face.png;
         packages = with pkgs; [
@@ -473,11 +453,32 @@
           ${pkgs.nvd}/bin/nvd diff $oldGenPath $newGenPath
         '';
       };
-      systemd.user.tmpfiles.rules = [
-        "d ${config.home.homeDirectory}/.ssh/sessions 0755 ${host.username} ${host.username} - -"
-      ];
 
       programs = {
+        ssh = {
+          enable = true;
+
+          addKeysToAgent = "1h";
+
+          controlMaster = "auto";
+          controlPath = "~/.ssh/sessions/%r@%h:%p";
+          controlPersist = "10m";
+
+          matchBlocks = {
+            github = {
+              host = "github.com";
+              hostname = "ssh.github.com";
+              user = "git";
+              port = 443;
+              identitiesOnly = true;
+            };
+          };
+        };
+        neovim = {
+          defaultEditor = true;
+          viAlias = true;
+          vimAlias = true;
+        };
         git = {
           signing = { signByDefault = true; };
           aliases = {
@@ -1375,15 +1376,13 @@
         jq.enable = true;
       };
 
-      services = {
-        gpg-agent = {
-          enable = true;
-          pinentry.package = lib.mkDefault pkgs.pinentry-curses;
-        };
+      systemd = {
+        # Nicely reload system units when changing configs
+        user.startServices = "sd-switch";
+        user.tmpfiles.rules = [
+          "d ${config.home.homeDirectory}/.ssh/sessions 0755 ${host.username} ${host.username} - -"
+        ];
       };
-
-      # Nicely reload system units when changing configs
-      systemd.user.startServices = "sd-switch";
 
       home.stateVersion = "25.05";
     };

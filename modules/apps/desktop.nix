@@ -311,6 +311,7 @@
 
       programs = {
         dconf.enable = true;
+        nm-applet.enable = true;
         chromium = {
           extensions = [
             "hfjbmagddngcpeloejdejnfgbamkjaeg" # Vimium C
