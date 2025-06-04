@@ -13,6 +13,7 @@
         home-manager = {
           useGlobalPkgs = true;
           useUserPackages = true;
+          backupFileExtension = "hm-prev";
           extraSpecialArgs = { inherit host; };
           users.${host.username} = { imports = host._internal.homeModules; };
         };
