@@ -456,7 +456,6 @@
 
     };
     home = { config, pkgs, ... }:
-      imports = [stylix.homeModules.stylix];
       let
         defaultApps = {
           browser = [ "zen-beta.desktop" ];
@@ -541,6 +540,8 @@
             (type: lib.attrsets.nameValuePair type defaultApps."${key}"))
             mimeMap));
       in {
+        imports = [ inputs.stylix.homeModules.stylix ];
+
         xdg = {
           enable = true;
           configFile."mimeapps.list".force = true;
