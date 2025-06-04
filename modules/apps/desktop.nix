@@ -888,6 +888,7 @@
           pavucontrol
           vlc
           discord
+          obsidian
 
           ## Office
           libreoffice
@@ -907,9 +908,6 @@
           liberation_ttf
           nerd-fonts.fira-code
           nerd-fonts.symbols-only
-          nixpkgs-review # Nix code review
-          nodePackages.prettier # Code format
-          noto-fonts-emoji
           noto-fonts-emoji
           noto-fonts-monochrome-emoji
           source-serif
