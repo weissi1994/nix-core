@@ -3,7 +3,8 @@
     tags = [ "desktop" ];
 
     nixpkgs = {
-      packages.unfree = [ "google-chrome" "spotify" "discord" "obsidian" ];
+      packages.unfree =
+        [ "google-chrome" "spotify" "discord" "obsidian" "corefonts" ];
     };
 
     nixos = { host, pkgs, lib, ... }: {
@@ -420,6 +421,7 @@
           noto-fonts-cjk-sans
           noto-fonts-emoji
           noto-fonts-monochrome-emoji
+          joypixels
           source-serif
           symbola
           ubuntu_font_family
@@ -440,7 +442,7 @@
             emoji = [
               "Noto Color Emoji"
               "Twitter Color Emoji"
-              # "JoyPixels"
+              "JoyPixels"
               "Unifont"
               "Unifont Upper"
             ];
