@@ -733,34 +733,34 @@
           '';
         };
 
-        home.packages = with pkgs; [
-          tesseract4
-          foot
-          waybar
-          obsidian
-          networkmanagerapplet
-          dmenu-wayland
-          nwg-launchers
-          telegram-desktop
-          wofi
-          wofi-emoji
-          slurp
-          ydiff
-          grim
-          gimp
-          swappy
-          swaylock-effects
-          notify-desktop
-          libappindicator
-          zenity
-          spotify
-          qutebrowser
-          wl-clipboard
-          nemo
-          yubioath-flutter
-          feh
-          (pkgs.warp-terminal.override { waylandSupport = true; })
-        ];
+        # home.packages = with pkgs; [
+        #   tesseract4
+        #   foot
+        #   waybar
+        #   obsidian
+        #   networkmanagerapplet
+        #   dmenu-wayland
+        #   nwg-launchers
+        #   telegram-desktop
+        #   wofi
+        #   wofi-emoji
+        #   slurp
+        #   ydiff
+        #   grim
+        #   gimp
+        #   swappy
+        #   swaylock-effects
+        #   notify-desktop
+        #   libappindicator
+        #   zenity
+        #   spotify
+        #   qutebrowser
+        #   wl-clipboard
+        #   nemo
+        #   yubioath-flutter
+        #   feh
+        #   (pkgs.warp-terminal.override { waylandSupport = true; })
+        # ];
 
         gtk = {
           enable = true;
@@ -768,10 +768,10 @@
           #   name = lib.mkForce "Catppuccin-Mocha-Compact-Blue-Dark";
           #   package = lib.mkForce pkgs.catppuccin-gtk;
           # };
-          iconTheme = {
-            package = pkgs.adwaita-icon-theme;
-            name = "adwaita";
-          };
+          # iconTheme = {
+          #   package = pkgs.adwaita-icon-theme;
+          #   name = "adwaita";
+          # };
         };
 
       };
