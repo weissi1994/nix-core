@@ -456,6 +456,7 @@
 
     };
     home = { config, pkgs, ... }:
+      imports = [stylix.homeModules.stylix];
       let
         defaultApps = {
           browser = [ "zen-beta.desktop" ];
