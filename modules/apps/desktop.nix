@@ -164,19 +164,6 @@
                   "${lib.getBin pkgs.discord}/opt/Discord/.Discord-wrapped";
               };
             };
-            git-remote-http = {
-              name = "git-remote-http";
-              enabled = true;
-              action = "allow";
-              duration = "always";
-              operator = {
-                type = "simple";
-                sensitive = false;
-                operand = "process.path";
-                data =
-                  "${lib.getBin pkgs.git}/libexec/git-core/git-remote-http";
-              };
-            };
             nix = {
               name = "nix";
               enabled = true;
