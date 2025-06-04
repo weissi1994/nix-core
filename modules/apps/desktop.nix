@@ -2,7 +2,7 @@
   apps.desktop-config = {
     tags = [ "desktop" ];
 
-    nixpkgs = { packages.unfree = [ "google-chrome" "spotify" ]; };
+    nixpkgs = { packages.unfree = [ "google-chrome" "spotify" "discord" ]; };
 
     nixos = { host, pkgs, lib, ... }: {
       hardware = { graphics = { enable = true; }; };
