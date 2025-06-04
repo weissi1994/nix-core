@@ -62,58 +62,59 @@
                   "${lib.getBin pkgs.systemd}/lib/systemd/systemd-resolved";
               };
             };
-            google-chrome = {
-              name = "google-chrome";
-              enabled = true;
-              action = "allow";
-              duration = "always";
-              operator = {
-                type = "simple";
-                sensitive = false;
-                operand = "process.path";
-                data =
-                  "${lib.getBin pkgs.google-chrome}/share/google/chrome/chrome";
-              };
-            };
-            spotify = {
-              name = "spotify";
-              enabled = true;
-              action = "allow";
-              duration = "always";
-              operator = {
-                type = "simple";
-                sensitive = false;
-                operand = "process.path";
-                data =
-                  "${lib.getBin pkgs.spotify}/share/spotify/.spotify-wrapped";
-              };
-            };
-            telegram = {
-              name = "telegram";
-              enabled = true;
-              action = "allow";
-              duration = "always";
-              operator = {
-                type = "simple";
-                sensitive = false;
-                operand = "process.path";
-                data = "${
-                    lib.getBin pkgs.telegram-desktop
-                  }/bin/.telegram-desktop-wrapped";
-              };
-            };
-            networkmanager = {
-              name = "networkmanager";
-              enabled = true;
-              action = "allow";
-              duration = "always";
-              operator = {
-                type = "simple";
-                sensitive = false;
-                operand = "process.path";
-                data = "${lib.getBin pkgs.networkmanager}/bin/NetworkManager";
-              };
-            };
+            # google-chrome = {
+            #   name = "google-chrome";
+            #   enabled = true;
+            #   action = "allow";
+            #   duration = "always";
+            #   operator = {
+            #     type = "simple";
+            #     sensitive = false;
+            #     operand = "process.path";
+            #     data = "${
+            #         lib.getBin pkgs.google-chrome-stable
+            #       }/share/google/chrome/chrome";
+            #   };
+            # };
+            # spotify = {
+            #   name = "spotify";
+            #   enabled = true;
+            #   action = "allow";
+            #   duration = "always";
+            #   operator = {
+            #     type = "simple";
+            #     sensitive = false;
+            #     operand = "process.path";
+            #     data =
+            #       "${lib.getBin pkgs.spotify}/share/spotify/.spotify-wrapped";
+            #   };
+            # };
+            # telegram = {
+            #   name = "telegram";
+            #   enabled = true;
+            #   action = "allow";
+            #   duration = "always";
+            #   operator = {
+            #     type = "simple";
+            #     sensitive = false;
+            #     operand = "process.path";
+            #     data = "${
+            #         lib.getBin pkgs.telegram-desktop
+            #       }/bin/.telegram-desktop-wrapped";
+            #   };
+            # };
+            # networkmanager = {
+            #   name = "networkmanager";
+            #   enabled = true;
+            #   action = "allow";
+            #   duration = "always";
+            #   operator = {
+            #     type = "simple";
+            #     sensitive = false;
+            #     operand = "process.path";
+            #     data = "${lib.getBin pkgs.networkmanager}/bin/NetworkManager";
+            #   };
+            # };
             nsncd = {
               name = "nsncd";
               enabled = true;
