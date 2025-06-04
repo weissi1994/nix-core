@@ -34,6 +34,7 @@ let
       };
       packages = mkOption {
         type = types.listOf types.str;
+        default = [ ];
         description = ''
           This list of `nixpkgs` package names to generate applications for.
         '';
