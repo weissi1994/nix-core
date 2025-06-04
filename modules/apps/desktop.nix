@@ -3,8 +3,14 @@
     tags = [ "desktop" ];
 
     nixpkgs = {
-      packages.unfree =
-        [ "google-chrome" "spotify" "discord" "obsidian" "corefonts" ];
+      packages.unfree = [
+        "google-chrome"
+        "spotify"
+        "discord"
+        "obsidian"
+        "corefonts"
+        "joypixels"
+      ];
     };
 
     nixos = { host, pkgs, lib, ... }: {
