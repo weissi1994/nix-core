@@ -12,7 +12,7 @@ in {
       };
       nixos = mkOption {
         type = types.listOf types.deferredModule;
-        default = [ inputs.stylix.nixosModules.stylix ];
+        default = [ ];
         description = ''
           Additional global modules to add to each NixOS configuration. Useful
           for extending NixOS in the standard fashion.
