@@ -1,10 +1,6 @@
 { inputs, lib, config, ... }:
 let
-  inherit (lib)
-    mapAttrs
-    mkOption
-    types
-  ;
+  inherit (lib) mapAttrs mkOption types;
 
   globalNixPkgsModules = config.modules.nixpkgs;
 
@@ -15,9 +11,7 @@ let
       params = mkOption {
         type = types.submodule {
           options = {
-            system = mkOption {
-              type = types.str;
-            };
+            system = mkOption { type = types.str; };
             overlays = mkOption {
               type = types.listOf types.raw;
               default = [ ];
@@ -34,9 +28,7 @@ let
       };
     };
 
-    config = {
-      params.system = lib.mkDefault host.system;
-    };
+    config = { params.system = lib.mkDefault host.system; };
   };
 
   predicateModule = { config, ... }: {
@@ -45,9 +37,18 @@ let
       packages = mkOption {
         type = types.submodule {
           options = {
-            unfree = mkOption { type = types.listOf types.str; default = [ ]; };
-            insecure = mkOption { type = types.listOf types.str; default = [ ]; };
-            nonSource = mkOption { type = types.listOf types.str; default = [ ]; };
+            unfree = mkOption {
+              type = types.listOf types.str;
+              default = [ ];
+            };
+            insecure = mkOption {
+              type = types.listOf types.str;
+              default = [ ];
+            };
+            nonSource = mkOption {
+              type = types.listOf types.str;
+              default = [ ];
+            };
           };
         };
       };
@@ -58,12 +59,30 @@ let
             config = mkOption {
               type = types.submodule {
                 options = {
-                  allowUnfreePredicate = mkOption { type = types.functionTo types.bool; default = x: false; };
-                  allowInsecurePredicate = mkOption { type = types.functionTo types.bool; default = x: false; };
-                  permittedInsecurePackages = mkOption { type = types.listOf types.str; default = [ ]; };
-                  allowNonSourcePredicate = mkOption { type = types.functionTo types.bool; default = x: false; };
-                  allowlistedLicenses = mkOption { type = types.listOf types.str; default = [ ]; };
-                  blocklistedLicenses = mkOption { type = types.listOf types.str; default = [ ]; };
+                  allowUnfreePredicate = mkOption {
+                    type = types.functionTo types.bool;
+                    default = x: false;
+                  };
+                  allowInsecurePredicate = mkOption {
+                    type = types.functionTo types.bool;
+                    default = x: false;
+                  };
+                  permittedInsecurePackages = mkOption {
+                    type = types.listOf types.str;
+                    default = [ ];
+                  };
+                  allowNonSourcePredicate = mkOption {
+                    type = types.functionTo types.bool;
+                    default = x: false;
+                  };
+                  allowlistedLicenses = mkOption {
+                    type = types.listOf types.str;
+                    default = [ ];
+                  };
+                  blocklistedLicenses = mkOption {
+                    type = types.listOf types.str;
+                    default = [ ];
+                  };
                 };
               };
             };
@@ -73,9 +92,12 @@ let
     };
 
     config = {
-      params.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) config.packages.unfree;
-      params.config.allowInsecurePredicate = pkg: builtins.elem (lib.getName pkg) config.packages.insecure;
-      params.config.allowNonSourcePredicate = pkg: builtins.elem (lib.getName pkg) config.packages.nonSource;
+      params.config.allowUnfreePredicate = pkg:
+        builtins.elem (lib.getName pkg) config.packages.unfree;
+      params.config.allowInsecurePredicate = pkg:
+        builtins.elem (lib.getName pkg) config.packages.insecure;
+      params.config.allowNonSourcePredicate = pkg:
+        builtins.elem (lib.getName pkg) config.packages.nonSource;
     };
   };
 
@@ -105,25 +127,24 @@ let
       host = builtins.removeAttrs config [ "_internal" "nix-config" ];
       nixPkgsModules = globalNixPkgsModules ++ appModules ++ [ config.nixpkgs ];
       nixParams = (lib.evalModules {
-        modules = nixPkgsModules ++ [
-          {
-            _module.args = {
-              inherit host;
-              inputs = builtins.removeAttrs inputs [ "self" "nixpkgs" ];
-            };
-          }
-        ];
+        modules = nixPkgsModules ++ [{
+          _module.args = {
+            inherit host;
+            inputs = builtins.removeAttrs inputs [ "self" "nixpkgs" ];
+          };
+        }];
       }).config;
-     in {
-       inherit nixPkgsModules;
-       pkgs = import inputs.nixpkgs nixParams.params;
-     };
+    in {
+      inherit nixPkgsModules;
+      pkgs = import inputs.nixpkgs nixParams.params;
+    };
   });
   cfg = config;
 in {
-  options.hosts = mkOption {
-    type = types.attrsOf hostSubmodule;
-  };
+  options.hosts = mkOption { type = types.attrsOf hostSubmodule; };
 
-  config.modules.nixpkgs = [ rootModule predicateModule ];
+  config.modules.nixpkgs = [
+    rootModule
+    # predicateModule 
+  ];
 }
