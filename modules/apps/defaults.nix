@@ -362,7 +362,7 @@
 
       services.ssh-agent.enable = true;
       home = {
-        file.".face".source = lib.mkDefault ./face.png;
+        file.".face".source = lib.mkDefault ./files/face.png;
         packages = with pkgs; [
           asciinema # Terminal recorder
           bitwise # cli tool for bit / hex manipulation

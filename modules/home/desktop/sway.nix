@@ -1,8 +1,1 @@
-{ ... }:
-{
-  imports = [
-    ./sway
-    ./waybar
-    ./terminal
-  ];
-}
+{ ... }: { imports = [ ./terminal ]; }
