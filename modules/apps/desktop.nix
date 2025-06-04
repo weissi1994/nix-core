@@ -556,6 +556,9 @@
           "XTerm*utf8" = true;
         };
 
+        catppuccin.enable = true;
+        catppuccin.flavor = "latte"; # "latte";
+        catppuccin.accent = "blue";
         stylix = {
           enable = true;
           image = ./files/background.png;
