@@ -733,34 +733,27 @@
           '';
         };
 
-        # home.packages = with pkgs; [
-        #   tesseract4
-        #   foot
-        #   waybar
-        #   obsidian
-        #   networkmanagerapplet
-        #   dmenu-wayland
-        #   nwg-launchers
-        #   telegram-desktop
-        #   wofi
-        #   wofi-emoji
-        #   slurp
-        #   ydiff
-        #   grim
-        #   gimp
-        #   swappy
-        #   swaylock-effects
-        #   notify-desktop
-        #   libappindicator
-        #   zenity
-        #   spotify
-        #   qutebrowser
-        #   wl-clipboard
-        #   nemo
-        #   yubioath-flutter
-        #   feh
-        #   (pkgs.warp-terminal.override { waylandSupport = true; })
-        # ];
+        home.packages = with pkgs; [
+          tesseract4
+          dmenu-wayland
+          nwg-launchers
+          wofi
+          wofi-emoji
+          slurp
+          ydiff
+          grim
+          gimp
+          swappy
+          swaylock-effects
+          notify-desktop
+          libappindicator
+          zenity
+          spotify
+          wl-clipboard
+          nemo
+          yubioath-flutter
+          feh
+        ];
 
         gtk = {
           enable = true;

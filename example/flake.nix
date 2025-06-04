@@ -5,8 +5,8 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     flake-parts.url = "github:hercules-ci/flake-parts";
     core = {
-      # url = "github:weissi1994/nix-core/dev";
       url = "path:./../";
+      # url = "github:weissi1994/nix-core";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
@@ -19,8 +19,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nova.url = "git+https://gitlab.n0de.biz/daniel/nvim-config?ref=main";
-    nova.inputs.nixpkgs.follows = "nixpkgs";
+    nova = {
+      url = "github:weissi1994/nvim-config";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, ... }@inputs:
@@ -29,21 +31,7 @@
       imports = [ inputs.core.flakeModule ];
 
       # this avoids errors when running `nix flake show`
-      systems = [ "x86_64-linux" ];
-      perSystem = { pkgs, lib, ... }:
-        let
-          eval =
-            lib.evalModules { modules = import ./modules/all-modules.nix; };
-        in {
-          packages.docs =
-            (pkgs.nixosOptionsDoc { options = eval.options; }).optionsAsciiDoc;
-        };
-
-      # To import existing configurations globally:
-      # modules = {
-      #   nixos = [ ./configuration.nix ];
-      #   home-manager = [ ./home.nix ];
-      # };
+      systems = [ ];
 
       nix-config = {
         # Tags are described below in more detail: You can use these as an
@@ -53,6 +41,12 @@
           development = false;
           desktop = false;
         };
+
+        # To import existing configurations globally:
+        # modules = {
+        #   nixos = [ ./configuration.nix ];
+        #   home-manager = [ ./home.nix ];
+        # };
 
         # nix build .#nixosConfigurations.test.vm
         # ssh -oUserKnownHostsFile=/dev/null -oStrictHostKeyChecking=no admin@localhost -p 2221
@@ -73,12 +67,15 @@
           homeDirectory = "/home/admin";
           desktop = null;
 
+          # each host can specify custom nixos/home/nixpkgs attributes to customize
+          # their own configuration
           nixos = {
             imports = [
               # ./hardware-configuration.nix
               ./configuration.nix
             ];
           };
+          home = { imports = [ ]; };
 
           tags = {
             # now we tell Nix that our host needs any apps marked as
