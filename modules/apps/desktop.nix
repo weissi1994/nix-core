@@ -340,37 +340,6 @@
         alsa-utils
         xorg.xhost
         pulseaudioFull
-        pulsemixer
-        pavucontrol
-        libreoffice
-        pick-colour-picker
-        kitty
-        wezterm
-
-        # Fast moving apps use the unstable branch
-        signal-desktop
-        google-chrome
-        tdesktop
-        ## Multimedia
-        audacity
-        gimp
-        obs-studio
-        pavucontrol
-        vlc
-        spotify
-        discord
-        obsidian
-
-        ## Office
-        libreoffice
-        gnome-calculator
-
-        ## Utility
-        dconf-editor
-        gnome-disk-utility
-        zenity
-        wl-clipboard # clipboard utils for wayland (wl-copy, wl-paste)
-        gopass-jsonapi
       ];
 
       hardware.alsa.enablePersistence = true;
@@ -917,6 +886,39 @@
             };
           };
         };
+        home.packages = with pkgs; [
+          pulsemixer
+          pavucontrol
+          libreoffice
+          pick-colour-picker
+          kitty
+          wezterm
+
+          # Fast moving apps use the unstable branch
+          signal-desktop
+          google-chrome
+          tdesktop
+          ## Multimedia
+          audacity
+          gimp
+          obs-studio
+          pavucontrol
+          vlc
+          spotify
+          discord
+          obsidian
+
+          ## Office
+          libreoffice
+          gnome-calculator
+
+          ## Utility
+          dconf-editor
+          gnome-disk-utility
+          zenity
+          wl-clipboard # clipboard utils for wayland (wl-copy, wl-paste)
+          gopass-jsonapi
+        ];
       };
   };
   defaultTags = { desktop = lib.mkDefault true; };
