@@ -48,7 +48,7 @@
               sensitive = false;
               operand = "process.path";
               data =
-                "${lib.getBin pkgs.google-chromer}/share/google/chrome/chrome";
+                "${lib.getBin pkgs.google-chrome}/share/google/chrome/chrome";
             };
           };
           spotify = {
