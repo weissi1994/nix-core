@@ -143,8 +143,5 @@ let
 in {
   options.hosts = mkOption { type = types.attrsOf hostSubmodule; };
 
-  config.modules.nixpkgs = [
-    rootModule
-    # predicateModule 
-  ];
+  config.modules.nixpkgs = [ rootModule predicateModule ];
 }
