@@ -10,31 +10,46 @@
         wrapperFeatures.base = true;
         wrapperFeatures.gtk = true; # so that gtk works properly
         extraPackages = with pkgs; [
-          swaylock # lockscreen
-          swayidle
-          foot # default terminal (for iso)
-          xwayland # for legacy apps
-          waybar # status bar
-          swaynotificationcenter # notification daemon
-          kanshi # autorandr
-          dmenu
-          wofi # replacement for dmenu
-          brightnessctl
-          gammastep # make it red at night!
-          sway-contrib.grimshot # screenshots
-          swayr
-          himalaya
+          adwaita-icon-theme # default gnome cursors
           birdtray # email tray
-
+          brightnessctl
+          dmenu
+          dmenu-wayland
+          dracula-theme # gtk theme (dark)
+          evince
+          feh
+          foot # default terminal (for iso)
+          gammastep # make it red at night!
+          gimp
+          glib # gsettings
           gnome-system-monitor
+          grim
+          himalaya
+          kanshi # autorandr
+          libappindicator
           mate.caja
           nautilus
-          evince
-
-          # https://discourse.nixos.org/t/some-lose-ends-for-sway-on-nixos-which-we-should-fix/17728/2?u=senorsmile
-          adwaita-icon-theme # default gnome cursors
-          glib # gsettings
-          dracula-theme # gtk theme (dark)
+          nemo
+          notify-desktop
+          nwg-launchers
+          slurp
+          spotify
+          swappy
+          sway-contrib.grimshot # screenshots
+          swayidle
+          swaylock # lockscreen
+          swaylock-effects
+          swaynotificationcenter # notification daemon
+          swayr
+          tesseract4
+          waybar # status bar
+          wl-clipboard
+          wofi
+          wofi-emoji
+          xwayland # for legacy apps
+          ydiff
+          yubioath-flutter
+          zenity
         ];
       };
     };
@@ -732,29 +747,6 @@
             popup_during_fullscreen smart
           '';
         };
-
-        home.packages = with pkgs;
-          [
-            # tesseract4
-            # dmenu-wayland
-            # nwg-launchers
-            # wofi
-            # wofi-emoji
-            # slurp
-            # ydiff
-            # grim
-            # gimp
-            # swappy
-            # swaylock-effects
-            # notify-desktop
-            # libappindicator
-            # zenity
-            # spotify
-            # wl-clipboard
-            # nemo
-            # yubioath-flutter
-            # feh
-          ];
 
         gtk = {
           enable = true;

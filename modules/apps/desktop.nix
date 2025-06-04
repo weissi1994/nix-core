@@ -338,6 +338,25 @@
         signal-desktop
         google-chrome
         tdesktop
+        ## Multimedia
+        audacity
+        gimp
+        obs-studio
+        pavucontrol
+        vlc
+        discord
+        obsidian
+
+        ## Office
+        libreoffice
+        gnome-calculator
+
+        ## Utility
+        dconf-editor
+        gnome-disk-utility
+        zenity
+        wl-clipboard # clipboard utils for wayland (wl-copy, wl-paste)
+        gopass-jsonapi
       ];
 
       hardware.alsa.enablePersistence = true;
@@ -381,20 +400,24 @@
       fonts = {
         fontDir.enable = true;
         packages = with pkgs; [
-          nerd-fonts.fira-code
-          nerd-fonts.ubuntu-mono
+          corefonts
+          fira
           fira-code
           fira-code-symbols
           fira-go
-          victor-mono
-          # joypixels
           font-awesome
           liberation_ttf
+          nerd-fonts.fira-code
+          nerd-fonts.symbols-only
+          nerd-fonts.ubuntu-mono
           noto-fonts
           noto-fonts-cjk-sans
           noto-fonts-emoji
+          noto-fonts-monochrome-emoji
           source-serif
+          symbola
           ubuntu_font_family
+          victor-mono
           work-sans
         ];
 
@@ -879,45 +902,6 @@
             };
           };
         };
-
-        home.packages = with pkgs; [
-          ## Multimedia
-          audacity
-          gimp
-          obs-studio
-          pavucontrol
-          vlc
-          discord
-          obsidian
-
-          ## Office
-          libreoffice
-          gnome-calculator
-
-          ## Utility
-          dconf-editor
-          gnome-disk-utility
-          zenity
-          wl-clipboard # clipboard utils for wayland (wl-copy, wl-paste)
-          gopass-jsonapi
-
-          # fonts
-          corefonts
-          fira
-          font-awesome
-          liberation_ttf
-          nerd-fonts.fira-code
-          nerd-fonts.symbols-only
-          noto-fonts-emoji
-          noto-fonts-monochrome-emoji
-          source-serif
-          symbola
-          # joypixels
-          ubuntu_font_family
-          victor-mono
-          work-sans
-        ];
-
       };
   };
   defaultTags = { desktop = lib.mkDefault true; };
