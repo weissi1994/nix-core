@@ -734,25 +734,25 @@
         };
 
         home.packages = with pkgs; [
-          # tesseract4
-          # dmenu-wayland
-          # nwg-launchers
-          # wofi
-          # wofi-emoji
-          # slurp
-          # ydiff
-          # grim
-          # gimp
-          # swappy
-          # swaylock-effects
-          notify-desktop
-          libappindicator
-          zenity
-          spotify
-          wl-clipboard
-          nemo
-          yubioath-flutter
-          feh
+          tesseract4
+          dmenu-wayland
+          nwg-launchers
+          wofi
+          wofi-emoji
+          slurp
+          ydiff
+          grim
+          gimp
+          swappy
+          swaylock-effects
+          # notify-desktop
+          # libappindicator
+          # zenity
+          # spotify
+          # wl-clipboard
+          # nemo
+          # yubioath-flutter
+          # feh
         ];
 
         gtk = {
