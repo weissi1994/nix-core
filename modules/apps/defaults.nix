@@ -479,13 +479,6 @@
           viAlias = true;
           vimAlias = true;
         };
-        git = {
-          signing = { signByDefault = true; };
-          aliases = {
-            squash-all =
-              ''!f(){ git reset $(git commit-tree HEAD^{tree} "$@");};f'';
-          };
-        };
         lazygit = {
           enable = true;
           settings = { gui.theme = { lightTheme = false; }; };
@@ -1324,18 +1317,20 @@
           };
         };
         git = {
+          signing = { signByDefault = true; };
           enable = true;
           userName = "${host.username}";
           userEmail = "${host.email}";
           delta = {
             enable = true;
             options = {
-              features = "decorations";
               navigate = true;
               side-by-side = true;
             };
           };
           aliases = {
+            squash-all =
+              ''!f(){ git reset $(git commit-tree HEAD^{tree} "$@");};f'';
             lg =
               "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
           };
