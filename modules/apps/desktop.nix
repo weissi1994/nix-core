@@ -918,6 +918,11 @@
           zenity
           wl-clipboard # clipboard utils for wayland (wl-copy, wl-paste)
           gopass-jsonapi
+          jq
+          pamixer
+          pavucontrol
+          gopsuinfo
+          playerctl
         ];
       };
   };
