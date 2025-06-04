@@ -557,7 +557,7 @@
         };
 
         catppuccin.enable = true;
-        catppuccin.flavor = "latte"; # "latte";
+        catppuccin.flavor = "mocha";
         catppuccin.accent = "blue";
 
         fonts.fontconfig = {
