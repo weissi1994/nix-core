@@ -2,7 +2,7 @@
   apps.desktop-config = {
     tags = [ "desktop" ];
 
-    nixpkgs = { packages.unfree = [ "google-chrome" ]; };
+    nixpkgs = { packages.unfree = [ "google-chrome" "spotify" ]; };
 
     nixos = { host, pkgs, lib, ... }: {
       hardware = { graphics = { enable = true; }; };
@@ -347,6 +347,7 @@
         obs-studio
         pavucontrol
         vlc
+        spotify
         discord
         obsidian
 

@@ -33,7 +33,6 @@
           notify-desktop
           nwg-launchers
           slurp
-          spotify
           swappy
           sway-contrib.grimshot # screenshots
           swayidle
