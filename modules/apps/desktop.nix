@@ -15,8 +15,18 @@
     };
 
     nixos = { host, pkgs, lib, ... }: {
-      hardware = { graphics = { enable = true; }; };
-      hardware.enableRedistributableFirmware = true;
+      imports = [ inputs.stylix.nixosModules.stylix ];
+
+      hardware = {
+        graphics = { enable = true; };
+        enableRedistributableFirmware = true;
+      };
+      boot = {
+        kernelParams =
+          [ "quiet" "vt.global_cursor_default=0" "mitigations=off" ];
+        plymouth.enable = true;
+      };
+
       security.polkit.enable = true;
       xdg.portal = {
         enable = true;
@@ -33,11 +43,6 @@
       powerManagement = {
         enable = true;
         powertop.enable = true;
-      };
-      boot = {
-        kernelParams =
-          [ "quiet" "vt.global_cursor_default=0" "mitigations=off" ];
-        plymouth.enable = true;
       };
 
       environment.sessionVariables = { _JAVA_AWT_WM_NONREPARENTING = "1"; };

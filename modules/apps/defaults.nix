@@ -6,7 +6,6 @@
   apps.host-config = {
     tags = [ "defaults" ];
     nixos = { host, pkgs, lib, config, ... }: {
-      imports = [ inputs.stylix.nixosModules.stylix ];
       nix = {
         registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
         nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}")
