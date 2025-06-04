@@ -23,6 +23,11 @@
         kernelParams =
           [ "quiet" "vt.global_cursor_default=0" "mitigations=off" ];
         plymouth.enable = true;
+        plymouth.logo = pkgs.fetchurl {
+          url =
+            "https://raw.githubusercontent.com/NixOS/nixos-artwork/f84c13adae08e860a7c3f76ab3a9bef916d276cc/logo/nix-snowflake-colours.svg";
+          sha256 = "pHYa+d5f6MAaY8xWd3lDjhagS+nvwDL3w7zSsQyqH7A=";
+        };
       };
 
       security.polkit.enable = true;
@@ -555,12 +560,6 @@
           image = ./files/background.png;
 
           polarity = "dark";
-
-          targets.plymouth.logo = pkgs.fetchurl {
-            url =
-              "https://raw.githubusercontent.com/NixOS/nixos-artwork/f84c13adae08e860a7c3f76ab3a9bef916d276cc/logo/nix-snowflake-colours.svg";
-            sha256 = "pHYa+d5f6MAaY8xWd3lDjhagS+nvwDL3w7zSsQyqH7A=";
-          };
 
           fonts = {
             serif = {
