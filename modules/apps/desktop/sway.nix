@@ -739,7 +739,6 @@
             for_window [app_id="cava-bg"] focus disable
             for_window [app_id="cava-bg"] border none
 
-            for_window [app_id="(?i)(?:blueman-manager|azote|gnome-disks|opensnitch_ui)"] floating enable
             for_window [app_id="(?i)(?:pavucontrol|nm-connection-editor|gsimplecal|galculator)"] floating enable
             for_window [app_id="(?i)(?:firefox|chromium)"] border none
             for_window [title="(?i)(?:copying|deleting|moving)"] floating enable

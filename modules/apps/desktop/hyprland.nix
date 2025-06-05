@@ -231,6 +231,7 @@
               "float, title:^(Authentication Required)$"
               "float, class:(codium|codium-url-handler|VSCodium), title:negative:(.*codium.*|.*VSCodium.*)"
               "float, class:^(com.heroicgameslauncher.hgl)$, title:negative:(Heroic Games Launcher)"
+              "float, class:^(blueman-manager|opensnitch_ui)$"
               "float, class:^([Ss]team)$, title:negative:^([Ss]team)$"
               "float, class:([Tt]hunar), title:negative:(.*[Tt]hunar.*)"
               "float, initialTitle:(Add Folder to Workspace)"
