@@ -35,7 +35,7 @@
             pkill rofi
           fi
           rofi -show drun
-        ''
+        '';
       in {
         home.packages = with pkgs; [
           grim
