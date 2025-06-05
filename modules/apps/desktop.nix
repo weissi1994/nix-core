@@ -377,7 +377,9 @@
           fira-code-symbols
           fira-go
           font-awesome
+          joypixels
           liberation_ttf
+          material-icons
           nerd-fonts.fira-code
           nerd-fonts.symbols-only
           nerd-fonts.ubuntu-mono
@@ -385,7 +387,6 @@
           noto-fonts-cjk-sans
           noto-fonts-emoji
           noto-fonts-monochrome-emoji
-          joypixels
           source-serif
           symbola
           ubuntu_font_family
