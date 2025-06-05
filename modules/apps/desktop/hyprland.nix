@@ -1,11 +1,11 @@
-{ inputs, lib, ... }:
+{ ... }:
 {
   apps.hyprland-config = {
     tags = [ "desktop" ];
     enablePredicate = { host, ... }: host.desktop == "hyprland";
 
     nixos =
-      { host, pkgs, ... }:
+      { ... }:
       {
         programs.hyprland.enable = true;
       };
@@ -33,8 +33,6 @@
         };
         terminal = "kitty";
         browser = "google-chrome";
-        background = ../files/background.png;
-        profile = ../files/face.png;
         rofi = pkgs.writeShellScriptBin "rofi-launcher" ''
           # check if rofi is already running
           if pidof rofi > /dev/null; then
@@ -270,8 +268,10 @@
               "$modifier,Return,exec,${terminal}"
               "$modifier SHIFT,K,exec,list-keybinds"
               "$modifier SHIFT,Return,exec,${rofi}"
+              "$modifier,d,exec,${rofi}"
               "$modifier SHIFT,N,exec,swaync-client -rs"
               "$modifier,G,exec,${browser}"
+              "$modifier,a,exec,hyprlock"
               "$modifier,n,exec,kitty -e yazi"
               "$modifier,T,exec,pypr toggle term"
               "$modifier,w,togglegroup"
