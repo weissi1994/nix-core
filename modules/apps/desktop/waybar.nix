@@ -153,7 +153,7 @@ in {
             tooltip = "true";
           };
           "custom/screenshot" = {
-            format = "📸 ";
+            format = "  ";
             tooltip-format = "Take a screenshot";
             on-click = "sh $HOME/.config/screenshot.sh area";
             on-click-middle = "sh $HOME/.config/screenshot.sh window";
