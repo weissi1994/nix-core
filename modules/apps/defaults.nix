@@ -446,7 +446,7 @@
           EDITOR = "nvim";
           SYSTEMD_EDITOR = "nvim";
           VISUAL = "nvim";
-          NH_FLAKE = "${config.home.homeDirectory}/dev/nix";
+          NH_FLAKE = "git+https://gitlab.n0de.biz/daniel/nix?ref=main";
           PAGER = "moar";
         };
         activation.report-changes = config.lib.dag.entryAnywhere ''
