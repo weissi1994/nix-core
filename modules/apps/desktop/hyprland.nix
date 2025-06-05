@@ -1,13 +1,21 @@
-{ ... }: {
+{ ... }:
+{
   apps.hyprland-config = {
     tags = [ "desktop" ];
     enablePredicate = { host, ... }: host.desktop == "hyprland";
 
-    nixpkgs = { packages.unfree = [ "albert" ]; };
+    nixpkgs = {
+      packages.unfree = [ "albert" ];
+    };
 
-    nixos = { ... }: { programs.hyprland.enable = true; };
+    nixos =
+      { ... }:
+      {
+        programs.hyprland.enable = true;
+      };
 
-    home = { host, pkgs, ... }:
+    home =
+      { host, pkgs, ... }:
       let
         colors = {
           base00 = "#1e1e2e"; # base
@@ -32,26 +40,48 @@
         launcher = pkgs.writeShellScriptBin "launcher" ''
           albert show
         '';
-      in {
-        home.packages = with pkgs; [
-          grim
-          albert
-          slurp
-          wl-clipboard
-          swappy
-          ydotool
-          hyprpolkitagent
-          hyprland-qtutils # needed for banners and ANR messages
-          pyprland
-        ];
-        systemd.user.targets.hyprland-session.Unit.Wants =
-          [ "xdg-desktop-autostart.target" ];
-        # Place Files Inside Home Directory
-        home.file = {
-          ".face.icon".source = ../files/face.png;
-          ".config/face.jpg".source = ../files/face.png;
-          ".config/background.png".source = ../files/background.png;
+      in
+      {
+        home = {
+          packages = with pkgs; [
+            grim
+            albert
+            slurp
+            wl-clipboard
+            swappy
+            ydotool
+            hyprpolkitagent
+            hyprland-qtutils # needed for banners and ANR messages
+            pyprland
+          ];
+          # Place Files Inside Home Directory
+          file = {
+            ".face.icon".source = ../files/face.png;
+            ".config/face.jpg".source = ../files/face.png;
+            ".config/background.png".source = ../files/background.png;
+            ".config/wlogout/icons/reboot.png".source = ../files/wlogout/reboot.png;
+            ".config/wlogout/icons/logout.png".source = ../files/wlogout/logout.png;
+            ".config/wlogout/icons/suspend.png".source = ../files/wlogout/suspend.png;
+            ".config/wlogout/icons/shutdown.png".source = ../files/wlogout/shutdown.png;
+            ".config/wlogout/icons/hibernate.png".source = ../files/wlogout/hibernate.png;
+            ".config/wlogout/icons/lock.png".source = ../files/wlogout/lock.png;
+            ".config/hypr/pyprland.toml".text = ''
+              [pyprland]
+              plugins = [
+                "scratchpads",
+              ]
+
+              [scratchpads.term]
+              animation = "fromTop"
+              command = "kitty --class kitty-dropterm"
+              class = "kitty-dropterm"
+              size = "70% 70%"
+              max_size = "1920px 100%"
+              position = "150px 150px"
+            '';
+          };
         };
+        systemd.user.targets.hyprland-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
 
         gtk = {
           enable = true;
@@ -80,7 +110,9 @@
             enableXdgAutostart = true;
             variables = [ "--all" ];
           };
-          xwayland = { enable = true; };
+          xwayland = {
+            enable = true;
+          };
 
           settings = {
             exec-once = [
@@ -147,8 +179,7 @@
               disable_splash_rendering = true;
               enable_swallow = false;
               vfr = true; # Variable Frame Rate
-              vrr =
-                2; # Variable Refresh Rate  Might need to set to 0 for NVIDIA/AQ_DRM_DEVICES
+              vrr = 2; # Variable Refresh Rate  Might need to set to 0 for NVIDIA/AQ_DRM_DEVICES
               # Screen flashing to black momentarily or going black when app is fullscreen
               # Try setting vrr to 0
 
@@ -354,7 +385,11 @@
               ",XF86MonBrightnessDown,exec,brightnessctl set 5%-"
               ",XF86MonBrightnessUp,exec,brightnessctl set +5%"
             ];
-            group = { groupbar = { font_size = 12; }; };
+            group = {
+              groupbar = {
+                font_size = 12;
+              };
+            };
 
             bindm = [
               "$modifier, mouse:272, movewindow"
@@ -415,57 +450,150 @@
           };
         };
 
-        home.file.".config/hypr/pyprland.toml".text = ''
-          [pyprland]
-          plugins = [
-            "scratchpads",
-          ]
-
-          [scratchpads.term]
-          animation = "fromTop"
-          command = "kitty --class kitty-dropterm"
-          class = "kitty-dropterm"
-          size = "70% 70%"
-          max_size = "1920px 100%"
-          position = "150px 150px"
-        '';
-        programs.hyprlock = {
-          enable = true;
-          settings = {
-            general = {
-              disable_loading_bar = true;
-              grace = 10;
-              hide_cursor = true;
-              no_fade_in = false;
+        programs = {
+          hyprlock = {
+            enable = true;
+            settings = {
+              general = {
+                disable_loading_bar = true;
+                grace = 10;
+                hide_cursor = true;
+                no_fade_in = false;
+              };
+              background = [
+                {
+                  path = "/home/${host.username}/.config/background.png";
+                  blur_passes = 3;
+                  blur_size = 8;
+                }
+              ];
+              image = [
+                {
+                  path = "/home/${host.username}/.config/face.png";
+                  size = 150;
+                  border_size = 4;
+                  border_color = "rgb(0C96F9)";
+                  rounding = -1; # Negative means circle
+                  position = "0, 200";
+                  halign = "center";
+                  valign = "center";
+                }
+              ];
+              input-field = [
+                {
+                  size = "200, 50";
+                  position = "0, -80";
+                  monitor = "";
+                  dots_center = true;
+                  fade_on_empty = false;
+                  font_color = "rgb(CFE6F4)";
+                  inner_color = "rgb(657DC2)";
+                  outer_color = "rgb(0D0E15)";
+                  outline_thickness = 5;
+                  placeholder_text = "Password...";
+                  shadow_passes = 2;
+                }
+              ];
             };
-            background = [{
-              path = "/home/${host.username}/.config/background.png";
-              blur_passes = 3;
-              blur_size = 8;
-            }];
-            image = [{
-              path = "/home/${host.username}/.config/face.png";
-              size = 150;
-              border_size = 4;
-              border_color = "rgb(0C96F9)";
-              rounding = -1; # Negative means circle
-              position = "0, 200";
-              halign = "center";
-              valign = "center";
-            }];
-            input-field = [{
-              size = "200, 50";
-              position = "0, -80";
-              monitor = "";
-              dots_center = true;
-              fade_on_empty = false;
-              font_color = "rgb(CFE6F4)";
-              inner_color = "rgb(657DC2)";
-              outer_color = "rgb(0D0E15)";
-              outline_thickness = 5;
-              placeholder_text = "Password...";
-              shadow_passes = 2;
-            }];
+          };
+          programs.wlogout = {
+            enable = true;
+            layout = [
+              {
+                label = "shutdown";
+                action = "sleep 1; systemctl poweroff";
+                text = "Shutdown";
+                keybind = "s";
+              }
+              {
+                "label" = "reboot";
+                "action" = "sleep 1; systemctl reboot";
+                "text" = "Reboot";
+                "keybind" = "r";
+              }
+              {
+                "label" = "logout";
+                "action" = "sleep 1; hyprctl dispatch exit";
+                "text" = "Exit";
+                "keybind" = "e";
+              }
+              {
+                "label" = "suspend";
+                "action" = "sleep 1; systemctl suspend";
+                "text" = "Suspend";
+                "keybind" = "u";
+              }
+              {
+                "label" = "lock";
+                "action" = "sleep 1; hyprlock";
+                "text" = "Lock";
+                "keybind" = "l";
+              }
+              {
+                "label" = "hibernate";
+                "action" = "sleep 1; systemctl hibernate";
+                "text" = "Hibernate";
+                "keybind" = "h";
+              }
+            ];
+            style = ''
+              * {
+                font-family: "JetBrainsMono NF", FontAwesome, sans-serif;
+              	background-image: none;
+              	transition: 20ms;
+              }
+              window {
+              	background-color: rgba(12, 12, 12, 0.1);
+              }
+              button {
+              	color: ${colors.base05};
+                font-size:20px;
+                background-repeat: no-repeat;
+              	background-position: center;
+              	background-size: 25%;
+              	border-style: solid;
+              	background-color: rgba(12, 12, 12, 0.3);
+              	border: 3px solid ${colors.base05};
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+              }
+              button:focus,
+              button:active,
+              button:hover {
+                color: ${colors.base0B};
+                background-color: rgba(12, 12, 12, 0.5);
+                border: 3px solid ${colors.base0B};
+              }
+              #logout {
+              	margin: 10px;
+              	border-radius: 20px;
+              	background-image: image(url("icons/logout.png"));
+              }
+              #suspend {
+              	margin: 10px;
+              	border-radius: 20px;
+              	background-image: image(url("icons/suspend.png"));
+              }
+              #shutdown {
+              	margin: 10px;
+              	border-radius: 20px;
+              	background-image: image(url("icons/shutdown.png"));
+              }
+              #reboot {
+              	margin: 10px;
+              	border-radius: 20px;
+              	background-image: image(url("icons/reboot.png"));
+              }
+              #lock {
+              	margin: 10px;
+              	border-radius: 20px;
+              	background-image: image(url("icons/lock.png"));
+              }
+              #hibernate {
+              	margin: 10px;
+              	border-radius: 20px;
+              	background-image: image(url("icons/hibernate.png"));
+              }
+            '';
           };
         };
         services = {
