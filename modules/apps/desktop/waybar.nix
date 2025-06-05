@@ -53,6 +53,7 @@ in {
           ]; # Eternal:  [ "hyprland/workspaces" "cpu" "memory" "network" ]
           modules-right = [
             "tray"
+            "backlight"
             "custom/screenshot"
             "custom/notification"
             "battery"
@@ -68,6 +69,11 @@ in {
             };
             on-scroll-up = "hyprctl dispatch workspace e+1";
             on-scroll-down = "hyprctl dispatch workspace e-1";
+          };
+          "backlight" = {
+            # device = "acpi_video1";
+            format = "{icon} {percent}%";
+            states = [ "0" "50" ];
           };
           "clock" = {
             format = " {:%H:%M}";
@@ -407,7 +413,6 @@ in {
       #         "tray"
       #         "pulseaudio"
       #         "battery"
-      #         "backlight"
       #         "network"
       #         "custom/notification"
       #         "custom/power"
@@ -484,11 +489,6 @@ in {
       #       "custom/clock" = {
       #         exec = "date +'%d. %b %H:%M'";
       #         interval = 10;
-      #       };
-      #       "backlight" = {
-      #         # device = "acpi_video1";
-      #         format = " {percent}% {icon}  ";
-      #         states = [ "0" "50" ];
       #       };
       #       "pulseaudio" = {
       #         #"scroll-step" = 1;
