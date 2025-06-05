@@ -47,6 +47,7 @@
         home.file = {
           ".face.icon".source = ../files/face.png;
           ".config/face.jpg".source = ../files/face.png;
+          ".config/background.png".source = ../files/background.png;
         };
 
         wayland.windowManager.hyprland = {
@@ -414,7 +415,7 @@
               no_fade_in = false;
             };
             background = [{
-              path = "${background}";
+              path = "/home/${host.username}/.config/background.png";
               blur_passes = 3;
               blur_size = 8;
             }];
