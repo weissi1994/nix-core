@@ -379,7 +379,7 @@ in {
             padding: 2px 20px;
           }
           #backlight {
-            color: ${base05};
+            color: ${base0A};
             background: ${base00};
             border-radius: 15px 50px 15px 50px;
             margin: 5px;
