@@ -74,7 +74,6 @@
             enable = true;
           };
 
-          extraConfig = "\n      monitor=,preferred,auto,auto\n      monitor=eDP-1,1920x1080@60,auto,1\n      # To enable blur on waybar uncomment the line below\n      # Thanks to SchotjeChrisman\n      #layerrule = blur,waybar\n    ";
           settings = {
             exec-once = [
               "wl-paste --type text --watch cliphist store # Stores only text data"
