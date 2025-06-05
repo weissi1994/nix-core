@@ -74,11 +74,16 @@
               "killall -q swaync;sleep .5 && swaync"
               "nm-applet --indicator"
               "pypr &"
+              "obsidian &"
+              "spotify &"
+              "google-chrome-stable &"
+              "telegram-desktop &"
+              "discord &"
               "sleep 1.5 && swww img ${background}"
             ];
             input = {
               kb_layout = "us";
-              kb_options = [ "grp:alt_caps_toggle" "caps:super" ];
+              kb_options = [ "altgr-intl" ];
               numlock_by_default = true;
               repeat_delay = 300;
               follow_mouse = 1;
