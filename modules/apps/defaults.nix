@@ -546,7 +546,7 @@
               git.n0de.biz = {
                 proxyCommand = "/etc/profiles/per-user/dweissengruber/bin/cloudflared access ssh --hostname %h";
                 user = "git";
-                IdentityFile = "~/.ssh/id_rsa_yubikey.pub";
+                identityFile = "~/.ssh/id_rsa_yubikey.pub";
               };
             };
           };
