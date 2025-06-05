@@ -924,6 +924,8 @@
           fira-code
           fira-code-symbols
           font-awesome
+          font-awesome_4
+          font-awesome_5
           liberation_ttf
           mplus-outline-fonts.githubRelease
           noto-fonts
