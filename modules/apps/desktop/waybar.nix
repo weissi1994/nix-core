@@ -359,10 +359,10 @@ in {
           }
           #custom-screenshot {
             color: ${base0A};
-              background: ${base00};
-              border-radius: 50px 15px 50px 15px;
-              margin: 5px;
-              padding: 2px 20px;
+            background: ${base00};
+            border-radius: 15px 50px 15px 50px;
+            margin: 5px;
+            padding: 2px 20px;
           }
           #custom-notification {
             color: ${base0C};
@@ -379,10 +379,10 @@ in {
             padding: 2px 20px;
           }
           #backlight {
-            color: ${base04};
+            color: ${base05};
             background: ${base00};
-            border-radius: 0px 15px 50px 0px;
-            margin: 5px 5px 5px 0px;
+            border-radius: 15px 50px 15px 50px;
+            margin: 5px;
             padding: 2px 20px;
           }
           #idle_inhibitor {

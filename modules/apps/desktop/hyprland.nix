@@ -29,6 +29,13 @@
         browser = "google-chrome";
         background = ../files/background.png;
         profile = ../files/face.png;
+        rofi = pkgs.writeShellScriptBin "rofi-launcher" ''
+          # check if rofi is already running
+          if pidof rofi > /dev/null; then
+            pkill rofi
+          fi
+          rofi -show drun
+        ''
       in {
         home.packages = with pkgs; [
           grim
@@ -257,7 +264,7 @@
             bind = [
               "$modifier,Return,exec,${terminal}"
               "$modifier SHIFT,K,exec,list-keybinds"
-              "$modifier SHIFT,Return,exec,rofi-launcher"
+              "$modifier SHIFT,Return,exec,${rofi}"
               "$modifier SHIFT,N,exec,swaync-client -rs"
               "$modifier,G,exec,${browser}"
               "$modifier,n,exec,kitty -e yazi"
