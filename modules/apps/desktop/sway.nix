@@ -65,6 +65,7 @@
         webbrowser = "brave";
         webbrowserPersistent = "google-chrome-stable";
         musicplayer = "spotify";
+        background = ../files/background.png;
       in {
         home = {
           file = {
@@ -511,7 +512,7 @@
           #   export XWAYALND_NO_GLAMOR=1
           # '';
           config = {
-            output = { "*" = { bg = "${../files/background.png} fit"; }; };
+            output = { "*" = { bg = "${background} fit"; }; };
             gaps = {
               inner = 2;
               smartBorders = "on";
