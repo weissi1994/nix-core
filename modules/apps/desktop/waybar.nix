@@ -28,6 +28,9 @@ in {
     nixos = { host, pkgs, ... }: { };
 
     home = { host, pkgs, config, ... }: {
+      home = {
+        file = { ".config/screenshot.sh".source = ../files/screenshot.sh; };
+      };
       programs.waybar = with colors; {
         enable = true;
         package = pkgs.waybar;
@@ -50,7 +53,7 @@ in {
           ]; # Eternal:  [ "hyprland/workspaces" "cpu" "memory" "network" ]
           modules-right = [
             "tray"
-            "idle_inhibitor"
+            "custom/screenshot"
             "custom/notification"
             "battery"
             "custom/exit"
@@ -140,6 +143,13 @@ in {
               deactivated = " ";
             };
             tooltip = "true";
+          };
+          "custom/screenshot" = {
+            format = "📸 ";
+            tooltip-format = "Take a screenshot";
+            on-click = "sh $HOME/.config/screenshot.sh area";
+            on-click-middle = "sh $HOME/.config/screenshot.sh window";
+            on-click-right = "sh $HOME/.config/screenshot.sh output";
           };
           "custom/notification" = {
             tooltip = false;
@@ -371,6 +381,14 @@ in {
           }
         ''];
       };
+      home.packages = with pkgs; [
+        battop
+        grimshot
+        grim
+        slurp
+        sway-contrib.grimshot
+        swappy
+      ];
 
       # programs.waybar = {
       #   enable = true;
