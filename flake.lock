@@ -25,11 +25,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1749089136,
-        "narHash": "sha256-A1UgwtAEQYd38Z6VoRAiGs4jZQczAGyP5DF3hhYUdpg=",
+        "lastModified": 1749147380,
+        "narHash": "sha256-UvCI5f1qD9l1fCQkoG/kJI0yNjDQIiJaN7gkve8fmII=",
         "owner": "nix-community",
         "repo": "disko",
-        "rev": "a4f7deb49f7336feb6c5abaf213b374936421dbe",
+        "rev": "d74db625a5cf3f46cf8fa545d6ef10bd3463ea07",
         "type": "github"
       },
       "original": {
@@ -121,11 +121,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1748665073,
-        "narHash": "sha256-RMhjnPKWtCoIIHiuR9QKD7xfsKb3agxzMfJY8V9MOew=",
+        "lastModified": 1749154018,
+        "narHash": "sha256-gjN3j7joRvT3a8Zgcylnd4NFsnXeDBumqiu4HmY1RIg=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "282e1e029cb6ab4811114fc85110613d72771dea",
+        "rev": "7aae0ee71a17b19708b93b3ed448a1a0952bf111",
         "type": "github"
       },
       "original": {
@@ -198,11 +198,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1749024892,
-        "narHash": "sha256-OGcDEz60TXQC+gVz5sdtgGJdKVYr6rwdzQKuZAJQpCA=",
+        "lastModified": 1749086602,
+        "narHash": "sha256-DJcgJMekoxVesl9kKjfLPix2Nbr42i7cpEHJiTnBUwU=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "8f1b52b04f2cb6e5ead50bd28d76528a2f0380ef",
+        "rev": "4792576cb003c994bd7cc1edada3129def20b27d",
         "type": "github"
       },
       "original": {
@@ -245,11 +245,11 @@
         "nixvim": "nixvim"
       },
       "locked": {
-        "lastModified": 1748529221,
-        "narHash": "sha256-WqDkFShUONEqle6Evc1EYdppcxPBYgt8Vcy6hYassqc=",
+        "lastModified": 1749153655,
+        "narHash": "sha256-ErEVZasARpIOGGmwm+3d7n/zIBSQH20g8afPzKT7MSc=",
         "ref": "main",
-        "rev": "700e01c325ec3109e275e44d09ab46d5ef32ba3e",
-        "revCount": 629,
+        "rev": "44ccb0ab6d06fba20550b67d77ecb65b69ce6fe0",
+        "revCount": 630,
         "type": "git",
         "url": "https://gitlab.n0de.biz/daniel/nvim-config"
       },
