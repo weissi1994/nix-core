@@ -529,9 +529,21 @@
             controlPersist = "10m";
 
             matchBlocks = {
+              "*" = {
+                user = "${host.username}";
+                IdentityFile = "~/.ssh/id_rsa_yubikey.pub";
+              };
               github = {
                 host = "github.com";
                 hostname = "ssh.github.com";
+                user = "git";
+                port = 443;
+                identitiesOnly = true;
+              };
+              gitlab.n0de.biz = {
+                host = "git.n0de.biz";
+                hostname = "git.n0de.biz";
+                proxyCommand = "/etc/profiles/per-user/dweissengruber/bin/cloudflared access ssh --hostname %h";
                 user = "git";
                 port = 443;
                 identitiesOnly = true;
