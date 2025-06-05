@@ -28,7 +28,7 @@
           base0F = "#f2cdcd"; # flamingo
         };
         terminal = "kitty";
-        browser = "google-chrome";
+        browser = "google-chrome-stable";
         launcher = pkgs.writeShellScriptBin "launcher" ''
           albert show
         '';
@@ -276,8 +276,8 @@
             bind = [
               "$modifier,Return,exec,${terminal}"
               "$modifier SHIFT,K,exec,list-keybinds"
-              "$modifier SHIFT,Return,exec,${launcher}"
-              "$modifier,d,exec,${launcher}"
+              "$modifier SHIFT,Return,exec,${launcher}/bin/launcher"
+              "$modifier,d,exec,${launcher}/bin/launcher"
               "$modifier SHIFT,N,exec,swaync-client -rs"
               "$modifier,G,exec,${browser}"
               "$modifier,a,exec,hyprlock"
@@ -285,7 +285,8 @@
               "$modifier,T,exec,pypr toggle term"
               "$modifier,w,togglegroup"
               "$modifier SHIFT,Q,killactive,"
-              "$modifier,v,exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
+              "$modifier SHIFT,SPACE,movetoworkspace,special"
+              "$modifier,SPACE,togglespecialworkspace"
               "$modifier,x,togglesplit,"
               "$modifier,F,fullscreen,"
               "$modifier SHIFT,F,togglefloating,"
@@ -325,8 +326,6 @@
               "$modifier,8,workspace,8"
               "$modifier,9,workspace,9"
               "$modifier,0,workspace,10"
-              "$modifier SHIFT,SPACE,movetoworkspace,special"
-              "$modifier,SPACE,togglespecialworkspace"
               "$modifier SHIFT,1,movetoworkspace,1"
               "$modifier SHIFT,2,movetoworkspace,2"
               "$modifier SHIFT,3,movetoworkspace,3"
