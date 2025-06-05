@@ -532,6 +532,9 @@
         };
         # https://nixos.wiki/wiki/Bluetooth#Using_Bluetooth_headsets_with_PulseAudio
         services = {
+
+          network-manager-applet.enable = true;
+
           mpris-proxy.enable = true;
 
           opensnitch-ui.enable = true;

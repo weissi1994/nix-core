@@ -312,6 +312,8 @@
               "$modifier,right,movefocus,r"
               "$modifier,up,movefocus,u"
               "$modifier,down,movefocus,d"
+              "$modifier,right,changegroupactive,f"
+              "$modifier,left,changegroupactive,b"
               "$modifier,h,movefocus,l"
               "$modifier,l,movefocus,r"
               "$modifier,k,movefocus,u"
