@@ -357,6 +357,13 @@ in {
             padding: 2px 20px;
             border-radius: 50px 15px 50px 15px;
           }
+          #custom-screenshot {
+            color: ${base0A};
+              background: ${base00};
+              border-radius: 50px 15px 50px 15px;
+              margin: 5px;
+              padding: 2px 20px;
+          }
           #custom-notification {
             color: ${base0C};
             background: ${base00};
@@ -366,6 +373,13 @@ in {
           }
           #custom-startmenu {
             color: ${base0E};
+            background: ${base00};
+            border-radius: 0px 15px 50px 0px;
+            margin: 5px 5px 5px 0px;
+            padding: 2px 20px;
+          }
+          #backlight {
+            color: ${base04};
             background: ${base00};
             border-radius: 0px 15px 50px 0px;
             margin: 5px 5px 5px 0px;
