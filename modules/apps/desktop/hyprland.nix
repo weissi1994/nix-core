@@ -496,7 +496,7 @@
               ];
             };
           };
-          programs.wlogout = {
+          wlogout = {
             enable = true;
             layout = [
               {
