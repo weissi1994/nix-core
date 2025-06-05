@@ -512,7 +512,7 @@
           #   export XWAYALND_NO_GLAMOR=1
           # '';
           config = {
-            output = { "*" = { bg = "${background} fit"; }; };
+            output = { "*" = { bg = "${background} fill"; }; };
             gaps = {
               inner = 2;
               smartBorders = "on";
