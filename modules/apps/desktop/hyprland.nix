@@ -1,11 +1,17 @@
-{ inputs, lib, ... }: {
+{ inputs, lib, ... }:
+{
   apps.hyprland-config = {
     tags = [ "desktop" ];
     enablePredicate = { host, ... }: host.desktop == "hyprland";
 
-    nixos = { host, pkgs, ... }: { programs.hyprland.enable = true; };
+    nixos =
+      { host, pkgs, ... }:
+      {
+        programs.hyprland.enable = true;
+      };
 
-    home = { host, pkgs, ... }:
+    home =
+      { host, pkgs, ... }:
       let
         colors = {
           base00 = "#1e1e2e"; # base
@@ -36,7 +42,8 @@
           fi
           rofi -show drun
         '';
-      in {
+      in
+      {
         home.packages = with pkgs; [
           grim
           slurp
@@ -47,8 +54,7 @@
           hyprland-qtutils # needed for banners and ANR messages
           pyprland
         ];
-        systemd.user.targets.hyprland-session.Unit.Wants =
-          [ "xdg-desktop-autostart.target" ];
+        systemd.user.targets.hyprland-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
         # Place Files Inside Home Directory
         home.file = {
           ".face.icon".source = ../files/face.png;
@@ -64,10 +70,11 @@
             enableXdgAutostart = true;
             variables = [ "--all" ];
           };
-          xwayland = { enable = true; };
+          xwayland = {
+            enable = true;
+          };
 
-          extraConfig =
-            "\n      monitor=,preferred,auto,auto\n      monitor=eDP-1,1920x1080@60,auto,1\n      # To enable blur on waybar uncomment the line below\n      # Thanks to SchotjeChrisman\n      #layerrule = blur,waybar\n    ";
+          extraConfig = "\n      monitor=,preferred,auto,auto\n      monitor=eDP-1,1920x1080@60,auto,1\n      # To enable blur on waybar uncomment the line below\n      # Thanks to SchotjeChrisman\n      #layerrule = blur,waybar\n    ";
           settings = {
             exec-once = [
               "wl-paste --type text --watch cliphist store # Stores only text data"
@@ -135,8 +142,7 @@
               disable_splash_rendering = true;
               enable_swallow = false;
               vfr = true; # Variable Frame Rate
-              vrr =
-                2; # Variable Refresh Rate  Might need to set to 0 for NVIDIA/AQ_DRM_DEVICES
+              vrr = 2; # Variable Refresh Rate  Might need to set to 0 for NVIDIA/AQ_DRM_DEVICES
               # Screen flashing to black momentarily or going black when app is fullscreen
               # Try setting vrr to 0
 
@@ -269,6 +275,7 @@
               "$modifier,G,exec,${browser}"
               "$modifier,n,exec,kitty -e yazi"
               "$modifier,T,exec,pypr toggle term"
+              "$modifier,w,togglegroup"
               "$modifier SHIFT,Q,killactive,"
               "$modifier,v,exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
               "$modifier SHIFT,I,togglesplit,"
@@ -420,34 +427,40 @@
               hide_cursor = true;
               no_fade_in = false;
             };
-            background = [{
-              path = "/home/${host.username}/.config/background.png";
-              blur_passes = 3;
-              blur_size = 8;
-            }];
-            image = [{
-              path = "/home/${host.username}/.config/face.png";
-              size = 150;
-              border_size = 4;
-              border_color = "rgb(0C96F9)";
-              rounding = -1; # Negative means circle
-              position = "0, 200";
-              halign = "center";
-              valign = "center";
-            }];
-            input-field = [{
-              size = "200, 50";
-              position = "0, -80";
-              monitor = "";
-              dots_center = true;
-              fade_on_empty = false;
-              font_color = "rgb(CFE6F4)";
-              inner_color = "rgb(657DC2)";
-              outer_color = "rgb(0D0E15)";
-              outline_thickness = 5;
-              placeholder_text = "Password...";
-              shadow_passes = 2;
-            }];
+            background = [
+              {
+                path = "/home/${host.username}/.config/background.png";
+                blur_passes = 3;
+                blur_size = 8;
+              }
+            ];
+            image = [
+              {
+                path = "/home/${host.username}/.config/face.png";
+                size = 150;
+                border_size = 4;
+                border_color = "rgb(0C96F9)";
+                rounding = -1; # Negative means circle
+                position = "0, 200";
+                halign = "center";
+                valign = "center";
+              }
+            ];
+            input-field = [
+              {
+                size = "200, 50";
+                position = "0, -80";
+                monitor = "";
+                dots_center = true;
+                fade_on_empty = false;
+                font_color = "rgb(CFE6F4)";
+                inner_color = "rgb(657DC2)";
+                outer_color = "rgb(0D0E15)";
+                outline_thickness = 5;
+                placeholder_text = "Password...";
+                shadow_passes = 2;
+              }
+            ];
           };
         };
         programs = {
@@ -493,7 +506,10 @@
                 enabled = true;
                 spacing = "0px";
                 orientation = "horizontal";
-                children = [ "imagebox" "listbox" ];
+                children = [
+                  "imagebox"
+                  "listbox"
+                ];
                 background-color = "transparent";
               };
               "imagebox" = {
@@ -501,16 +517,25 @@
                 background-color = "transparent";
                 background-image = ''url("~/.config/background.png", height)'';
                 orientation = "vertical";
-                children = [ "inputbar" "dummy" "mode-switcher" ];
+                children = [
+                  "inputbar"
+                  "dummy"
+                  "mode-switcher"
+                ];
               };
               "listbox" = {
                 spacing = "20px";
                 padding = "20px";
                 background-color = "transparent";
                 orientation = "vertical";
-                children = [ "message" "listview" ];
+                children = [
+                  "message"
+                  "listview"
+                ];
               };
-              "dummy" = { background-color = "transparent"; };
+              "dummy" = {
+                background-color = "transparent";
+              };
               "inputbar" = {
                 enabled = true;
                 spacing = "10px";
@@ -518,7 +543,10 @@
                 border-radius = "10px";
                 background-color = "@bg-alt";
                 text-color = "@foreground";
-                children = [ "textbox-prompt-colon" "entry" ];
+                children = [
+                  "textbox-prompt-colon"
+                  "entry"
+                ];
               };
               "textbox-prompt-colon" = {
                 enabled = true;
@@ -614,7 +642,9 @@
                 vertical-align = "0.5";
                 horizontal-align = "0.0";
               };
-              "message" = { background-color = "transparent"; };
+              "message" = {
+                background-color = "transparent";
+              };
               "textbox" = {
                 padding = "15px";
                 border-radius = "10px";
