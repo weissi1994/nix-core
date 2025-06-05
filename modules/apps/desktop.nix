@@ -556,9 +556,11 @@
           "XTerm*utf8" = true;
         };
 
-        catppuccin.enable = true;
-        catppuccin.flavor = "mocha";
-        catppuccin.accent = "blue";
+        catppuccin = {
+          enable = true;
+          flavor = "mocha";
+          accent = "blue";
+        };
 
         fonts.fontconfig = {
           enable = true;

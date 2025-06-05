@@ -1,4 +1,24 @@
-{ inputs, lib, ... }: {
+{ inputs, lib, ... }:
+let
+  colors = {
+    base00 = "#1e1e2e"; # base
+    base01 = "#181825"; # mantle
+    base02 = "#313244"; # surface0
+    base03 = "#45475a"; # surface1
+    base04 = "#585b70"; # surface2
+    base05 = "#cdd6f4"; # text
+    base06 = "#f5e0dc"; # rosewater
+    base07 = "#b4befe"; # lavender
+    base08 = "#f38ba8"; # red
+    base09 = "#fab387"; # peach
+    base0A = "#f9e2af"; # yellow
+    base0B = "#a6e3a1"; # green
+    base0C = "#94e2d5"; # teal
+    base0D = "#89b4fa"; # blue
+    base0E = "#cba6f7"; # mauve
+    base0F = "#f2cdcd"; # flamingo
+  };
+in {
   apps.waybar-config = {
     tags = [ "desktop" ];
     enablePredicate = { host, ... }:
@@ -7,7 +27,7 @@
     nixos = { host, pkgs, ... }: { };
 
     home = { host, pkgs, config, ... }: {
-      programs.waybar = {
+      programs.waybar = with colors; {
         enable = true;
         package = pkgs.waybar;
         settings = [{
@@ -164,99 +184,99 @@
           "custom/arrow6" = { format = ""; };
           "custom/arrow7" = { format = ""; };
         }];
-        # style = lib.concatStrings [''
-        #   * {
-        #     font-family: JetBrainsMono Nerd Font Mono;
-        #     font-size: 14px;
-        #     border-radius: 0px;
-        #     border: none;
-        #     min-height: 0px;
-        #   }
-        #   window#waybar {
-        #     background: #${config.lib.stylix.colors.base00};
-        #     color: #${config.lib.stylix.colors.base05};
-        #   }
-        #   #workspaces button {
-        #     padding: 0px 5px;
-        #     background: transparent;
-        #     color: #${config.lib.stylix.colors.base04};
-        #   }
-        #   #workspaces button.active {
-        #     color: #${config.lib.stylix.colors.base08};
-        #   }
-        #   #workspaces button:hover {
-        #     color: #${config.lib.stylix.colors.base08};
-        #   }
-        #   tooltip {
-        #     background: #${config.lib.stylix.colors.base00};
-        #     border: 1px solid #${config.lib.stylix.colors.base05};
-        #     border-radius: 12px;
-        #   }
-        #   tooltip label {
-        #     color: #${config.lib.stylix.colors.base05};
-        #   }
-        #   #window {
-        #     padding: 0px 10px;
-        #   }
-        #   #pulseaudio, #cpu, #memory, #idle_inhibitor {
-        #     padding: 0px 10px;
-        #     background: #${config.lib.stylix.colors.base04};
-        #     color: #${config.lib.stylix.colors.base00};
-        #   }
-        #   #custom-startmenu {
-        #     color: #${config.lib.stylix.colors.base02};
-        #     padding: 0px 14px;
-        #     font-size: 20px;
-        #     background: #${config.lib.stylix.colors.base0B};
-        #   }
-        #   #custom-hyprbindings, #network, #battery,
-        #   #custom-notification, #custom-exit {
-        #     background: #${config.lib.stylix.colors.base0F};
-        #     color: #${config.lib.stylix.colors.base00};
-        #     padding: 0px 10px;
-        #   }
-        #   #tray {
-        #     background: #${config.lib.stylix.colors.base02};
-        #     color: #${config.lib.stylix.colors.base00};
-        #     padding: 0px 10px;
-        #   }
-        #   #clock {
-        #     font-weight: bold;
-        #     padding: 0px 10px;
-        #     color: #${config.lib.stylix.colors.base00};
-        #     background: #${config.lib.stylix.colors.base0E};
-        #   }
-        #   #custom-arrow1 {
-        #     font-size: 24px;
-        #     color: #${config.lib.stylix.colors.base0E};
-        #     background: #${config.lib.stylix.colors.base02};
-        #   }
-        #   #custom-arrow2 {
-        #     font-size: 24px;
-        #     color: #${config.lib.stylix.colors.base02};
-        #     background: #${config.lib.stylix.colors.base0F};
-        #   }
-        #   #custom-arrow3 {
-        #     font-size: 24px;
-        #     color: #${config.lib.stylix.colors.base00};
-        #     background: #${config.lib.stylix.colors.base0F};
-        #   }
-        #   #custom-arrow4 {
-        #     font-size: 24px;
-        #     color: #${config.lib.stylix.colors.base0F};
-        #     background: transparent;
-        #   }
-        #   #custom-arrow6 {
-        #     font-size: 24px;
-        #     color: #${config.lib.stylix.colors.base0B};
-        #     background: #${config.lib.stylix.colors.base04};
-        #   }
-        #   #custom-arrow7 {
-        #     font-size: 24px;
-        #     color: #${config.lib.stylix.colors.base04};
-        #     background: transparent;
-        #   }
-        # ''];
+        style = lib.concatStrings [''
+          * {
+            font-family: JetBrainsMono Nerd Font Mono;
+            font-size: 14px;
+            border-radius: 0px;
+            border: none;
+            min-height: 0px;
+          }
+          window#waybar {
+            background: ${base00};
+            color: ${base05};
+          }
+          #workspaces button {
+            padding: 0px 5px;
+            background: transparent;
+            color: ${base04};
+          }
+          #workspaces button.active {
+            color: ${base08};
+          }
+          #workspaces button:hover {
+            color: ${base08};
+          }
+          tooltip {
+            background: ${base00};
+            border: 1px solid ${base05};
+            border-radius: 12px;
+          }
+          tooltip label {
+            color: ${base05};
+          }
+          #window {
+            padding: 0px 10px;
+          }
+          #pulseaudio, #cpu, #memory, #idle_inhibitor {
+            padding: 0px 10px;
+            background: ${base04};
+            color: ${base00};
+          }
+          #custom-startmenu {
+            color: ${base02};
+            padding: 0px 14px;
+            font-size: 20px;
+            background: ${base0B};
+          }
+          #custom-hyprbindings, #network, #battery,
+          #custom-notification, #custom-exit {
+            background: ${base0F};
+            color: ${base00};
+            padding: 0px 10px;
+          }
+          #tray {
+            background: ${base02};
+            color: ${base00};
+            padding: 0px 10px;
+          }
+          #clock {
+            font-weight: bold;
+            padding: 0px 10px;
+            color: ${base00};
+            background: ${base0E};
+          }
+          #custom-arrow1 {
+            font-size: 24px;
+            color: ${base0E};
+            background: ${base02};
+          }
+          #custom-arrow2 {
+            font-size: 24px;
+            color: ${base02};
+            background: ${base0F};
+          }
+          #custom-arrow3 {
+            font-size: 24px;
+            color: ${base00};
+            background: ${base0F};
+          }
+          #custom-arrow4 {
+            font-size: 24px;
+            color: ${base0F};
+            background: transparent;
+          }
+          #custom-arrow6 {
+            font-size: 24px;
+            color: ${base0B};
+            background: ${base04};
+          }
+          #custom-arrow7 {
+            font-size: 24px;
+            color: ${base04};
+            background: transparent;
+          }
+        ''];
       };
 
       # programs.waybar = {
