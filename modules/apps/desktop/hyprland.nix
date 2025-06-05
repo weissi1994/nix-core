@@ -297,7 +297,7 @@
               "$modifier,w,togglegroup"
               "$modifier SHIFT,Q,killactive,"
               "$modifier,v,exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
-              "$modifier SHIFT,I,togglesplit,"
+              "$modifier,x,togglesplit,"
               "$modifier,F,fullscreen,"
               "$modifier SHIFT,F,togglefloating,"
               "$modifier ALT,F,workspaceopt, allfloat"
@@ -366,7 +366,7 @@
             ];
             group = {
               groupbar = {
-                fontsize = 12;
+                font_size = 12;
               };
             };
 
