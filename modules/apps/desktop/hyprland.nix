@@ -60,6 +60,25 @@
           ".config/background.png".source = ../files/background.png;
         };
 
+        gtk = {
+          enable = true;
+
+          theme = {
+            package = pkgs.flat-remix-gtk;
+            name = "Flat-Remix-GTK-Grey-Darkest";
+          };
+
+          iconTheme = {
+            package = pkgs.adwaita-icon-theme;
+            name = "Adwaita";
+          };
+
+          font = {
+            name = "Sans";
+            size = 11;
+          };
+        };
+
         wayland.windowManager.hyprland = {
           enable = true;
           package = pkgs.hyprland;
@@ -344,6 +363,11 @@
               ",XF86MonBrightnessDown,exec,brightnessctl set 5%-"
               ",XF86MonBrightnessUp,exec,brightnessctl set +5%"
             ];
+            group = {
+              groupbar = {
+                fontsize = 12;
+              };
+            };
 
             bindm = [
               "$modifier, mouse:272, movewindow"
