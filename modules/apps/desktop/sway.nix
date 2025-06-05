@@ -41,7 +41,6 @@
           swaynotificationcenter # notification daemon
           swayr
           tesseract4
-          waybar # status bar
           wl-clipboard
           wofi
           wofi-emoji
