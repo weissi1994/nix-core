@@ -97,7 +97,7 @@ in {
           };
           "cpu" = {
             interval = 5;
-            format = " {usage:2}%";
+            format = " {usage:2}%";
             tooltip = true;
             on-click = "${terminal} -e btm";
           };
