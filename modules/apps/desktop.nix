@@ -398,6 +398,7 @@
         enableDefaultPackages = true;
 
         fontconfig = {
+          enable = true;
           antialias = true;
           defaultFonts = {
             serif = [ "Source Serif" ];
@@ -412,7 +413,6 @@
               "Unifont Upper"
             ];
           };
-          enable = true;
           hinting = {
             autohint = false;
             enable = true;
@@ -921,6 +921,15 @@
           gopsuinfo
           playerctl
           opensnitch-ui
+          fira-code
+          fira-code-symbols
+          font-awesome
+          liberation_ttf
+          mplus-outline-fonts.githubRelease
+          nerdfonts
+          noto-fonts
+          noto-fonts-emoji
+          proggyfonts
         ];
       };
   };
