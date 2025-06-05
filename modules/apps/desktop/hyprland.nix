@@ -61,7 +61,7 @@
           xwayland = { enable = true; };
 
           extraConfig =
-            "\n      monitor=,preferred,auto,auto\n      monitor=Virtual-1,1920x1080@60,auto,1\n      # To enable blur on waybar uncomment the line below\n      # Thanks to SchotjeChrisman\n      #layerrule = blur,waybar\n    ";
+            "\n      monitor=,preferred,auto,auto\n      monitor=eDP-1,1920x1080@60,auto,1\n      # To enable blur on waybar uncomment the line below\n      # Thanks to SchotjeChrisman\n      #layerrule = blur,waybar\n    ";
           settings = {
             exec-once = [
               "wl-paste --type text --watch cliphist store # Stores only text data"
@@ -77,8 +77,8 @@
               "sleep 1.5 && swww img ${background}"
             ];
             input = {
-              kb_layout = "en";
-              # kb_options = [ "grp:alt_caps_toggle" "caps:super" ];
+              kb_layout = "us";
+              kb_options = [ "grp:alt_caps_toggle" "caps:super" ];
               numlock_by_default = true;
               repeat_delay = 300;
               follow_mouse = 1;
