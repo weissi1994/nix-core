@@ -196,7 +196,7 @@ in {
         style = lib.concatStrings [''
           * {
             font-size: 16px;
-            font-family: JetBrainsMono Nerd Font, Font Awesome, sans-serif;
+            font-family: JetBrainsMono Nerd Font, Font Awesome, Font Awesome 5 Free, Font Awesome 6 Free, sans-serif;
             font-weight: bold;
           }
           window#waybar {

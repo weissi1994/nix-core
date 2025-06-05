@@ -384,7 +384,6 @@
           fishPlugins.fzf
           fishPlugins.grc
           fishPlugins.hydro
-          font-awesome
           fzf
           gdu
           glow # Terminal Markdown renderer

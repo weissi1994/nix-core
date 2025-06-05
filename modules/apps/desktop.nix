@@ -377,6 +377,7 @@
           fira-code-symbols
           fira-go
           font-awesome
+          font-awesome_4
           joypixels
           liberation_ttf
           material-icons
