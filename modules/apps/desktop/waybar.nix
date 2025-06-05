@@ -164,7 +164,7 @@ in {
             tooltip = false;
           };
         }];
-        style = concatStrings [''
+        style = lib.concatStrings [''
           * {
             font-size: 16px;
             font-family: JetBrainsMono Nerd Font, Font Awesome, sans-serif;
