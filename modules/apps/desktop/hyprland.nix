@@ -15,7 +15,12 @@
       };
 
     home =
-      { host, pkgs, ... }:
+      {
+        host,
+        pkgs,
+        lib,
+        ...
+      }:
       let
         colors = {
           base00 = "#1e1e2e"; # base
@@ -536,7 +541,7 @@
                 "keybind" = "h";
               }
             ];
-            style = ''
+            style = lib.mkDefault ''
               * {
                 font-family: "JetBrainsMono NF", FontAwesome, sans-serif;
               	background-image: none;
