@@ -388,7 +388,6 @@ in {
         ''];
       };
       home.packages = with pkgs; [
-        grimshot
         grim
         slurp
         sway-contrib.grimshot
