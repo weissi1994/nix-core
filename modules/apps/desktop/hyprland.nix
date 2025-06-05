@@ -112,9 +112,8 @@
               gaps_out = 8;
               border_size = 2;
               resize_on_border = true;
-              "col.active_border" =
-                "rgb(${colors.base08}) rgb(${colors.base0C}) 45deg";
-              "col.inactive_border" = "rgb(${colors.base01})";
+              "col.active_border" = "rgb(f38ba8) rgb(94e2d5) 45deg";
+              "col.inactive_border" = "rgb(181825)";
             };
 
             misc = {
