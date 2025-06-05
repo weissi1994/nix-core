@@ -492,8 +492,7 @@
               "imagebox" = {
                 padding = "20px";
                 background-color = "transparent";
-                background-image = lib.mkLiteral
-                  ''url("~/Pictures/Wallpapers/Rainnight.jpg", height)'';
+                background-image = ''url("~/.config/background.png", height)'';
                 orientation = "vertical";
                 children = map [ "inputbar" "dummy" "mode-switcher" ];
               };
