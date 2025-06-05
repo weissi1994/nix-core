@@ -531,7 +531,7 @@
             matchBlocks = {
               "*" = {
                 user = "${host.username}";
-                IdentityFile = "~/.ssh/id_rsa_yubikey.pub";
+                identityFile = "~/.ssh/id_rsa_yubikey.pub";
               };
               github = {
                 host = "github.com";
