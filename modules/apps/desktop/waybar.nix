@@ -30,7 +30,6 @@ in {
     home = { host, pkgs, config, ... }: {
       home = {
         file = { ".config/screenshot.sh".source = ../files/screenshot.sh; };
-        packages = with pkgs; [ brightnessctl ];
       };
       programs.waybar = with colors; {
         enable = true;
@@ -405,6 +404,7 @@ in {
         ''];
       };
       home.packages = with pkgs; [
+        brightnessctl
         grim
         slurp
         sway-contrib.grimshot
