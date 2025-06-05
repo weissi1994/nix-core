@@ -165,8 +165,7 @@ in
               "custom/startmenu" = {
                 tooltip = false;
                 format = " ";
-                # exec = "rofi -show drun";
-                on-click = "rofi -show drun";
+                on-click = "albert";
               };
               "idle_inhibitor" = {
                 format = "{icon}";

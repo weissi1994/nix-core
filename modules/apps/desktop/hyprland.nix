@@ -33,17 +33,11 @@
         };
         terminal = "kitty";
         browser = "google-chrome";
-        rofi = pkgs.writeShellScriptBin "rofi-launcher" ''
-          # check if rofi is already running
-          if pidof rofi > /dev/null; then
-            pkill rofi
-          fi
-          rofi -show drun
-        '';
       in
       {
         home.packages = with pkgs; [
           grim
+          albert
           slurp
           wl-clipboard
           swappy
@@ -93,6 +87,8 @@
 
           settings = {
             exec-once = [
+              "gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'"
+              "gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3'"
               "wl-paste --type text --watch cliphist store # Stores only text data"
               "wl-paste --type image --watch cliphist store # Stores only image data"
               "dbus-update-activation-environment --all --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
@@ -106,6 +102,7 @@
               # "killall -q waybar;sleep .5 && waybar"
               # "killall -q swaync;sleep .5 && swaync"
               # "nm-applet --indicator"
+              "albert &"
               "pypr &"
               "obsidian &"
               "spotify &"
@@ -286,8 +283,8 @@
             bind = [
               "$modifier,Return,exec,${terminal}"
               "$modifier SHIFT,K,exec,list-keybinds"
-              "$modifier SHIFT,Return,exec,${rofi}"
-              "$modifier,d,exec,${rofi}"
+              "$modifier SHIFT,Return,exec,albert"
+              "$modifier,d,exec,albert"
               "$modifier SHIFT,N,exec,swaync-client -rs"
               "$modifier,G,exec,${browser}"
               "$modifier,a,exec,hyprlock"
@@ -407,6 +404,7 @@
               ];
             };
             env = [
+              "QT_QPA_PLATFORMTHEME, qt6ct"
               "NIXOS_OZONE_WL, 1"
               "NIXPKGS_ALLOW_UNFREE, 1"
               "XDG_CURRENT_DESKTOP, Hyprland"
@@ -484,205 +482,6 @@
                 shadow_passes = 2;
               }
             ];
-          };
-        };
-        programs = {
-          rofi = {
-            enable = true;
-            package = pkgs.rofi-wayland;
-            extraConfig = {
-              modi = "drun,filebrowser,run";
-              show-icons = true;
-              icon-theme = "Papirus";
-              font = "JetBrainsMono Nerd Font Mono 12";
-              drun-display-format = "{icon} {name}";
-              display-drun = " Apps";
-              display-run = " Run";
-              display-filebrowser = " File";
-            };
-            theme = {
-              "*" = {
-                bg = "${colors.base00}";
-                bg-alt = "${colors.base09}";
-                foreground = "${colors.base01}";
-                selected = "${colors.base08}";
-                active = "${colors.base0B}";
-                text-selected = "${colors.base00}";
-                text-color = "${colors.base05}";
-                border-color = "${colors.base0F}";
-                urgent = "${colors.base0E}";
-              };
-              "window" = {
-                transparency = "real";
-                width = "1000px";
-                location = "center";
-                anchor = "center";
-                fullscreen = false;
-                x-offset = "0px";
-                y-offset = "0px";
-                cursor = "default";
-                enabled = true;
-                border-radius = "15px";
-                background-color = "@bg";
-              };
-              "mainbox" = {
-                enabled = true;
-                spacing = "0px";
-                orientation = "horizontal";
-                children = [
-                  "imagebox"
-                  "listbox"
-                ];
-                background-color = "transparent";
-              };
-              "imagebox" = {
-                padding = "20px";
-                background-color = "transparent";
-                background-image = ''url("~/.config/background.png", height)'';
-                orientation = "vertical";
-                children = [
-                  "inputbar"
-                  "dummy"
-                  "mode-switcher"
-                ];
-              };
-              "listbox" = {
-                spacing = "20px";
-                padding = "20px";
-                background-color = "transparent";
-                orientation = "vertical";
-                children = [
-                  "message"
-                  "listview"
-                ];
-              };
-              "dummy" = {
-                background-color = "transparent";
-              };
-              "inputbar" = {
-                enabled = true;
-                spacing = "10px";
-                padding = "10px";
-                border-radius = "10px";
-                background-color = "@bg-alt";
-                text-color = "@foreground";
-                children = [
-                  "textbox-prompt-colon"
-                  "entry"
-                ];
-              };
-              "textbox-prompt-colon" = {
-                enabled = true;
-                expand = false;
-                str = "";
-                background-color = "inherit";
-                text-color = "inherit";
-              };
-              "entry" = {
-                enabled = true;
-                background-color = "inherit";
-                text-color = "inherit";
-                cursor = "text";
-                placeholder = "Search";
-                placeholder-color = "inherit";
-              };
-              "mode-switcher" = {
-                enabled = true;
-                spacing = "20px";
-                background-color = "transparent";
-                text-color = "@foreground";
-              };
-              "button" = {
-                padding = "15px";
-                border-radius = "10px";
-                background-color = "@bg-alt";
-                text-color = "inherit";
-                cursor = "pointer";
-              };
-              "button selected" = {
-                background-color = "@selected";
-                text-color = "@foreground";
-              };
-              "listview" = {
-                enabled = true;
-                columns = 1;
-                lines = 8;
-                cycle = true;
-                dynamic = true;
-                scrollbar = false;
-                layout = "vertical";
-                reverse = false;
-                fixed-height = true;
-                fixed-columns = true;
-                spacing = "10px";
-                background-color = "transparent";
-                text-color = "@foreground";
-                cursor = "default";
-              };
-              "element" = {
-                enabled = true;
-                spacing = "15px";
-                padding = "8px";
-                border-radius = "10px";
-                background-color = "transparent";
-                text-color = "@text-color";
-                cursor = "pointer";
-              };
-              "element normal.normal" = {
-                background-color = "inherit";
-                text-color = "@text-color";
-              };
-              "element normal.urgent" = {
-                background-color = "@urgent";
-                text-color = "@text-color";
-              };
-              "element normal.active" = {
-                background-color = "inherit";
-                text-color = "@text-color";
-              };
-              "element selected.normal" = {
-                background-color = "@selected";
-                text-color = "@foreground";
-              };
-              "element selected.urgent" = {
-                background-color = "@urgent";
-                text-color = "@text-selected";
-              };
-              "element selected.active" = {
-                background-color = "@urgent";
-                text-color = "@text-selected";
-              };
-              "element-icon" = {
-                background-color = "transparent";
-                text-color = "inherit";
-                size = "36px";
-                cursor = "inherit";
-              };
-              "element-text" = {
-                background-color = "transparent";
-                text-color = "inherit";
-                cursor = "inherit";
-                vertical-align = "0.5";
-                horizontal-align = "0.0";
-              };
-              "message" = {
-                background-color = "transparent";
-              };
-              "textbox" = {
-                padding = "15px";
-                border-radius = "10px";
-                background-color = "@bg-alt";
-                text-color = "@foreground";
-                vertical-align = "0.5";
-                horizontal-align = "0.0";
-              };
-              "error-message" = {
-                padding = "15px";
-                border-radius = "20px";
-                background-color = "@bg";
-                text-color = "@foreground";
-              };
-            };
           };
         };
         services = {
