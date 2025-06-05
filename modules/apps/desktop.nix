@@ -1,4 +1,5 @@
-{ inputs, lib, ... }: {
+{ inputs, lib, ... }:
+{
   apps.desktop-config = {
     tags = [ "desktop" ];
 
@@ -12,419 +13,437 @@
         "joypixels"
         "symbola"
       ];
+      params.config.joypixels.acceptLicense = true;
     };
 
-    nixos = { host, pkgs, lib, ... }: {
-      imports = [ inputs.catppuccin.nixosModules.catppuccin ];
-      hardware = {
-        graphics = { enable = true; };
-        enableRedistributableFirmware = true;
-      };
-      boot = {
-        kernelParams =
-          [ "quiet" "vt.global_cursor_default=0" "mitigations=off" ];
-        plymouth.enable = true;
-        plymouth.logo = pkgs.fetchurl {
-          url =
-            "https://raw.githubusercontent.com/NixOS/nixos-artwork/f84c13adae08e860a7c3f76ab3a9bef916d276cc/logo/nix-snowflake-colours.svg";
-          sha256 = "pHYa+d5f6MAaY8xWd3lDjhagS+nvwDL3w7zSsQyqH7A=";
-        };
-      };
-
-      security.polkit.enable = true;
-      xdg.portal = {
-        enable = true;
-        wlr.enable = true;
-        xdgOpenUsePortal = true;
-        config = {
-          common.default = [ "gtk" ];
-          hyprland.default = [ "gtk" "hyprland" ];
-        };
-        # gtk portal needed to make gtk apps happy
-        extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-      };
-
-      powerManagement = {
-        enable = true;
-        powertop.enable = true;
-      };
-
-      environment.sessionVariables = { _JAVA_AWT_WM_NONREPARENTING = "1"; };
-      services = {
-        opensnitch = {
-          enable = true;
-          settings = {
-            DefaultAction = "deny";
-            DefaultDuration = "until restart";
+    nixos =
+      {
+        host,
+        pkgs,
+        lib,
+        ...
+      }:
+      {
+        imports = [ inputs.catppuccin.nixosModules.catppuccin ];
+        hardware = {
+          graphics = {
+            enable = true;
           };
-          rules = {
-            systemd-timesyncd = {
-              name = "systemd-timesyncd";
-              enabled = true;
-              action = "allow";
-              duration = "always";
-              operator = {
-                type = "simple";
-                sensitive = false;
-                operand = "process.path";
-                data =
-                  "${lib.getBin pkgs.systemd}/lib/systemd/systemd-timesyncd";
-              };
-            };
-            systemd-resolved = {
-              name = "systemd-resolved";
-              enabled = true;
-              action = "allow";
-              duration = "always";
-              operator = {
-                type = "simple";
-                sensitive = false;
-                operand = "process.path";
-                data =
-                  "${lib.getBin pkgs.systemd}/lib/systemd/systemd-resolved";
-              };
-            };
-            google-chrome = {
-              name = "google-chrome";
-              enabled = true;
-              action = "allow";
-              duration = "always";
-              operator = {
-                type = "simple";
-                sensitive = false;
-                operand = "process.path";
-                data =
-                  "${lib.getBin pkgs.google-chrome}/share/google/chrome/chrome";
-              };
-            };
-            spotify = {
-              name = "spotify";
-              enabled = true;
-              action = "allow";
-              duration = "always";
-              operator = {
-                type = "simple";
-                sensitive = false;
-                operand = "process.path";
-                data =
-                  "${lib.getBin pkgs.spotify}/share/spotify/.spotify-wrapped";
-              };
-            };
-            telegram = {
-              name = "telegram";
-              enabled = true;
-              action = "allow";
-              duration = "always";
-              operator = {
-                type = "simple";
-                sensitive = false;
-                operand = "process.path";
-                data = "${
-                    lib.getBin pkgs.telegram-desktop
-                  }/bin/.telegram-desktop-wrapped";
-              };
-            };
-            networkmanager = {
-              name = "networkmanager";
-              enabled = true;
-              action = "allow";
-              duration = "always";
-              operator = {
-                type = "simple";
-                sensitive = false;
-                operand = "process.path";
-                data = "${lib.getBin pkgs.networkmanager}/bin/NetworkManager";
-              };
-            };
-            nsncd = {
-              name = "nsncd";
-              enabled = true;
-              action = "allow";
-              duration = "always";
-              operator = {
-                type = "simple";
-                sensitive = false;
-                operand = "process.path";
-                data = "${lib.getBin pkgs.nsncd}/bin/nsncd";
-              };
-            };
-            openssh = {
-              name = "openssh";
-              enabled = true;
-              action = "allow";
-              duration = "always";
-              operator = {
-                type = "simple";
-                sensitive = false;
-                operand = "process.path";
-                data = "${lib.getBin pkgs.openssh}/bin/ssh";
-              };
-            };
-            discord = {
-              name = "discord";
-              enabled = true;
-              action = "allow";
-              duration = "always";
-              operator = {
-                type = "simple";
-                sensitive = false;
-                operand = "process.path";
-                data =
-                  "${lib.getBin pkgs.discord}/opt/Discord/.Discord-wrapped";
-              };
-            };
-            nix = {
-              name = "nix";
-              enabled = true;
-              action = "allow";
-              duration = "always";
-              operator = {
-                type = "simple";
-                sensitive = false;
-                operand = "process.path";
-                data = "${lib.getBin pkgs.nix}/bin/nix";
-              };
-            };
-            curl = {
-              name = "curl";
-              enabled = true;
-              action = "allow";
-              duration = "always";
-              operator = {
-                type = "simple";
-                sensitive = false;
-                operand = "process.path";
-                data = "${lib.getBin pkgs.curl}/bin/curl";
-              };
-            };
-            git-remote-http = {
-              name = "git-remote-http";
-              enabled = true;
-              action = "allow";
-              duration = "always";
-              operator = {
-                type = "simple";
-                sensitive = false;
-                operand = "process.path";
-                data =
-                  "${lib.getBin pkgs.git}/libexec/git-core/git-remote-http";
-              };
-            };
-            fwupd = {
-              name = "fwupd";
-              enabled = true;
-              action = "allow";
-              duration = "always";
-              operator = {
-                type = "simple";
-                sensitive = false;
-                operand = "process.path";
-                data = "${lib.getBin pkgs.fwupd}/bin/.fwupdmgr-wrapped";
-              };
-            };
-            podman = {
-              name = "allow-podman";
-              enabled = true;
-              action = "allow";
-              duration = "always";
-              operator = {
-                type = "simple";
-                sensitive = false;
-                operand = "process.path";
-                data = "${lib.getBin pkgs.conmon}/bin/conmon";
-              };
-            };
-            cloudflared = {
-              name = "allow-cloudflared";
-              enabled = true;
-              action = "allow";
-              duration = "always";
-              operator = {
-                type = "simple";
-                sensitive = false;
-                operand = "process.path";
-                data = "${lib.getBin pkgs.cloudflared}/bin/cloudflared";
-              };
-            };
-          };
+          enableRedistributableFirmware = true;
         };
-        printing.enable = true;
-        #printing.drivers = with pkgs; [ gutenprint hplipWithPlugin ];
-        printing.drivers = with pkgs; [ gutenprint ];
-        avahi = {
-          enable = true;
-          nssmdns4 = true;
-          openFirewall = true;
-          publish = {
-            addresses = false;
-            enable = false;
-            workstation =
-              if (builtins.isString host.desktop) then true else false;
-          };
-        };
-        xserver = {
-          enable = true;
-          xkb.layout = "us,de";
-          # Disable xterm
-          excludePackages = [ pkgs.xterm ];
-          desktopManager.xterm.enable = false;
-        };
-        dbus.enable = true;
-        dbus.packages =
-          [ pkgs.swaynotificationcenter pkgs.gcr pkgs.gnome-settings-daemon ];
-        gnome.gnome-keyring.enable = true;
-        gvfs.enable = true;
-        fstrim.enable = true;
-
-        displayManager.autoLogin = {
-          enable = true;
-          user = "${host.username}";
-        };
-        libinput = {
-          enable = true;
-          touchpad = {
-            naturalScrolling = true;
-            middleEmulation = true;
-            tapping = true;
-          };
-        };
-        smartd.enable = true;
-        pulseaudio.enable = lib.mkForce false;
-        pipewire = {
-          enable = true;
-          alsa.enable = true;
-          jack.enable = true;
-          pulse.enable = true;
-          wireplumber.enable = true;
-        };
-        tlp = {
-          enable = false;
-          settings = {
-            CPU_SCALING_GOVERNOR_ON_AC = "performance";
-            CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-
-            CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-            CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
-
-            CPU_MIN_PERF_ON_AC = 0;
-            CPU_MAX_PERF_ON_AC = 100;
-            CPU_MIN_PERF_ON_BAT = 0;
-            CPU_MAX_PERF_ON_BAT = 20;
-
-            #Optional helps save long term battery health
-            START_CHARGE_THRESH_BAT0 = 40; # 40 and bellow it starts to charge
-            STOP_CHARGE_THRESH_BAT0 = 80; # 80 and above it stops charging
-          };
-        };
-
-        thermald.enable = true;
-
-        auto-cpufreq.enable = true;
-        auto-cpufreq.settings = {
-          battery = {
-            governor = "powersave";
-            turbo = "never";
-          };
-          charger = {
-            governor = "performance";
-            turbo = "auto";
-          };
-        };
-
-        logind = {
-          lidSwitchExternalPower = "suspend-then-hibernate";
-          lidSwitch = "suspend-then-hibernate";
-          lidSwitchDocked = "suspend-then-hibernate";
-          extraConfig = ''
-            IdleAction=suspend-then-hibernate
-            IdleActionSec=10m
-            # don’t shutdown when power button is short-pressed
-            HandlePowerKey=ignore
-          '';
-        };
-      };
-
-      programs = {
-        dconf.enable = true;
-        nm-applet.enable = true;
-        chromium = {
-          extensions = [
-            "hfjbmagddngcpeloejdejnfgbamkjaeg" # Vimium C
-            "kkhfnlkhiapbiehimabddjbimfaijdhk" # gopass-bridge
+        boot = {
+          kernelParams = [
+            "quiet"
+            "vt.global_cursor_default=0"
+            "mitigations=off"
           ];
+          plymouth.enable = true;
+          plymouth.logo = pkgs.fetchurl {
+            url = "https://raw.githubusercontent.com/NixOS/nixos-artwork/f84c13adae08e860a7c3f76ab3a9bef916d276cc/logo/nix-snowflake-colours.svg";
+            sha256 = "pHYa+d5f6MAaY8xWd3lDjhagS+nvwDL3w7zSsQyqH7A=";
+          };
         };
-      };
 
-      environment.systemPackages = with pkgs; [
-        nvme-cli
-        smartmontools
-        gsmartcontrol
-        alsa-utils
-        xorg.xhost
-        pulseaudioFull
-      ];
-
-      hardware.alsa.enablePersistence = true;
-      systemd.packages = [ pkgs.swaynotificationcenter ];
-      systemd.sleep.extraConfig = "HibernateDelaySec=5m";
-      fonts = {
-        fontDir.enable = true;
-        packages = with pkgs; [
-          corefonts
-          fira
-          fira-code
-          fira-code-symbols
-          fira-go
-          font-awesome
-          liberation_ttf
-          nerd-fonts.fira-code
-          nerd-fonts.symbols-only
-          nerd-fonts.ubuntu-mono
-          noto-fonts
-          noto-fonts-cjk-sans
-          noto-fonts-emoji
-          noto-fonts-monochrome-emoji
-          joypixels
-          source-serif
-          symbola
-          ubuntu_font_family
-          victor-mono
-          work-sans
-        ];
-
-        # Enable a basic set of fonts providing several font styles and families and reasonable coverage of Unicode.
-        enableDefaultPackages = true;
-
-        fontconfig = {
-          antialias = true;
-          defaultFonts = {
-            serif = [ "Source Serif" ];
-            sansSerif = [ "Work Sans" "Fira Sans" "FiraGO" ];
-            monospace =
-              [ "FiraCode Nerd Font Mono" "SauceCodePro Nerd Font Mono" ];
-            emoji = [
-              "Noto Color Emoji"
-              "Twitter Color Emoji"
-              "JoyPixels"
-              "Unifont"
-              "Unifont Upper"
+        security.polkit.enable = true;
+        xdg.portal = {
+          enable = true;
+          wlr.enable = true;
+          xdgOpenUsePortal = true;
+          config = {
+            common.default = [ "gtk" ];
+            hyprland.default = [
+              "gtk"
+              "hyprland"
             ];
           };
+          # gtk portal needed to make gtk apps happy
+          extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+        };
+
+        powerManagement = {
           enable = true;
-          hinting = {
-            autohint = false;
+          powertop.enable = true;
+        };
+
+        environment.sessionVariables = {
+          _JAVA_AWT_WM_NONREPARENTING = "1";
+        };
+        services = {
+          opensnitch = {
             enable = true;
-            style = "slight";
+            settings = {
+              DefaultAction = "deny";
+              DefaultDuration = "until restart";
+            };
+            rules = {
+              systemd-timesyncd = {
+                name = "systemd-timesyncd";
+                enabled = true;
+                action = "allow";
+                duration = "always";
+                operator = {
+                  type = "simple";
+                  sensitive = false;
+                  operand = "process.path";
+                  data = "${lib.getBin pkgs.systemd}/lib/systemd/systemd-timesyncd";
+                };
+              };
+              systemd-resolved = {
+                name = "systemd-resolved";
+                enabled = true;
+                action = "allow";
+                duration = "always";
+                operator = {
+                  type = "simple";
+                  sensitive = false;
+                  operand = "process.path";
+                  data = "${lib.getBin pkgs.systemd}/lib/systemd/systemd-resolved";
+                };
+              };
+              google-chrome = {
+                name = "google-chrome";
+                enabled = true;
+                action = "allow";
+                duration = "always";
+                operator = {
+                  type = "simple";
+                  sensitive = false;
+                  operand = "process.path";
+                  data = "${lib.getBin pkgs.google-chrome}/share/google/chrome/chrome";
+                };
+              };
+              spotify = {
+                name = "spotify";
+                enabled = true;
+                action = "allow";
+                duration = "always";
+                operator = {
+                  type = "simple";
+                  sensitive = false;
+                  operand = "process.path";
+                  data = "${lib.getBin pkgs.spotify}/share/spotify/.spotify-wrapped";
+                };
+              };
+              telegram = {
+                name = "telegram";
+                enabled = true;
+                action = "allow";
+                duration = "always";
+                operator = {
+                  type = "simple";
+                  sensitive = false;
+                  operand = "process.path";
+                  data = "${lib.getBin pkgs.telegram-desktop}/bin/.telegram-desktop-wrapped";
+                };
+              };
+              networkmanager = {
+                name = "networkmanager";
+                enabled = true;
+                action = "allow";
+                duration = "always";
+                operator = {
+                  type = "simple";
+                  sensitive = false;
+                  operand = "process.path";
+                  data = "${lib.getBin pkgs.networkmanager}/bin/NetworkManager";
+                };
+              };
+              nsncd = {
+                name = "nsncd";
+                enabled = true;
+                action = "allow";
+                duration = "always";
+                operator = {
+                  type = "simple";
+                  sensitive = false;
+                  operand = "process.path";
+                  data = "${lib.getBin pkgs.nsncd}/bin/nsncd";
+                };
+              };
+              openssh = {
+                name = "openssh";
+                enabled = true;
+                action = "allow";
+                duration = "always";
+                operator = {
+                  type = "simple";
+                  sensitive = false;
+                  operand = "process.path";
+                  data = "${lib.getBin pkgs.openssh}/bin/ssh";
+                };
+              };
+              discord = {
+                name = "discord";
+                enabled = true;
+                action = "allow";
+                duration = "always";
+                operator = {
+                  type = "simple";
+                  sensitive = false;
+                  operand = "process.path";
+                  data = "${lib.getBin pkgs.discord}/opt/Discord/.Discord-wrapped";
+                };
+              };
+              nix = {
+                name = "nix";
+                enabled = true;
+                action = "allow";
+                duration = "always";
+                operator = {
+                  type = "simple";
+                  sensitive = false;
+                  operand = "process.path";
+                  data = "${lib.getBin pkgs.nix}/bin/nix";
+                };
+              };
+              curl = {
+                name = "curl";
+                enabled = true;
+                action = "allow";
+                duration = "always";
+                operator = {
+                  type = "simple";
+                  sensitive = false;
+                  operand = "process.path";
+                  data = "${lib.getBin pkgs.curl}/bin/curl";
+                };
+              };
+              git-remote-http = {
+                name = "git-remote-http";
+                enabled = true;
+                action = "allow";
+                duration = "always";
+                operator = {
+                  type = "simple";
+                  sensitive = false;
+                  operand = "process.path";
+                  data = "${lib.getBin pkgs.git}/libexec/git-core/git-remote-http";
+                };
+              };
+              fwupd = {
+                name = "fwupd";
+                enabled = true;
+                action = "allow";
+                duration = "always";
+                operator = {
+                  type = "simple";
+                  sensitive = false;
+                  operand = "process.path";
+                  data = "${lib.getBin pkgs.fwupd}/bin/.fwupdmgr-wrapped";
+                };
+              };
+              podman = {
+                name = "allow-podman";
+                enabled = true;
+                action = "allow";
+                duration = "always";
+                operator = {
+                  type = "simple";
+                  sensitive = false;
+                  operand = "process.path";
+                  data = "${lib.getBin pkgs.conmon}/bin/conmon";
+                };
+              };
+              cloudflared = {
+                name = "allow-cloudflared";
+                enabled = true;
+                action = "allow";
+                duration = "always";
+                operator = {
+                  type = "simple";
+                  sensitive = false;
+                  operand = "process.path";
+                  data = "${lib.getBin pkgs.cloudflared}/bin/cloudflared";
+                };
+              };
+            };
           };
-          subpixel = {
-            rgba = "rgb";
-            lcdfilter = "light";
+          printing.enable = true;
+          #printing.drivers = with pkgs; [ gutenprint hplipWithPlugin ];
+          printing.drivers = with pkgs; [ gutenprint ];
+          avahi = {
+            enable = true;
+            nssmdns4 = true;
+            openFirewall = true;
+            publish = {
+              addresses = false;
+              enable = false;
+              workstation = if (builtins.isString host.desktop) then true else false;
+            };
+          };
+          xserver = {
+            enable = true;
+            xkb.layout = "us,de";
+            # Disable xterm
+            excludePackages = [ pkgs.xterm ];
+            desktopManager.xterm.enable = false;
+          };
+          dbus.enable = true;
+          dbus.packages = [
+            pkgs.swaynotificationcenter
+            pkgs.gcr
+            pkgs.gnome-settings-daemon
+          ];
+          gnome.gnome-keyring.enable = true;
+          gvfs.enable = true;
+          fstrim.enable = true;
+
+          displayManager.autoLogin = {
+            enable = true;
+            user = "${host.username}";
+          };
+          libinput = {
+            enable = true;
+            touchpad = {
+              naturalScrolling = true;
+              middleEmulation = true;
+              tapping = true;
+            };
+          };
+          smartd.enable = true;
+          pulseaudio.enable = lib.mkForce false;
+          pipewire = {
+            enable = true;
+            alsa.enable = true;
+            jack.enable = true;
+            pulse.enable = true;
+            wireplumber.enable = true;
+          };
+          tlp = {
+            enable = false;
+            settings = {
+              CPU_SCALING_GOVERNOR_ON_AC = "performance";
+              CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+
+              CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+              CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+
+              CPU_MIN_PERF_ON_AC = 0;
+              CPU_MAX_PERF_ON_AC = 100;
+              CPU_MIN_PERF_ON_BAT = 0;
+              CPU_MAX_PERF_ON_BAT = 20;
+
+              #Optional helps save long term battery health
+              START_CHARGE_THRESH_BAT0 = 40; # 40 and bellow it starts to charge
+              STOP_CHARGE_THRESH_BAT0 = 80; # 80 and above it stops charging
+            };
+          };
+
+          thermald.enable = true;
+
+          auto-cpufreq.enable = true;
+          auto-cpufreq.settings = {
+            battery = {
+              governor = "powersave";
+              turbo = "never";
+            };
+            charger = {
+              governor = "performance";
+              turbo = "auto";
+            };
+          };
+
+          logind = {
+            lidSwitchExternalPower = "suspend-then-hibernate";
+            lidSwitch = "suspend-then-hibernate";
+            lidSwitchDocked = "suspend-then-hibernate";
+            extraConfig = ''
+              IdleAction=suspend-then-hibernate
+              IdleActionSec=10m
+              # don’t shutdown when power button is short-pressed
+              HandlePowerKey=ignore
+            '';
           };
         };
-      };
 
-    };
-    home = { config, pkgs, ... }:
+        programs = {
+          dconf.enable = true;
+          nm-applet.enable = true;
+          chromium = {
+            extensions = [
+              "hfjbmagddngcpeloejdejnfgbamkjaeg" # Vimium C
+              "kkhfnlkhiapbiehimabddjbimfaijdhk" # gopass-bridge
+            ];
+          };
+        };
+
+        environment.systemPackages = with pkgs; [
+          nvme-cli
+          smartmontools
+          gsmartcontrol
+          alsa-utils
+          xorg.xhost
+          pulseaudioFull
+        ];
+
+        hardware.alsa.enablePersistence = true;
+        systemd.packages = [ pkgs.swaynotificationcenter ];
+        systemd.sleep.extraConfig = "HibernateDelaySec=5m";
+        fonts = {
+          fontDir.enable = true;
+          packages = with pkgs; [
+            corefonts
+            fira
+            fira-code
+            fira-code-symbols
+            fira-go
+            font-awesome
+            liberation_ttf
+            nerd-fonts.fira-code
+            nerd-fonts.symbols-only
+            nerd-fonts.ubuntu-mono
+            noto-fonts
+            noto-fonts-cjk-sans
+            noto-fonts-emoji
+            noto-fonts-monochrome-emoji
+            joypixels
+            source-serif
+            symbola
+            ubuntu_font_family
+            victor-mono
+            work-sans
+          ];
+
+          # Enable a basic set of fonts providing several font styles and families and reasonable coverage of Unicode.
+          enableDefaultPackages = true;
+
+          fontconfig = {
+            antialias = true;
+            defaultFonts = {
+              serif = [ "Source Serif" ];
+              sansSerif = [
+                "Work Sans"
+                "Fira Sans"
+                "FiraGO"
+              ];
+              monospace = [
+                "FiraCode Nerd Font Mono"
+                "SauceCodePro Nerd Font Mono"
+              ];
+              emoji = [
+                "Noto Color Emoji"
+                "Twitter Color Emoji"
+                "JoyPixels"
+                "Unifont"
+                "Unifont Upper"
+              ];
+            };
+            enable = true;
+            hinting = {
+              autohint = false;
+              enable = true;
+              style = "slight";
+            };
+            subpixel = {
+              rgba = "rgb";
+              lcdfilter = "light";
+            };
+          };
+        };
+
+      };
+    home =
+      { config, pkgs, ... }:
       let
         defaultApps = {
           browser = [ "zen-beta.desktop" ];
@@ -503,12 +522,17 @@
           discord = [ "x-scheme-handler/discord" ];
         };
 
-        associations = with lib.lists;
-          lib.listToAttrs (lib.flatten (lib.mapAttrsToList (key:
-            lib.map
-            (type: lib.attrsets.nameValuePair type defaultApps."${key}"))
-            mimeMap));
-      in {
+        associations =
+          with lib.lists;
+          lib.listToAttrs (
+            lib.flatten (
+              lib.mapAttrsToList (
+                key: lib.map (type: lib.attrsets.nameValuePair type defaultApps."${key}")
+              ) mimeMap
+            )
+          );
+      in
+      {
         imports = [ inputs.catppuccin.homeModules.catppuccin ];
 
         xdg = {
@@ -546,10 +570,8 @@
         };
 
         xresources.properties = {
-          "XTerm*faceName" =
-            "FiraCode Nerd Font:size=13:style=Medium:antialias=true";
-          "XTerm*boldFont" =
-            "FiraCode Nerd Font:size=13:style=Bold:antialias=true";
+          "XTerm*faceName" = "FiraCode Nerd Font:size=13:style=Medium:antialias=true";
+          "XTerm*boldFont" = "FiraCode Nerd Font:size=13:style=Bold:antialias=true";
           "XTerm*geometry" = "132x50";
           "XTerm.termName" = "xterm-256color";
           "XTerm*locale" = false;
@@ -565,8 +587,15 @@
         fonts.fontconfig = {
           enable = true;
           defaultFonts = {
-            serif = [ "Source Serif" "Noto Color Emoji" ];
-            sansSerif = [ "Work Sans" "Fira Sans" "Noto Color Emoji" ];
+            serif = [
+              "Source Serif"
+              "Noto Color Emoji"
+            ];
+            sansSerif = [
+              "Work Sans"
+              "Fira Sans"
+              "Noto Color Emoji"
+            ];
             monospace = [
               "FiraCode Nerd Font Mono"
               "Font Awesome 6 Free"
@@ -587,8 +616,16 @@
               };
             };
             settings = {
-              auto_save = { session = true; };
-              colors = { webpage = { darkmode = { enabled = true; }; }; };
+              auto_save = {
+                session = true;
+              };
+              colors = {
+                webpage = {
+                  darkmode = {
+                    enabled = true;
+                  };
+                };
+              };
             };
           };
           # warp = {
@@ -839,8 +876,7 @@
               shell = "fish --login";
               shell_integration = "enabled";
               editor = "nvim";
-              tab_title_template =
-                "{fmt.fg.red}{bell_symbol}{activity_symbol}{fmt.fg.tab}{title}";
+              tab_title_template = "{fmt.fg.red}{bell_symbol}{activity_symbol}{fmt.fg.tab}{title}";
               tab_bar_style = "powerline";
               tab_powerline_style = "angled";
               enabled_layouts = "Grid,Stack,Splits,Tall,Fat";
@@ -922,5 +958,7 @@
         ];
       };
   };
-  defaultTags = { desktop = lib.mkDefault true; };
+  defaultTags = {
+    desktop = lib.mkDefault true;
+  };
 }
