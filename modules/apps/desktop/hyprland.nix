@@ -457,17 +457,17 @@
               display-run = " Run";
               display-filebrowser = " File";
             };
-            theme = with colors; {
+            theme = {
               "*" = {
-                bg = "${base00}";
-                bg-alt = "${base09}";
-                foreground = "${base01}";
-                selected = "${base08}";
-                active = "${base0B}";
-                text-selected = "${base00}";
-                text-color = "${base05}";
-                border-color = "${base0F}";
-                urgent = "${base0E}";
+                bg = "${colors.base00}";
+                bg-alt = "${colors.base09}";
+                foreground = "${colors.base01}";
+                selected = "${colors.base08}";
+                active = "${colors.base0B}";
+                text-selected = "${colors.base00}";
+                text-color = "${colors.base05}";
+                border-color = "${colors.base0F}";
+                urgent = "${colors.base0E}";
               };
               "window" = {
                 transparency = "real";
@@ -486,7 +486,7 @@
                 enabled = true;
                 spacing = "0px";
                 orientation = "horizontal";
-                children = map [ "imagebox" "listbox" ];
+                children = [ "imagebox" "listbox" ];
                 background-color = "transparent";
               };
               "imagebox" = {
@@ -494,14 +494,14 @@
                 background-color = "transparent";
                 background-image = ''url("~/.config/background.png", height)'';
                 orientation = "vertical";
-                children = map [ "inputbar" "dummy" "mode-switcher" ];
+                children = [ "inputbar" "dummy" "mode-switcher" ];
               };
               "listbox" = {
                 spacing = "20px";
                 padding = "20px";
                 background-color = "transparent";
                 orientation = "vertical";
-                children = map [ "message" "listview" ];
+                children = [ "message" "listview" ];
               };
               "dummy" = { background-color = "transparent"; };
               "inputbar" = {
@@ -511,7 +511,7 @@
                 border-radius = "10px";
                 background-color = "@bg-alt";
                 text-color = "@foreground";
-                children = map [ "textbox-prompt-colon" "entry" ];
+                children = [ "textbox-prompt-colon" "entry" ];
               };
               "textbox-prompt-colon" = {
                 enabled = true;
