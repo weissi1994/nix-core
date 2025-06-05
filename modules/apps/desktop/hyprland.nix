@@ -1,21 +1,13 @@
-{ ... }:
-{
+{ ... }: {
   apps.hyprland-config = {
     tags = [ "desktop" ];
     enablePredicate = { host, ... }: host.desktop == "hyprland";
 
-    nixpkgs = {
-      packages.unfree = [ "albert" ];
-    };
+    nixpkgs = { packages.unfree = [ "albert" ]; };
 
-    nixos =
-      { ... }:
-      {
-        programs.hyprland.enable = true;
-      };
+    nixos = { ... }: { programs.hyprland.enable = true; };
 
-    home =
-      { host, pkgs, ... }:
+    home = { host, pkgs, ... }:
       let
         colors = {
           base00 = "#1e1e2e"; # base
@@ -40,8 +32,7 @@
         launcher = pkgs.writeShellScriptBin "launcher" ''
           albert show
         '';
-      in
-      {
+      in {
         home.packages = with pkgs; [
           grim
           albert
@@ -53,7 +44,8 @@
           hyprland-qtutils # needed for banners and ANR messages
           pyprland
         ];
-        systemd.user.targets.hyprland-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
+        systemd.user.targets.hyprland-session.Unit.Wants =
+          [ "xdg-desktop-autostart.target" ];
         # Place Files Inside Home Directory
         home.file = {
           ".face.icon".source = ../files/face.png;
@@ -88,9 +80,7 @@
             enableXdgAutostart = true;
             variables = [ "--all" ];
           };
-          xwayland = {
-            enable = true;
-          };
+          xwayland = { enable = true; };
 
           settings = {
             exec-once = [
@@ -105,10 +95,6 @@
               "systemctl --user restart nm-applet"
               "systemctl --user restart swaync"
               "systemctl --user restart waybar"
-              "killall -q swww;sleep .5 && swww init"
-              # "killall -q waybar;sleep .5 && waybar"
-              # "killall -q swaync;sleep .5 && swaync"
-              # "nm-applet --indicator"
               "albert &"
               "pypr &"
               "obsidian &"
@@ -116,7 +102,6 @@
               "google-chrome-stable &"
               "telegram-desktop &"
               "discord &"
-              "sleep 1.5 && swww img /home/${host.username}/.config/background.png"
             ];
             input = {
               kb_layout = "us";
@@ -162,7 +147,8 @@
               disable_splash_rendering = true;
               enable_swallow = false;
               vfr = true; # Variable Frame Rate
-              vrr = 2; # Variable Refresh Rate  Might need to set to 0 for NVIDIA/AQ_DRM_DEVICES
+              vrr =
+                2; # Variable Refresh Rate  Might need to set to 0 for NVIDIA/AQ_DRM_DEVICES
               # Screen flashing to black momentarily or going black when app is fullscreen
               # Try setting vrr to 0
 
@@ -367,11 +353,7 @@
               ",XF86MonBrightnessDown,exec,brightnessctl set 5%-"
               ",XF86MonBrightnessUp,exec,brightnessctl set +5%"
             ];
-            group = {
-              groupbar = {
-                font_size = 12;
-              };
-            };
+            group = { groupbar = { font_size = 12; }; };
 
             bindm = [
               "$modifier, mouse:272, movewindow"
@@ -455,40 +437,34 @@
               hide_cursor = true;
               no_fade_in = false;
             };
-            background = [
-              {
-                path = "/home/${host.username}/.config/background.png";
-                blur_passes = 3;
-                blur_size = 8;
-              }
-            ];
-            image = [
-              {
-                path = "/home/${host.username}/.config/face.png";
-                size = 150;
-                border_size = 4;
-                border_color = "rgb(0C96F9)";
-                rounding = -1; # Negative means circle
-                position = "0, 200";
-                halign = "center";
-                valign = "center";
-              }
-            ];
-            input-field = [
-              {
-                size = "200, 50";
-                position = "0, -80";
-                monitor = "";
-                dots_center = true;
-                fade_on_empty = false;
-                font_color = "rgb(CFE6F4)";
-                inner_color = "rgb(657DC2)";
-                outer_color = "rgb(0D0E15)";
-                outline_thickness = 5;
-                placeholder_text = "Password...";
-                shadow_passes = 2;
-              }
-            ];
+            background = [{
+              path = "/home/${host.username}/.config/background.png";
+              blur_passes = 3;
+              blur_size = 8;
+            }];
+            image = [{
+              path = "/home/${host.username}/.config/face.png";
+              size = 150;
+              border_size = 4;
+              border_color = "rgb(0C96F9)";
+              rounding = -1; # Negative means circle
+              position = "0, 200";
+              halign = "center";
+              valign = "center";
+            }];
+            input-field = [{
+              size = "200, 50";
+              position = "0, -80";
+              monitor = "";
+              dots_center = true;
+              fade_on_empty = false;
+              font_color = "rgb(CFE6F4)";
+              inner_color = "rgb(657DC2)";
+              outer_color = "rgb(0D0E15)";
+              outline_thickness = 5;
+              placeholder_text = "Password...";
+              shadow_passes = 2;
+            }];
           };
         };
         services = {
