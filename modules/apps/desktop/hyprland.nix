@@ -4,6 +4,10 @@
     tags = [ "desktop" ];
     enablePredicate = { host, ... }: host.desktop == "hyprland";
 
+    nixpkgs = {
+      packages.unfree = [ "albert" ];
+    };
+
     nixos =
       { ... }:
       {
