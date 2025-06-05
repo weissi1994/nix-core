@@ -450,7 +450,7 @@ in {
           widgets =
             [ "title" "mpris" "volume" "backlight" "dnd" "notifications" ];
         };
-        style = ''
+        style = lib.mkDefault ''
           * {
             font-family: JetBrainsMono Nerd Font Mono;
             font-weight: bold;
