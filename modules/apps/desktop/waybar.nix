@@ -73,7 +73,7 @@ in {
           };
           "backlight" = {
             # device = "acpi_video1";
-            format = "{icon} {percent}%";
+            format = "󰃟 {percent}%";
             states = [ "0" "50" ];
             on-scroll-up = "brightnessctl set +10%";
             on-scroll-down = "brightnessctl set -10%";
