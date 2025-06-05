@@ -414,7 +414,7 @@
               no_fade_in = false;
             };
             background = [{
-              path = background;
+              path = "${background}";
               blur_passes = 3;
               blur_size = 8;
             }];
