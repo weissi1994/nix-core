@@ -511,6 +511,7 @@
           #   export XWAYALND_NO_GLAMOR=1
           # '';
           config = {
+            output = { "*" = { bg = ../files/background.png; }; };
             gaps = {
               inner = 2;
               smartBorders = "on";
