@@ -388,7 +388,7 @@ in {
         ''];
       };
       home.packages = with pkgs; [
-        battop
+        bato
         grimshot
         grim
         slurp
