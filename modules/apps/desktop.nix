@@ -926,7 +926,6 @@
           font-awesome
           liberation_ttf
           mplus-outline-fonts.githubRelease
-          nerdfonts
           noto-fonts
           noto-fonts-emoji
           proggyfonts
