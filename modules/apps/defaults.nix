@@ -408,6 +408,7 @@
         home = {
           file.".face".source = lib.mkDefault ./files/face.png;
           packages = with pkgs; [
+            ydiff
             asciinema # Terminal recorder
             bitwise # cli tool for bit / hex manipulation
             black # Code format Python

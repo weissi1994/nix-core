@@ -165,7 +165,7 @@ in
               "custom/startmenu" = {
                 tooltip = false;
                 format = " ";
-                on-click = "albert";
+                on-click = "albert show";
               };
               "idle_inhibitor" = {
                 format = "{icon}";

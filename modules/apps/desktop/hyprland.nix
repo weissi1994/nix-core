@@ -37,6 +37,9 @@
         };
         terminal = "kitty";
         browser = "google-chrome";
+        launcher = pkgs.writeShellScriptBin "launcher" ''
+          albert show
+        '';
       in
       {
         home.packages = with pkgs; [
@@ -287,8 +290,8 @@
             bind = [
               "$modifier,Return,exec,${terminal}"
               "$modifier SHIFT,K,exec,list-keybinds"
-              "$modifier SHIFT,Return,exec,albert"
-              "$modifier,d,exec,albert"
+              "$modifier SHIFT,Return,exec,${launcher}"
+              "$modifier,d,exec,${launcher}"
               "$modifier SHIFT,N,exec,swaync-client -rs"
               "$modifier,G,exec,${browser}"
               "$modifier,a,exec,hyprlock"
