@@ -457,97 +457,95 @@
               display-run = " Run";
               display-filebrowser = " File";
             };
-            theme = let inherit (config.lib.formats.rasi) mkLiteral;
-            in {
+            theme = with colors; {
               "*" = {
-                bg = mkLiteral "#${config.stylix.base16Scheme.base00}";
-                bg-alt = mkLiteral "#${config.stylix.base16Scheme.base09}";
-                foreground = mkLiteral "#${config.stylix.base16Scheme.base01}";
-                selected = mkLiteral "#${config.stylix.base16Scheme.base08}";
-                active = mkLiteral "#${config.stylix.base16Scheme.base0B}";
-                text-selected =
-                  mkLiteral "#${config.stylix.base16Scheme.base00}";
-                text-color = mkLiteral "#${config.stylix.base16Scheme.base05}";
-                border-color =
-                  mkLiteral "#${config.stylix.base16Scheme.base0F}";
-                urgent = mkLiteral "#${config.stylix.base16Scheme.base0E}";
+                bg = lib.mkLiteral "${base00}";
+                bg-alt = lib.mkLiteral "${base09}";
+                foreground = lib.mkLiteral "${base01}";
+                selected = lib.mkLiteral "${base08}";
+                active = lib.mkLiteral "${base0B}";
+                text-selected = lib.mkLiteral "${base00}";
+                text-color = lib.mkLiteral "${base05}";
+                border-color = lib.mkLiteral "${base0F}";
+                urgent = lib.mkLiteral "${base0E}";
               };
               "window" = {
                 transparency = "real";
-                width = mkLiteral "1000px";
-                location = mkLiteral "center";
-                anchor = mkLiteral "center";
+                width = lib.mkLiteral "1000px";
+                location = lib.mkLiteral "center";
+                anchor = lib.mkLiteral "center";
                 fullscreen = false;
-                x-offset = mkLiteral "0px";
-                y-offset = mkLiteral "0px";
+                x-offset = lib.mkLiteral "0px";
+                y-offset = lib.mkLiteral "0px";
                 cursor = "default";
                 enabled = true;
-                border-radius = mkLiteral "15px";
-                background-color = mkLiteral "@bg";
+                border-radius = lib.mkLiteral "15px";
+                background-color = lib.mkLiteral "@bg";
               };
               "mainbox" = {
                 enabled = true;
-                spacing = mkLiteral "0px";
-                orientation = mkLiteral "horizontal";
-                children = map mkLiteral [ "imagebox" "listbox" ];
-                background-color = mkLiteral "transparent";
+                spacing = lib.mkLiteral "0px";
+                orientation = lib.mkLiteral "horizontal";
+                children = map lib.mkLiteral [ "imagebox" "listbox" ];
+                background-color = lib.mkLiteral "transparent";
               };
               "imagebox" = {
-                padding = mkLiteral "20px";
-                background-color = mkLiteral "transparent";
-                background-image = mkLiteral
+                padding = lib.mkLiteral "20px";
+                background-color = lib.mkLiteral "transparent";
+                background-image = lib.mkLiteral
                   ''url("~/Pictures/Wallpapers/Rainnight.jpg", height)'';
-                orientation = mkLiteral "vertical";
-                children = map mkLiteral [ "inputbar" "dummy" "mode-switcher" ];
+                orientation = lib.mkLiteral "vertical";
+                children =
+                  map lib.mkLiteral [ "inputbar" "dummy" "mode-switcher" ];
               };
               "listbox" = {
-                spacing = mkLiteral "20px";
-                padding = mkLiteral "20px";
-                background-color = mkLiteral "transparent";
-                orientation = mkLiteral "vertical";
-                children = map mkLiteral [ "message" "listview" ];
+                spacing = lib.mkLiteral "20px";
+                padding = lib.mkLiteral "20px";
+                background-color = lib.mkLiteral "transparent";
+                orientation = lib.mkLiteral "vertical";
+                children = map lib.mkLiteral [ "message" "listview" ];
               };
-              "dummy" = { background-color = mkLiteral "transparent"; };
+              "dummy" = { background-color = lib.mkLiteral "transparent"; };
               "inputbar" = {
                 enabled = true;
-                spacing = mkLiteral "10px";
-                padding = mkLiteral "10px";
-                border-radius = mkLiteral "10px";
-                background-color = mkLiteral "@bg-alt";
-                text-color = mkLiteral "@foreground";
-                children = map mkLiteral [ "textbox-prompt-colon" "entry" ];
+                spacing = lib.mkLiteral "10px";
+                padding = lib.mkLiteral "10px";
+                border-radius = lib.mkLiteral "10px";
+                background-color = lib.mkLiteral "@bg-alt";
+                text-color = lib.mkLiteral "@foreground";
+                children = map lib.mkLiteral [ "textbox-prompt-colon" "entry" ];
               };
               "textbox-prompt-colon" = {
                 enabled = true;
                 expand = false;
                 str = "";
-                background-color = mkLiteral "inherit";
-                text-color = mkLiteral "inherit";
+                background-color = lib.mkLiteral "inherit";
+                text-color = lib.mkLiteral "inherit";
               };
               "entry" = {
                 enabled = true;
-                background-color = mkLiteral "inherit";
-                text-color = mkLiteral "inherit";
-                cursor = mkLiteral "text";
+                background-color = lib.mkLiteral "inherit";
+                text-color = lib.mkLiteral "inherit";
+                cursor = lib.mkLiteral "text";
                 placeholder = "Search";
-                placeholder-color = mkLiteral "inherit";
+                placeholder-color = lib.mkLiteral "inherit";
               };
               "mode-switcher" = {
                 enabled = true;
-                spacing = mkLiteral "20px";
-                background-color = mkLiteral "transparent";
-                text-color = mkLiteral "@foreground";
+                spacing = lib.mkLiteral "20px";
+                background-color = lib.mkLiteral "transparent";
+                text-color = lib.mkLiteral "@foreground";
               };
               "button" = {
-                padding = mkLiteral "15px";
-                border-radius = mkLiteral "10px";
-                background-color = mkLiteral "@bg-alt";
-                text-color = mkLiteral "inherit";
-                cursor = mkLiteral "pointer";
+                padding = lib.mkLiteral "15px";
+                border-radius = lib.mkLiteral "10px";
+                background-color = lib.mkLiteral "@bg-alt";
+                text-color = lib.mkLiteral "inherit";
+                cursor = lib.mkLiteral "pointer";
               };
               "button selected" = {
-                background-color = mkLiteral "@selected";
-                text-color = mkLiteral "@foreground";
+                background-color = lib.mkLiteral "@selected";
+                text-color = lib.mkLiteral "@foreground";
               };
               "listview" = {
                 enabled = true;
@@ -556,75 +554,75 @@
                 cycle = true;
                 dynamic = true;
                 scrollbar = false;
-                layout = mkLiteral "vertical";
+                layout = lib.mkLiteral "vertical";
                 reverse = false;
                 fixed-height = true;
                 fixed-columns = true;
-                spacing = mkLiteral "10px";
-                background-color = mkLiteral "transparent";
-                text-color = mkLiteral "@foreground";
+                spacing = lib.mkLiteral "10px";
+                background-color = lib.mkLiteral "transparent";
+                text-color = lib.mkLiteral "@foreground";
                 cursor = "default";
               };
               "element" = {
                 enabled = true;
-                spacing = mkLiteral "15px";
-                padding = mkLiteral "8px";
-                border-radius = mkLiteral "10px";
-                background-color = mkLiteral "transparent";
-                text-color = mkLiteral "@text-color";
-                cursor = mkLiteral "pointer";
+                spacing = lib.mkLiteral "15px";
+                padding = lib.mkLiteral "8px";
+                border-radius = lib.mkLiteral "10px";
+                background-color = lib.mkLiteral "transparent";
+                text-color = lib.mkLiteral "@text-color";
+                cursor = lib.mkLiteral "pointer";
               };
               "element normal.normal" = {
-                background-color = mkLiteral "inherit";
-                text-color = mkLiteral "@text-color";
+                background-color = lib.mkLiteral "inherit";
+                text-color = lib.mkLiteral "@text-color";
               };
               "element normal.urgent" = {
-                background-color = mkLiteral "@urgent";
-                text-color = mkLiteral "@text-color";
+                background-color = lib.mkLiteral "@urgent";
+                text-color = lib.mkLiteral "@text-color";
               };
               "element normal.active" = {
-                background-color = mkLiteral "inherit";
-                text-color = mkLiteral "@text-color";
+                background-color = lib.mkLiteral "inherit";
+                text-color = lib.mkLiteral "@text-color";
               };
               "element selected.normal" = {
-                background-color = mkLiteral "@selected";
-                text-color = mkLiteral "@foreground";
+                background-color = lib.mkLiteral "@selected";
+                text-color = lib.mkLiteral "@foreground";
               };
               "element selected.urgent" = {
-                background-color = mkLiteral "@urgent";
-                text-color = mkLiteral "@text-selected";
+                background-color = lib.mkLiteral "@urgent";
+                text-color = lib.mkLiteral "@text-selected";
               };
               "element selected.active" = {
-                background-color = mkLiteral "@urgent";
-                text-color = mkLiteral "@text-selected";
+                background-color = lib.mkLiteral "@urgent";
+                text-color = lib.mkLiteral "@text-selected";
               };
               "element-icon" = {
-                background-color = mkLiteral "transparent";
-                text-color = mkLiteral "inherit";
-                size = mkLiteral "36px";
-                cursor = mkLiteral "inherit";
+                background-color = lib.mkLiteral "transparent";
+                text-color = lib.mkLiteral "inherit";
+                size = lib.mkLiteral "36px";
+                cursor = lib.mkLiteral "inherit";
               };
               "element-text" = {
-                background-color = mkLiteral "transparent";
-                text-color = mkLiteral "inherit";
-                cursor = mkLiteral "inherit";
-                vertical-align = mkLiteral "0.5";
-                horizontal-align = mkLiteral "0.0";
+                background-color = lib.mkLiteral "transparent";
+                text-color = lib.mkLiteral "inherit";
+                cursor = lib.mkLiteral "inherit";
+                vertical-align = lib.mkLiteral "0.5";
+                horizontal-align = lib.mkLiteral "0.0";
               };
-              "message" = { background-color = mkLiteral "transparent"; };
+              "message" = { background-color = lib.mkLiteral "transparent"; };
               "textbox" = {
-                padding = mkLiteral "15px";
-                border-radius = mkLiteral "10px";
-                background-color = mkLiteral "@bg-alt";
-                text-color = mkLiteral "@foreground";
-                vertical-align = mkLiteral "0.5";
-                horizontal-align = mkLiteral "0.0";
+                padding = lib.mkLiteral "15px";
+                border-radius = lib.mkLiteral "10px";
+                background-color = lib.mkLiteral "@bg-alt";
+                text-color = lib.mkLiteral "@foreground";
+                vertical-align = lib.mkLiteral "0.5";
+                horizontal-align = lib.mkLiteral "0.0";
               };
               "error-message" = {
-                padding = mkLiteral "15px";
-                border-radius = mkLiteral "20px";
-                background-color = mkLiteral "@bg";
-                text-color = mkLiteral "@foreground";
+                padding = lib.mkLiteral "15px";
+                border-radius = lib.mkLiteral "20px";
+                background-color = lib.mkLiteral "@bg";
+                text-color = lib.mkLiteral "@foreground";
               };
             };
           };
