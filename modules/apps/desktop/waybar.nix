@@ -84,8 +84,8 @@ in
                   "0"
                   "50"
                 ];
-                on-scroll-up = "brightnessctl set +10%";
-                on-scroll-down = "brightnessctl set -10%";
+                on-scroll-up = "brightnessctl set +5%";
+                on-scroll-down = "brightnessctl set 5%-";
               };
               "clock" = {
                 format = " {:%H:%M}";
